@@ -1,18 +1,6 @@
 {
-  "latest": {
-    "id": "NKh5MrWLdWc",
-    "title": "Got a Suspicious Link? Don't Click It Until You Do This"
-  },
-  "mostViewed": {
-    "id": "Z0MV5GuMH_U",
-    "title": "Tips that only 40% windows users know, Clear temporary files safely by this method"
-  },
-  "latestShort": {
-    "id": "ztoc3JCmt1s",
-    "title": "Get Live Weather in Windows CMD (NO APPS NEEDED!) \ud83c\udf26\ufe0f\ud83d\udcbb"
-  },
-  "mostViewedShort": {
-    "id": "htWYPi4GWtg",
-    "title": "Moment when Windows rickrolled me \ud83d\ude02\ud83d\ude02\ud83d\ude02 #shorts #cmd #rickroll #windows11"
-  }
+  "latest": null,
+  "mostViewed": null,
+  "latestShort": null,
+  "mostViewedShort": null
 }
