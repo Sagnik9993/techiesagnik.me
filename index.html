@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows Tips & Tricks | Official</title>
+    <title>Techie Sagnik | Official Website</title>
+    <meta name="description" content="Official portfolio and video hub for Techie Sagnik — Tech insights, cybersecurity, software optimization, and tech tips.">
     <style>
         :root {
-            --bg-deep: #090c13;
-            --bg-mid: #121a2b;
-            --glass-fill: rgba(255, 255, 255, 0.045);
-            --glass-fill-hover: rgba(255, 255, 255, 0.065);
-            --glass-border: rgba(255, 255, 255, 0.09);
-            --glass-border-hover: rgba(79, 209, 255, 0.4);
-            --accent-blue: #0d7fe0;
-            --accent-cyan: #4fd1ff;
-            --accent-violet: #7c6ff0;
-            --text-primary: #f5f7fa;
-            --text-muted: #93a1b8;
-            --mono: 'Cascadia Code', 'Consolas', ui-monospace, monospace;
-            --sans: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            --bg-deep: #080b11;
+            --bg-mid: #0f172a;
+            --glass-fill: rgba(255, 255, 255, 0.04);
+            --glass-fill-hover: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-border-hover: rgba(56, 189, 248, 0.4);
+            --accent-blue: #2563eb;
+            --accent-cyan: #38bdf8;
+            --accent-violet: #8b5cf6;
+            --text-primary: #f8fafc;
+            --text-muted: #94a3b8;
+            --mono: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+            --sans: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         }
 
         * {
@@ -28,24 +29,16 @@
             font-family: var(--sans);
         }
 
-        html, body {
-            height: 100%;
-        }
-
         body {
-            background: radial-gradient(circle at 50% 0%, var(--bg-mid) 0%, var(--bg-deep) 65%);
+            background: radial-gradient(circle at 50% 0%, var(--bg-mid) 0%, var(--bg-deep) 70%);
             color: var(--text-primary);
             min-height: 100vh;
-            padding: 48px 24px;
+            padding: 48px 20px;
             overflow-x: hidden;
             position: relative;
         }
 
-        .container {
-            margin: 0 auto;
-        }
-
-        /* Ambient aurora glow, echoing Windows' Fluent/Spotlight backdrop without copying any wallpaper */
+        /* Animated Backdrop Glow */
         .aurora {
             position: fixed;
             inset: 0;
@@ -57,106 +50,101 @@
         .aurora span {
             position: absolute;
             border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.28;
-            animation: drift 22s ease-in-out infinite alternate;
+            filter: blur(100px);
+            opacity: 0.25;
+            animation: drift 20s ease-in-out infinite alternate;
         }
 
         .aurora span:nth-child(1) {
-            width: 420px;
-            height: 420px;
-            top: -120px;
-            left: -80px;
+            width: 450px;
+            height: 450px;
+            top: -100px;
+            left: -100px;
             background: var(--accent-blue);
-            animation-delay: 0s;
         }
 
         .aurora span:nth-child(2) {
-            width: 380px;
-            height: 380px;
-            bottom: -140px;
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
             right: -100px;
             background: var(--accent-violet);
-            animation-delay: -8s;
+            animation-delay: -6s;
         }
 
         .aurora span:nth-child(3) {
-            width: 300px;
-            height: 300px;
+            width: 320px;
+            height: 320px;
             top: 40%;
-            left: 60%;
+            left: 55%;
             background: var(--accent-cyan);
-            animation-delay: -14s;
-            opacity: 0.18;
+            animation-delay: -12s;
+            opacity: 0.15;
         }
 
         @keyframes drift {
             0%   { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, -30px) scale(1.12); }
+            100% { transform: translate(30px, -20px) scale(1.1); }
         }
 
         .container {
-            max-width: 600px;
+            max-width: 640px;
             width: 100%;
-            text-align: center;
+            margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
+        /* Glassmorphism Card */
         .profile-card {
             background: var(--glass-fill);
-            backdrop-filter: blur(22px) saturate(160%);
-            -webkit-backdrop-filter: blur(22px) saturate(160%);
+            backdrop-filter: blur(24px) saturate(160%);
+            -webkit-backdrop-filter: blur(24px) saturate(160%);
             border: 1px solid var(--glass-border);
-            padding: 35px 25px;
+            padding: 40px 28px;
             border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             position: relative;
         }
 
-        /* Fluent-style top highlight sheen on the acrylic card */
         .profile-card::before {
             content: "";
             position: absolute;
             top: 0;
-            left: 10%;
-            right: 10%;
+            left: 15%;
+            right: 15%;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
         }
 
         .profile-header {
+            text-align: center;
             margin-bottom: 24px;
         }
 
         .profile-img {
-            width: 96px;
-            height: 96px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2px solid rgba(13, 127, 224, 0.65);
+            border: 2px solid rgba(56, 189, 248, 0.5);
             margin-bottom: 16px;
             object-fit: cover;
-            box-shadow: 0 0 0 6px rgba(13, 127, 224, 0.08), 0 0 30px rgba(79, 209, 255, 0.25);
-            transition: box-shadow 0.4s ease;
-        }
-
-        .profile-img:hover {
-            box-shadow: 0 0 0 8px rgba(13, 127, 224, 0.12), 0 0 40px rgba(79, 209, 255, 0.4);
+            box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.08), 0 0 30px rgba(56, 189, 248, 0.2);
         }
 
         h1 {
-            font-size: 1.8rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
             letter-spacing: -0.5px;
-            margin-bottom: 6px;
             color: #ffffff;
+            margin-bottom: 4px;
         }
 
         .tagline {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--accent-cyan);
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-weight: 600;
+            letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 16px;
             font-family: var(--mono);
@@ -166,33 +154,24 @@
             font-size: 0.95rem;
             color: var(--text-muted);
             line-height: 1.6;
-            margin-bottom: 20px;
-            padding: 0 10px;
+            margin-bottom: 24px;
+            text-align: center;
         }
 
-        /* Keycap-style section eyebrows — a nod to the channel's own subject matter */
         .section-label {
             display: inline-flex;
             align-items: center;
-            text-align: left;
             font-family: var(--mono);
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             font-weight: 600;
             letter-spacing: 1.2px;
             text-transform: uppercase;
             color: var(--accent-cyan);
-            background: linear-gradient(180deg, #1c2434, #11161f);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-bottom: 2px solid rgba(0, 0, 0, 0.45);
+            background: linear-gradient(180deg, #1e293b, #0f172a);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 6px;
-            padding: 5px 11px;
-            margin: 22px 0 12px;
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
-        }
-
-        .section-row {
-            display: flex;
-            justify-content: flex-start;
+            padding: 6px 12px;
+            margin: 20px 0 14px;
         }
 
         .video-widget-container {
@@ -201,26 +180,26 @@
             border: 1px solid var(--glass-border);
             border-radius: 16px;
             padding: 12px;
-            margin-bottom: 18px;
-            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            margin-bottom: 16px;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
         }
 
         .video-widget-container:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             border-color: var(--glass-border-hover);
             background: var(--glass-fill-hover);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(79, 209, 255, 0.12);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
 
         .widget-title {
             text-align: left;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 10px;
             padding-left: 4px;
-            color: #e5e7eb;
+            color: #e2e8f0;
         }
 
         .video-wrapper {
@@ -229,7 +208,7 @@
             height: 0;
             overflow: hidden;
             border-radius: 10px;
-            background: #000;
+            background: #020617;
         }
 
         .video-wrapper iframe {
@@ -257,7 +236,7 @@
             height: 0;
             overflow: hidden;
             border-radius: 10px;
-            background: #000;
+            background: #020617;
         }
 
         .shorts-wrapper iframe {
@@ -271,19 +250,21 @@
 
         .video-caption {
             text-align: left;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             margin-top: 8px;
-            padding-left: 4px;
-            padding-right: 4px;
+            padding: 0 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent-blue), #0a63b3);
+            background: linear-gradient(135deg, var(--accent-blue), #1d4ed8);
             color: #ffffff;
             font-weight: 600;
-            font-size: 1rem;
-            padding: 16px 24px;
+            font-size: 0.95rem;
+            padding: 14px 24px;
             border-radius: 12px;
             text-decoration: none;
             display: flex;
@@ -291,59 +272,25 @@
             justify-content: center;
             gap: 10px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 15px rgba(13, 127, 224, 0.35);
-            margin-top: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Fluent-style shine sweep on hover */
-        .btn-primary::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -60%;
-            width: 40%;
-            height: 100%;
-            background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-            transform: skewX(-20deg);
-            transition: left 0.6s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            margin-top: 24px;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(13, 127, 224, 0.5);
-        }
-
-        .btn-primary:hover::after {
-            left: 130%;
-        }
-
-        .btn-primary:active {
-            transform: translateY(0px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
         }
 
         footer {
-            margin-top: 26px;
+            margin-top: 28px;
+            text-align: center;
             font-size: 0.78rem;
-            color: #4b5563;
-            letter-spacing: 0.3px;
+            color: #64748b;
         }
 
-        @media (max-width: 420px) {
+        @media (max-width: 480px) {
             .shorts-row {
                 flex-direction: column;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .aurora span {
-                animation: none;
-            }
-            .video-widget-container,
-            .btn-primary,
-            .profile-img {
-                transition: none;
             }
         }
     </style>
@@ -359,94 +306,98 @@
     <div class="container">
         <div class="profile-card">
             <div class="profile-header">
-                <img class="profile-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150" alt="Channel Identity">
-                <h1>Windows Tips & Tricks</h1>
-                <div class="tagline">Optimize • Streamline • Secure</div>
+                <!-- Replace src with your official avatar/logo path -->
+                <img class="profile-img" src="https://yt3.googleusercontent.com/ytc/AIdroWn_placeholder=s160" alt="Techie Sagnik Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=0284c7&color=fff'">
+                <h1>Techie Sagnik</h1>
+                <div class="tagline">Technology • Security • Optimization</div>
             </div>
 
             <p class="bio">
-                Deep dives into Windows optimization workflows, interface enhancements, and efficiency tips. Helping you unlock the full capability of your system safely.
+                Welcome to my official portfolio! I create tech deep dives, software optimization guides, and cybersecurity tutorials. Check out my latest uploads and top videos below.
             </p>
 
-            <div class="section-row"><div class="section-label">Videos</div></div>
+            <div class="section-label">Featured Videos</div>
 
             <div class="video-widget-container">
                 <div class="widget-title">📺 Latest Upload</div>
                 <div class="video-wrapper">
-                    <iframe id="latest-video" src="" allowfullscreen></iframe>
+                    <iframe id="latest-video" allowfullscreen title="Latest Video"></iframe>
                 </div>
-                <div class="video-caption" id="latest-title"></div>
+                <div class="video-caption" id="latest-title">Loading latest upload...</div>
             </div>
 
             <div class="video-widget-container">
                 <div class="widget-title">🔥 Most Viewed</div>
                 <div class="video-wrapper">
-                    <iframe id="most-viewed-video" src="" allowfullscreen></iframe>
+                    <iframe id="most-viewed-video" allowfullscreen title="Most Viewed Video"></iframe>
                 </div>
-                <div class="video-caption" id="most-viewed-title"></div>
+                <div class="video-caption" id="most-viewed-title">Loading top video...</div>
             </div>
 
-            <div class="section-row"><div class="section-label">Shorts</div></div>
+            <div class="section-label">Shorts</div>
 
             <div class="shorts-row">
                 <div class="video-widget-container">
                     <div class="widget-title">⚡ Latest Short</div>
                     <div class="shorts-wrapper">
-                        <iframe id="latest-short" src="" allowfullscreen></iframe>
+                        <iframe id="latest-short" allowfullscreen title="Latest Short"></iframe>
                     </div>
-                    <div class="video-caption" id="latest-short-title"></div>
+                    <div class="video-caption" id="latest-short-title">Loading short...</div>
                 </div>
 
                 <div class="video-widget-container">
                     <div class="widget-title">🔥 Top Short</div>
                     <div class="shorts-wrapper">
-                        <iframe id="most-viewed-short" src="" allowfullscreen></iframe>
+                        <iframe id="most-viewed-short" allowfullscreen title="Top Short"></iframe>
                     </div>
-                    <div class="video-caption" id="most-viewed-short-title"></div>
+                    <div class="video-caption" id="most-viewed-short-title">Loading short...</div>
                 </div>
             </div>
 
-            <a href="https://www.youtube.com/@windowstipsntricks" target="_blank" class="btn-primary">
-                <span>Visit the Official YouTube Channel</span>
-                <span class="arrow">➔</span>
+            <a href="https://www.youtube.com/@techiesagnik" target="_blank" rel="noopener" class="btn-primary">
+                <span>Subscribe on YouTube</span>
+                <span>➔</span>
             </a>
         </div>
 
         <footer>
-            © 2026 Sagnik Dey. All rights reserved.
+            © 2026 Techie Sagnik. Powered by GitHub Pages.
         </footer>
     </div>
 
     <script>
+        // Fallback video IDs in case videos.json hasn't been generated yet
+        const FALLBACK_CHANNEL = 'https://www.youtube.com/@techiesagnik';
+
+        function loadVideo(iframeId, titleId, videoData) {
+            const iframe = document.getElementById(iframeId);
+            const titleElem = document.getElementById(titleId);
+
+            if (videoData && videoData.id) {
+                iframe.src = `https://www.youtube.com/embed/${videoData.id}`;
+                titleElem.textContent = videoData.title || '';
+            } else {
+                titleElem.textContent = 'Visit channel to watch';
+            }
+        }
+
         fetch('videos.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data.latest) {
-                    document.getElementById('latest-video').src =
-                        `https://www.youtube.com/embed/${data.latest.id}`;
-                    document.getElementById('latest-title').textContent =
-                        data.latest.title || '';
-                }
-                if (data.mostViewed) {
-                    document.getElementById('most-viewed-video').src =
-                        `https://www.youtube.com/embed/${data.mostViewed.id}`;
-                    document.getElementById('most-viewed-title').textContent =
-                        data.mostViewed.title || '';
-                }
-                if (data.latestShort) {
-                    document.getElementById('latest-short').src =
-                        `https://www.youtube.com/embed/${data.latestShort.id}`;
-                    document.getElementById('latest-short-title').textContent =
-                        data.latestShort.title || '';
-                }
-                if (data.mostViewedShort) {
-                    document.getElementById('most-viewed-short').src =
-                        `https://www.youtube.com/embed/${data.mostViewedShort.id}`;
-                    document.getElementById('most-viewed-short-title').textContent =
-                        data.mostViewedShort.title || '';
-                }
+            .then(res => {
+                if (!res.ok) throw new Error('videos.json not found');
+                return res.json();
             })
-            .catch(err => console.error('Could not load video data:', err));
+            .then(data => {
+                loadVideo('latest-video', 'latest-title', data.latest);
+                loadVideo('most-viewed-video', 'most-viewed-title', data.mostViewed);
+                loadVideo('latest-short', 'latest-short-title', data.latestShort);
+                loadVideo('most-viewed-short', 'most-viewed-short-title', data.mostViewedShort);
+            })
+            .catch(err => {
+                console.warn('Could not load videos.json:', err);
+                document.querySelectorAll('.video-caption').forEach(el => {
+                    el.textContent = 'Check out @techiesagnik on YouTube';
+                });
+            });
     </script>
 
 </body>
