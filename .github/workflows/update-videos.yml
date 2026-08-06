@@ -20,10 +20,10 @@ jobs:
       - name: Fetch channel video data
         run: |
           yt-dlp --flat-playlist --playlist-end 100 -J \
-            "https://www.youtube.com/@windowstipsntricks/videos" > raw_videos.json || echo '{"entries": []}' > raw_videos.json
+            "https://www.youtube.com/@techiesagnik/videos" > raw_videos.json || echo '{"entries": []}' > raw_videos.json
 
           yt-dlp --flat-playlist --playlist-end 100 -J \
-            "https://www.youtube.com/@windowstipsntricks/shorts" > raw_shorts.json || echo '{"entries": []}' > raw_shorts.json
+            "https://www.youtube.com/@techiesagnik/shorts" > raw_shorts.json || echo '{"entries": []}' > raw_shorts.json
 
           python3 scripts/parse-videos.py
 
