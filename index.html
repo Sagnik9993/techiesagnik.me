@@ -3,215 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techie Sagnik | Official Website</title>
-    <meta name="description" content="Official portfolio and video hub for Techie Sagnik — Tech insights, cybersecurity, software optimization, and tech tips.">
+    <title>Techie Sagnik | Official Cyber Portal</title>
+    <meta name="description" content="Official portfolio and tech hub for Techie Sagnik — Cybersecurity, tech insights, and software optimizations.">
+    
+    <!-- Google Fonts for High-Tech Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-deep: #080b11;
-            --bg-mid: #0f172a;
-            --glass-fill: rgba(255, 255, 255, 0.04);
-            --glass-fill-hover: rgba(255, 255, 255, 0.07);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-border-hover: rgba(56, 189, 248, 0.4);
-            --accent-blue: #2563eb;
-            --accent-cyan: #38bdf8;
-            --accent-violet: #8b5cf6;
-            --text-primary: #f8fafc;
+            --bg-base: #030712;
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-purple: #7000ff;
+            --accent-pink: #ff007f;
+            --glass-bg: rgba(15, 23, 42, 0.65);
+            --glass-border: rgba(0, 242, 254, 0.2);
+            --glass-border-hover: rgba(0, 242, 254, 0.7);
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --mono: 'Cascadia Code', 'Fira Code', Consolas, monospace;
-            --sans: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Fira Code', monospace;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: var(--sans);
+            font-family: var(--font-sans);
         }
 
         body {
-            background: radial-gradient(circle at 50% 0%, var(--bg-mid) 0%, var(--bg-deep) 70%);
-            color: var(--text-primary);
+            background-color: var(--bg-base);
+            color: var(--text-main);
             min-height: 100vh;
-            padding: 48px 20px;
+            padding: 40px 16px;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Animated Backdrop Glow */
-        .aurora {
+        /* Fullscreen Interactive Canvas Background */
+        #bg-canvas {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: 0;
-            overflow: hidden;
             pointer-events: none;
         }
 
-        .aurora span {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.25;
-            animation: drift 20s ease-in-out infinite alternate;
-        }
-
-        .aurora span:nth-child(1) {
-            width: 450px;
-            height: 450px;
-            top: -100px;
-            left: -100px;
-            background: var(--accent-blue);
-        }
-
-        .aurora span:nth-child(2) {
-            width: 400px;
-            height: 400px;
-            bottom: -100px;
-            right: -100px;
-            background: var(--accent-violet);
-            animation-delay: -6s;
-        }
-
-        .aurora span:nth-child(3) {
-            width: 320px;
-            height: 320px;
-            top: 40%;
-            left: 55%;
-            background: var(--accent-cyan);
-            animation-delay: -12s;
-            opacity: 0.15;
-        }
-
-        @keyframes drift {
-            0%   { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, -20px) scale(1.1); }
-        }
-
         .container {
-            max-width: 640px;
+            max-width: 680px;
             width: 100%;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
-        /* Glassmorphism Card */
+        /* Glassmorphism Card with Pulsing Cyber Border */
         .profile-card {
-            background: var(--glass-fill);
-            backdrop-filter: blur(24px) saturate(160%);
-            -webkit-backdrop-filter: blur(24px) saturate(160%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid var(--glass-border);
+            border-radius: 28px;
             padding: 40px 28px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.02);
             position: relative;
+            animation: floatCard 6s ease-in-out infinite alternate, glowPulse 4s ease-in-out infinite alternate;
         }
 
-        .profile-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 15%;
-            right: 15%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        @keyframes floatCard {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-8px); }
         }
 
+        @keyframes glowPulse {
+            0% { border-color: rgba(0, 242, 254, 0.25); box-shadow: 0 0 35px rgba(0, 242, 254, 0.15); }
+            100% { border-color: rgba(112, 0, 255, 0.45); box-shadow: 0 0 55px rgba(112, 0, 255, 0.25); }
+        }
+
+        /* Header & Profile Avatar */
         .profile-header {
             text-align: center;
             margin-bottom: 24px;
         }
 
-        .profile-img {
-            width: 100px;
-            height: 100px;
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+
+        .avatar-container::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
             border-radius: 50%;
-            border: 2px solid rgba(56, 189, 248, 0.5);
-            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            animation: spinRing 4s linear infinite;
+            filter: blur(6px);
+            opacity: 0.8;
+        }
+
+        @keyframes spinRing {
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-img {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.08), 0 0 30px rgba(56, 189, 248, 0.2);
+            position: relative;
+            z-index: 1;
+            border: 2px solid var(--bg-base);
         }
 
         h1 {
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 2.2rem;
+            font-weight: 800;
             letter-spacing: -0.5px;
-            color: #ffffff;
-            margin-bottom: 4px;
+            background: linear-gradient(135deg, #ffffff 0%, #00f2fe 50%, #7000ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
         }
 
         .tagline {
+            font-family: var(--font-mono);
             font-size: 0.85rem;
             color: var(--accent-cyan);
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             margin-bottom: 16px;
-            font-family: var(--mono);
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
 
         .bio {
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 24px;
+            line-height: 1.65;
+            margin-bottom: 28px;
             text-align: center;
         }
 
+        /* Section Eyebrow Labels */
         .section-label {
             display: inline-flex;
             align-items: center;
-            font-family: var(--mono);
-            font-size: 0.7rem;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
             font-weight: 600;
-            letter-spacing: 1.2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             color: var(--accent-cyan);
-            background: linear-gradient(180deg, #1e293b, #0f172a);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            padding: 6px 12px;
-            margin: 20px 0 14px;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 8px;
+            padding: 6px 14px;
+            margin: 22px 0 14px;
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.1);
         }
 
+        /* Video Container Cards */
         .video-widget-container {
-            width: 100%;
-            background: var(--glass-fill);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 12px;
-            margin-bottom: 16px;
-            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            background: rgba(10, 15, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 18px;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
         .video-widget-container:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.01);
             border-color: var(--glass-border-hover);
-            background: var(--glass-fill-hover);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.2);
+            background: rgba(15, 23, 42, 0.8);
         }
 
         .widget-title {
             text-align: left;
             font-size: 0.82rem;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 1px;
             margin-bottom: 10px;
-            padding-left: 4px;
+            padding-left: 2px;
             color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .video-wrapper {
+        .video-wrapper, .shorts-wrapper {
             position: relative;
-            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 10px;
-            background: #020617;
+            border-radius: 12px;
+            background: #000;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
         }
 
-        .video-wrapper iframe {
+        .video-wrapper { padding-bottom: 56.25%; }
+        .shorts-wrapper { padding-bottom: 177.77%; }
+
+        .video-wrapper iframe, .shorts-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -222,7 +226,7 @@
 
         .shorts-row {
             display: flex;
-            gap: 12px;
+            gap: 14px;
         }
 
         .shorts-row .video-widget-container {
@@ -230,100 +234,85 @@
             min-width: 0;
         }
 
-        .shorts-wrapper {
-            position: relative;
-            padding-bottom: 177.77%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            background: #020617;
-        }
-
-        .shorts-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
         .video-caption {
             text-align: left;
             font-size: 0.82rem;
             color: var(--text-muted);
-            margin-top: 8px;
+            margin-top: 10px;
             padding: 0 4px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
+        /* Ultra Cyber Button */
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent-blue), #1d4ed8);
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #7000ff 100%);
+            background-size: 200% auto;
             color: #ffffff;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 14px 24px;
-            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 16px 28px;
+            border-radius: 14px;
             text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-            margin-top: 24px;
+            gap: 12px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+            margin-top: 28px;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+            background-position: right center;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 40px rgba(112, 0, 255, 0.6);
         }
 
         footer {
-            margin-top: 28px;
+            margin-top: 32px;
             text-align: center;
-            font-size: 0.78rem;
-            color: #64748b;
+            font-size: 0.8rem;
+            color: #475569;
+            font-family: var(--font-mono);
         }
 
-        @media (max-width: 480px) {
-            .shorts-row {
-                flex-direction: column;
-            }
+        @media (max-width: 500px) {
+            .shorts-row { flex-direction: column; }
+            h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="aurora" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+    <!-- Interactive Particle Web Canvas -->
+    <canvas id="bg-canvas"></canvas>
 
     <div class="container">
         <div class="profile-card">
             <div class="profile-header">
-                <!-- Replace src with your official avatar/logo path -->
-                <img class="profile-img" src="https://yt3.googleusercontent.com/ytc/AIdroWn_placeholder=s160" alt="Techie Sagnik Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=0284c7&color=fff'">
+                <div class="avatar-container">
+                    <img class="profile-img" src="logo.png" alt="Techie Sagnik Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                </div>
                 <h1>Techie Sagnik</h1>
-                <div class="tagline">Technology • Security • Optimization</div>
+                <div class="tagline">✦ Cyber • Tech • Optimization ✦</div>
             </div>
 
             <p class="bio">
-                Welcome to my official portfolio! I create tech deep dives, software optimization guides, and cybersecurity tutorials. Check out my latest uploads and top videos below.
+                Welcome to my official digital hub! Exploring the frontiers of software optimization, ethical hacking, and high-performance computing setups.
             </p>
 
-            <div class="section-label">Featured Videos</div>
+            <div class="section-label">⚡ Featured Videos</div>
 
             <div class="video-widget-container">
                 <div class="widget-title">📺 Latest Upload</div>
                 <div class="video-wrapper">
-                    <iframe id="latest-video" allowfullscreen title="Latest Video"></iframe>
+                    <iframe id="latest-video" allowfullscreen title="Latest Upload"></iframe>
                 </div>
-                <div class="video-caption" id="latest-title">Loading latest upload...</div>
+                <div class="video-caption" id="latest-title">Fetching video feed...</div>
             </div>
 
             <div class="video-widget-container">
@@ -331,10 +320,10 @@
                 <div class="video-wrapper">
                     <iframe id="most-viewed-video" allowfullscreen title="Most Viewed Video"></iframe>
                 </div>
-                <div class="video-caption" id="most-viewed-title">Loading top video...</div>
+                <div class="video-caption" id="most-viewed-title">Fetching video feed...</div>
             </div>
 
-            <div class="section-label">Shorts</div>
+            <div class="section-label">📱 Shorts Feed</div>
 
             <div class="shorts-row">
                 <div class="video-widget-container">
@@ -342,7 +331,7 @@
                     <div class="shorts-wrapper">
                         <iframe id="latest-short" allowfullscreen title="Latest Short"></iframe>
                     </div>
-                    <div class="video-caption" id="latest-short-title">Loading short...</div>
+                    <div class="video-caption" id="latest-short-title">Fetching short...</div>
                 </div>
 
                 <div class="video-widget-container">
@@ -350,40 +339,123 @@
                     <div class="shorts-wrapper">
                         <iframe id="most-viewed-short" allowfullscreen title="Top Short"></iframe>
                     </div>
-                    <div class="video-caption" id="most-viewed-short-title">Loading short...</div>
+                    <div class="video-caption" id="most-viewed-short-title">Fetching short...</div>
                 </div>
             </div>
 
             <a href="https://www.youtube.com/@techiesagnik" target="_blank" rel="noopener" class="btn-primary">
-                <span>Subscribe on YouTube</span>
-                <span>➔</span>
+                <span>Join Channel @techiesagnik</span>
+                <span style="font-size: 1.2rem;">➔</span>
             </a>
         </div>
 
         <footer>
-            © 2026 Techie Sagnik. Powered by GitHub Pages.
+            © 2026 TECHIE SAGNIK // ALL RIGHTS RESERVED
         </footer>
     </div>
 
+    <!-- Interactive Canvas Particles Script -->
     <script>
-        // Fallback video IDs in case videos.json hasn't been generated yet
-        const FALLBACK_CHANNEL = 'https://www.youtube.com/@techiesagnik';
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
 
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            const particleCount = Math.floor((canvas.width * canvas.height) / 9000);
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8,
+                    color: Math.random() > 0.5 ? '#00f2fe' : '#7000ff'
+                });
+            }
+        }
+
+        window.addEventListener('resize', initCanvas);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                // Mouse Interaction
+                if (mouse.x) {
+                    let dx = mouse.x - p.x;
+                    let dy = mouse.y - p.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        p.x -= dx * 0.03;
+                        p.y -= dy * 0.03;
+                    }
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+
+                // Connect nearby particles
+                for (let j = i + 1; j < particles.length; j++) {
+                    let p2 = particles[j];
+                    let dx = p.x - p2.x;
+                    let dy = p.y - p2.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 110) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 110})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initCanvas();
+        animateParticles();
+    </script>
+
+    <!-- Video Loader Script -->
+    <script>
         function loadVideo(iframeId, titleId, videoData) {
             const iframe = document.getElementById(iframeId);
             const titleElem = document.getElementById(titleId);
 
             if (videoData && videoData.id) {
                 iframe.src = `https://www.youtube.com/embed/${videoData.id}`;
-                titleElem.textContent = videoData.title || '';
+                titleElem.textContent = videoData.title || 'Watch on YouTube';
             } else {
-                titleElem.textContent = 'Visit channel to watch';
+                titleElem.textContent = 'Visit @techiesagnik for details';
             }
         }
 
         fetch('videos.json')
             .then(res => {
-                if (!res.ok) throw new Error('videos.json not found');
+                if (!res.ok) throw new Error('File not ready');
                 return res.json();
             })
             .then(data => {
@@ -392,13 +464,11 @@
                 loadVideo('latest-short', 'latest-short-title', data.latestShort);
                 loadVideo('most-viewed-short', 'most-viewed-short-title', data.mostViewedShort);
             })
-            .catch(err => {
-                console.warn('Could not load videos.json:', err);
+            .catch(() => {
                 document.querySelectorAll('.video-caption').forEach(el => {
                     el.textContent = 'Check out @techiesagnik on YouTube';
                 });
             });
     </script>
-
 </body>
 </html>
