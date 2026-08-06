@@ -14,18 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install yt-dlp
-        run: pip install -U yt-dlp
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
-      - name: Fetch channel video data
-        run: |
-          yt-dlp --flat-playlist --playlist-end 100 -J \
-            "https://www.youtube.com/@techiesagnik/videos" > raw_videos.json || echo '{"entries": []}' > raw_videos.json
-
-          yt-dlp --flat-playlist --playlist-end 100 -J \
-            "https://www.youtube.com/@techiesagnik/shorts" > raw_shorts.json || echo '{"entries": []}' > raw_shorts.json
-
-          python3 scripts/parse-videos.py
+      - name: Fetch and parse videos
+        run: python3 scripts/parse-videos.py
 
       - name: Commit changes
         run: |
