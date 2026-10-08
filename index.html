@@ -3,48 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techie Sagnik | Official Cyber Portal</title>
-    <meta name="description" content="Official portfolio and tech hub for Techie Sagnik — Cybersecurity, tech insights, and software optimizations.">
-    
-    <!-- Google Fonts for High-Tech Typography -->
+    <title>Techie Sagnik | Flagship DeepMind Cyber Portal</title>
+    <meta name="description" content="Official portfolio and engineering portal for Techie Sagnik — Systems optimization, cyber telemetry, and high-performance computing.">
+
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-base: #030712;
-            --accent-cyan: #00f2fe;
-            --accent-blue: #4facfe;
-            --accent-purple: #7000ff;
-            --accent-pink: #ff007f;
-            --glass-bg: rgba(15, 23, 42, 0.65);
-            --glass-border: rgba(0, 242, 254, 0.2);
-            --glass-border-hover: rgba(0, 242, 254, 0.7);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --font-mono: 'Fira Code', monospace;
+            --bg-void: #03060f;
+            --bg-surface-0: rgba(10, 15, 29, 0.72);
+            --bg-surface-1: rgba(17, 24, 43, 0.65);
+            --bg-surface-elevated: rgba(22, 32, 54, 0.88);
+            
+            --fluent-border: rgba(255, 255, 255, 0.08);
+            --fluent-border-hover: rgba(0, 242, 254, 0.4);
+            --fluent-acrylic: rgba(15, 23, 42, 0.62);
+
+            /* DeepMind Aurora & Microsoft Copilot Palette */
+            --gemini-cyan: #00f2fe;
+            --gemini-sky: #38bdf8;
+            --gemini-blue: #3b82f6;
+            --gemini-purple: #8b5cf6;
+            --gemini-magenta: #ec4899;
+            --gemini-green: #10b981;
+
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --radius-xl: 24px;
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --radius-pill: 9999px;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
             min-height: 100vh;
-            padding: 40px 16px;
             overflow-x: hidden;
             position: relative;
+            line-height: 1.5;
         }
 
-        /* Fullscreen Interactive Canvas Background */
-        #bg-canvas {
+        /* Fullscreen Interactive Aurora Web Canvas */
+        #aurora-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -52,423 +69,1331 @@
             height: 100vh;
             z-index: 0;
             pointer-events: none;
+            opacity: 0.85;
         }
 
-        .container {
-            max-width: 680px;
-            width: 100%;
-            margin: 0 auto;
-            position: relative;
+        /* Subtle Noise Texture Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: 1;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
         }
 
-        /* Glassmorphism Card with Pulsing Cyber Border */
-        .profile-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 40px 28px;
-            box-shadow: 0 0 50px rgba(0, 242, 254, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.02);
+        /* Layout Container */
+        .viewport-wrapper {
             position: relative;
-            animation: floatCard 6s ease-in-out infinite alternate, glowPulse 4s ease-in-out infinite alternate;
+            z-index: 2;
+            width: 100%;
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 32px 20px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
         }
 
-        @keyframes floatCard {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-8px); }
+        .navbar-mica {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 18px;
+            background: var(--bg-surface-0);
+            backdrop-filter: blur(28px) saturate(190%);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            border: 1px solid var(--fluent-border);
+            border-radius: var(--radius-pill);
+            box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 18px;
+            z-index: 100;
+            transition: border-color 0.3s ease;
         }
 
-        @keyframes glowPulse {
-            0% { border-color: rgba(0, 242, 254, 0.25); box-shadow: 0 0 35px rgba(0, 242, 254, 0.15); }
-            100% { border-color: rgba(112, 0, 255, 0.45); box-shadow: 0 0 55px rgba(112, 0, 255, 0.25); }
+        .navbar-mica:hover {
+            border-color: rgba(255, 255, 255, 0.18);
         }
 
-        /* Header & Profile Avatar */
-        .profile-header {
-            text-align: center;
-            margin-bottom: 24px;
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
         }
 
-        .avatar-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 18px;
-        }
-
-        .avatar-container::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
+        .brand-avatar-ring {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
-            animation: spinRing 4s linear infinite;
-            filter: blur(6px);
-            opacity: 0.8;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--gemini-cyan), var(--gemini-purple), var(--gemini-magenta));
+            display: grid;
+            place-items: center;
+            position: relative;
         }
 
-        @keyframes spinRing {
-            100% { transform: rotate(360deg); }
-        }
-
-        .profile-img {
-            width: 105px;
-            height: 105px;
+        .brand-avatar-ring img {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            position: relative;
-            z-index: 1;
-            border: 2px solid var(--bg-base);
+            background: #03060f;
         }
 
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #ffffff 0%, #00f2fe 50%, #7000ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
+        .brand-text-block {
+            display: flex;
+            flex-direction: column;
         }
 
-        .tagline {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--accent-cyan);
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-        }
-
-        .bio {
-            font-size: 0.98rem;
-            color: var(--text-muted);
-            line-height: 1.65;
-            margin-bottom: 28px;
-            text-align: center;
-        }
-
-        /* Section Eyebrow Labels */
-        .section-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--accent-cyan);
-            background: rgba(0, 242, 254, 0.08);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            border-radius: 8px;
-            padding: 6px 14px;
-            margin: 22px 0 14px;
-            box-shadow: 0 0 12px rgba(0, 242, 254, 0.1);
-        }
-
-        /* Video Container Cards */
-        .video-widget-container {
-            background: rgba(10, 15, 30, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            padding: 14px;
-            margin-bottom: 18px;
-            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .video-widget-container:hover {
-            transform: translateY(-5px) scale(1.01);
-            border-color: var(--glass-border-hover);
-            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.2);
-            background: rgba(15, 23, 42, 0.8);
-        }
-
-        .widget-title {
-            text-align: left;
-            font-size: 0.82rem;
+        .brand-name {
+            font-size: 0.95rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            padding-left: 2px;
-            color: #e2e8f0;
+            letter-spacing: -0.3px;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .video-wrapper, .shorts-wrapper {
-            position: relative;
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            background: #000;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+        .brand-status {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--gemini-cyan);
+            letter-spacing: 0.5px;
         }
 
-        .video-wrapper { padding-bottom: 56.25%; }
-        .shorts-wrapper { padding-bottom: 177.77%; }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-        .video-wrapper iframe, .shorts-wrapper iframe {
+        .cmd-bar-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-pill);
+            padding: 6px 14px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .cmd-bar-trigger:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .kbd-key {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 2px 6px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-primary);
+        }
+
+        .hero-billboard {
+            position: relative;
+            background: var(--bg-surface-0);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--fluent-border);
+            border-radius: var(--radius-xl);
+            padding: 44px 38px;
+            overflow: visible;
+            box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.65);
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--gemini-cyan);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.22);
+            padding: 5px 14px;
+            border-radius: var(--radius-pill);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.3rem, 5.2vw, 3.6rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1.2px;
+            margin-bottom: 18px;
+            perspective: 1200px;
+        }
+
+        .interactive-word-wrapper {
+            position: relative;
+            display: inline-block;
+            vertical-align: baseline;
+            perspective: 900px;
+        }
+
+        .interactive-word {
+            display: inline-block;
+            cursor: pointer;
+            padding: 0px 8px;
+            margin: 0 -3px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffffff 10%, #00f2fe 55%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 850;
+            transition: transform 0.12s cubic-bezier(0.2, 0, 0.1, 1), text-shadow 0.25s ease;
+            position: relative;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .interactive-word.is-hovered {
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 45%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+        }
+
+        /* Subtle glowing underline badge beneath the word */
+        .interactive-word::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 8px;
+            right: 8px;
+            height: 3px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--gemini-cyan), var(--gemini-purple));
+            opacity: 0.55;
+            transition: opacity 0.25s ease, height 0.25s ease;
+        }
+
+        .interactive-word.is-hovered::after {
+            opacity: 1;
+            height: 4px;
+            box-shadow: 0 0 14px var(--gemini-cyan);
+        }
+
+        /* Holographic Specular Tooltip Card */
+        .hologram-hud-card {
+            position: absolute;
+            bottom: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px) scale(0.92);
+            width: 310px;
+            padding: 16px;
+            background: var(--bg-surface-elevated);
+            backdrop-filter: blur(28px) saturate(200%);
+            -webkit-backdrop-filter: blur(28px) saturate(200%);
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            border-radius: 16px;
+            box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.25);
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+            z-index: 1000;
+        }
+
+        .interactive-word-wrapper:hover .hologram-hud-card,
+        .interactive-word-wrapper.active-touch .hologram-hud-card {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        /* Tooltip Pointer Needle */
+        .hologram-hud-card::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 7px 7px 0 7px;
+            border-style: solid;
+            border-color: rgba(0, 242, 254, 0.4) transparent transparent transparent;
+        }
+
+        .hud-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+        .hud-title {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--gemini-cyan);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hud-badge {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: 4px;
+            color: var(--gemini-green);
+        }
+
+        .hud-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .hud-stat-cell {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .hud-cell-label {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+        }
+
+        .hud-cell-val {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+        }
+
+        .hud-footer-note {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn-flagship {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            color: #03060f;
+            font-size: 0.92rem;
+            font-weight: 700;
+            padding: 13px 26px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-flagship:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 242, 254, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 13px 22px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            border: 1px solid var(--fluent-border);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.25s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .telemetry-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-surface-0);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--fluent-border);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--fluent-border-hover);
+            box-shadow: 0 12px 25px rgba(0, 242, 254, 0.12);
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-value {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+        }
+
+        .stat-sparkline {
+            height: 3px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            margin-top: 12px;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .sparkline-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gemini-cyan), var(--gemini-purple));
+            width: 80%;
+            border-radius: 2px;
+            transition: width 0.6s ease;
+        }
+
+        .tabs-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(10, 15, 29, 0.6);
+            padding: 6px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--fluent-border);
+            backdrop-filter: blur(20px);
+            width: fit-content;
+        }
+
+        .tab-button {
+            position: relative;
+            z-index: 2;
+            padding: 8px 18px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: var(--radius-pill);
+            transition: color 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-button.active {
+            color: #ffffff;
+        }
+
+        .tab-glider {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            height: calc(100% - 12px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: var(--radius-pill);
+            z-index: 1;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .grid-full-width {
+            grid-column: span 2;
+        }
+
+        .fluent-card {
+            position: relative;
+            background: var(--bg-surface-0);
+            border: 1px solid var(--fluent-border);
+            border-radius: var(--radius-xl);
+            padding: 22px;
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .fluent-card:hover {
+            border-color: var(--fluent-border-hover);
+            box-shadow: 0 16px 36px -10px rgba(0, 242, 254, 0.18);
+        }
+
+        .card-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .badge-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .badge-chip.pulse-active {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: rgba(0, 242, 254, 0.3);
+            color: var(--gemini-cyan);
+        }
+
+        .media-viewport {
+            position: relative;
+            width: 100%;
+            background: #000000;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .ratio-16x9 { padding-bottom: 56.25%; }
+        .ratio-9x16 { padding-bottom: 140%; max-width: 380px; margin: 0 auto; width: 100%; }
+
+        .media-viewport iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: 0;
+            border: none;
         }
 
-        .shorts-row {
+        .card-content {
             display: flex;
-            gap: 14px;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .shorts-row .video-widget-container {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .video-caption {
-            text-align: left;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-top: 10px;
-            padding: 0 4px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* Ultra Cyber Button */
-        .btn-primary {
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #7000ff 100%);
-            background-size: 200% auto;
-            color: #ffffff;
+        .card-heading {
+            font-size: 1.02rem;
             font-weight: 700;
-            font-size: 1rem;
-            padding: 16px 28px;
-            border-radius: 14px;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+            line-height: 1.35;
+        }
+
+        .card-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .inspect-link {
+            font-size: 0.78rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            color: var(--gemini-cyan);
             text-decoration: none;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
-            margin-top: 28px;
-            border: none;
-            cursor: pointer;
+            gap: 6px;
+            transition: gap 0.2s ease;
         }
 
-        .btn-primary:hover {
-            background-position: right center;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 0 40px rgba(112, 0, 255, 0.6);
+        .fluent-card:hover .inspect-link {
+            gap: 9px;
+        }
+
+        .toast-shelf {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-pill {
+            background: var(--bg-surface-elevated);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 10px 18px;
+            border-radius: var(--radius-pill);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: toastPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastPop {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Command Palette Modal */
+        .cmd-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 15vh;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .cmd-modal-backdrop.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .cmd-modal-box {
+            width: 100%;
+            max-width: 580px;
+            background: var(--bg-surface-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+
+        .cmd-search-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--fluent-border);
+        }
+
+        .cmd-search-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 1.05rem;
+            font-family: var(--font-sans);
+        }
+
+        .cmd-results-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cmd-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cmd-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
         }
 
         footer {
-            margin-top: 32px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 24px 0 0;
+            border-top: 1px solid var(--fluent-border);
+            color: var(--text-tertiary);
             font-size: 0.8rem;
-            color: #475569;
             font-family: var(--font-mono);
         }
 
-        @media (max-width: 500px) {
-            .shorts-row { flex-direction: column; }
-            h1 { font-size: 1.8rem; }
+        @media (max-width: 820px) {
+            .cards-grid { grid-template-columns: 1fr; }
+            .grid-full-width { grid-column: span 1; }
+            .telemetry-strip { grid-template-columns: repeat(2, 1fr); }
+            .hero-billboard { padding: 32px 22px; }
+            .ratio-9x16 { padding-bottom: 120%; }
+        }
+
+        @media (max-width: 520px) {
+            .telemetry-strip { grid-template-columns: 1fr; }
+            .cmd-bar-trigger span { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Interactive Particle Web Canvas -->
-    <canvas id="bg-canvas"></canvas>
+    <canvas id="aurora-canvas"></canvas>
+    <div class="noise-overlay"></div>
 
-    <div class="container">
-        <div class="profile-card">
-            <div class="profile-header">
-                <div class="avatar-container">
-                    <img class="profile-img" src="logo.png" alt="Techie Sagnik Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+    <div class="viewport-wrapper">
+        <!-- Floating Acrylic Header -->
+        <nav class="navbar-mica">
+            <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="nav-brand">
+                <div class="brand-avatar-ring">
+                    <img src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=03060f&bold=true'">
                 </div>
-                <h1>Techie Sagnik</h1>
-                <div class="tagline">✦ Cyber • Tech • Optimization ✦</div>
+                <div class="brand-text-block">
+                    <div class="brand-name">
+                        Techie Sagnik
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gemini-cyan)">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <span class="brand-status">TELEMETRY // OPTIMIZATION ACTIVE</span>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <button class="cmd-bar-trigger" id="cmd-toggle">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Quick Command</span>
+                    <span class="kbd-key">⌘K</span>
+                </button>
+
+                <button class="btn-secondary" id="btn-share" title="Share Portal">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <header class="hero-billboard">
+            <div class="hero-eyebrow">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <span>NEXT-GEN WINDOWS & CYBER ARCHITECTURE</span>
             </div>
 
-            <p class="bio">
-                Welcome to my official digital hub! Exploring the frontiers of software optimization, ethical hacking, and high-performance computing setups.
+            <h1 class="hero-title">
+                Architecting 
+                
+                <!-- Interactive Word: HIGH -->
+                <span class="interactive-word-wrapper" id="wrap-high">
+                    <span class="interactive-word" id="token-high" data-word="high">High</span>
+                    
+                    <!-- Holographic HUD Card for HIGH -->
+                    <div class="hologram-hud-card" id="hud-high">
+                        <div class="hud-header">
+                            <span class="hud-title">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                HIGH-THROUGHPUT ENGINE
+                            </span>
+                            <span class="hud-badge">BENCHMARK</span>
+                        </div>
+                        <div class="hud-stats-grid">
+                            <div class="hud-stat-cell">
+                                <div class="hud-cell-label">DPC Latency</div>
+                                <div class="hud-cell-val" style="color: var(--gemini-green);">12.4 µs</div>
+                            </div>
+                            <div class="hud-stat-cell">
+                                <div class="hud-cell-label">RAM Overhead</div>
+                                <div class="hud-cell-val" style="color: var(--gemini-cyan);">-42.8%</div>
+                            </div>
+                            <div class="hud-stat-cell">
+                                <div class="hud-cell-label">Kernel Paging</div>
+                                <div class="hud-cell-val">Optimal</div>
+                            </div>
+                            <div class="hud-stat-cell">
+                                <div class="hud-cell-label">CPU Queues</div>
+                                <div class="hud-cell-val">Zero-Wait</div>
+                            </div>
+                        </div>
+                        <div class="hud-footer-note">
+                            <span>⚡ Click word to execute live diagnostics</span>
+                        </div>
+                    </div>
+                </span>
+
+                <!-- Interactive Word: VELOCITY -->
+                <span class="interactive-word-wrapper" id="wrap-velocity">
+                    <span class="interactive-word" id="token-velocity" data-word="velocity">Velocity</span>
+                    
+                    <!-- Holographic HUD Card for VELOCITY -->
+                    <div class="hologram-hud-card" id="hud-velocity">
+                        <div class="hud-header">
+                            <span class="hud-title">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                NVME I/O PIPELINE
+                            </span>
+                            <span class="hud-badge">BURST MODE</span>
+                        </div>
+                        <div class="hud-stats-grid">
+                            <div class="hud-stat-cell">
+                                <div class="hud-cell-label">Read Burst</div>
+                                <div class="hud-cell-val" style="color: var(--gemini-cyan);">7,450 MB/s</div>
+                            </div>
+                            <div class="hud-stat-cell">
+                                <div class="hud-cell-label">Temp Junk</div>
+                                <div class="hud-cell-val" style="color: var(--gemini-magenta);">0.00 GB</div>
+                            </div>
+                            <div class="hud-stat-cell">
+                                <div class="hud-cell-label">App Launch</div>
+                                <div class="hud-cell-val">&lt; 0.28s</div>
+                            </div>
+                            <div class="hud-stat-cell">
+                                <div class="hud-cell-label">DirectStorage</div>
+                                <div class="hud-cell-val" style="color: var(--gemini-green);">Enabled</div>
+                            </div>
+                        </div>
+                        <div class="hud-footer-note">
+                            <span>🚀 Click word to trigger purge simulation</span>
+                        </div>
+                    </div>
+                </span>
+                
+                Digital Performance.
+            </h1>
+
+            <p class="hero-subtitle">
+                Official digital headquarters for <strong>Techie Sagnik</strong>. Specialized in lightning-fast Windows performance tweaks, deep registry cleaning, and hardware-accelerated computing pipelines.
             </p>
 
-            <div class="section-label">⚡ Featured Videos</div>
+            <div class="hero-cta-group">
+                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-flagship">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <span>Subscribe to Channel</span>
+                </a>
 
-            <div class="video-widget-container">
-                <div class="widget-title">📺 Latest Upload</div>
-                <div class="video-wrapper">
-                    <iframe id="latest-video" allowfullscreen title="Latest Upload"></iframe>
+                <button class="btn-secondary" id="btn-copy-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span>Copy Share URL</span>
+                </button>
+            </div>
+        </header>
+
+        <section class="telemetry-strip">
+            <div class="stat-card" id="card-stat-subs">
+                <div class="stat-label">
+                    <span>YOUTUBE CHANNEL</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
                 </div>
-                <div class="video-caption" id="latest-title">Fetching video feed...</div>
+                <div class="stat-value">@techiesagnik</div>
+                <div class="stat-sparkline"><div class="sparkline-fill" style="width: 88%;"></div></div>
             </div>
 
-            <div class="video-widget-container">
-                <div class="widget-title">🔥 Most Viewed</div>
-                <div class="video-wrapper">
-                    <iframe id="most-viewed-video" allowfullscreen title="Most Viewed Video"></iframe>
+            <div class="stat-card" id="card-stat-focus">
+                <div class="stat-label">
+                    <span>CORE EXPERTISE</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                 </div>
-                <div class="video-caption" id="most-viewed-title">Fetching video feed...</div>
+                <div class="stat-value" style="font-size: 1.25rem;">Windows Hacks</div>
+                <div class="stat-sparkline"><div class="sparkline-fill" style="width: 95%;"></div></div>
             </div>
 
-            <div class="section-label">📱 Shorts Feed</div>
-
-            <div class="shorts-row">
-                <div class="video-widget-container">
-                    <div class="widget-title">⚡ Latest Short</div>
-                    <div class="shorts-wrapper">
-                        <iframe id="latest-short" allowfullscreen title="Latest Short"></iframe>
-                    </div>
-                    <div class="video-caption" id="latest-short-title">Fetching short...</div>
+            <div class="stat-card" id="card-stat-boost">
+                <div class="stat-label">
+                    <span>SPEEDUP RATIO</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                 </div>
-
-                <div class="video-widget-container">
-                    <div class="widget-title">🔥 Top Short</div>
-                    <div class="shorts-wrapper">
-                        <iframe id="most-viewed-short" allowfullscreen title="Top Short"></iframe>
-                    </div>
-                    <div class="video-caption" id="most-viewed-short-title">Fetching short...</div>
-                </div>
+                <div class="stat-value" style="color: var(--gemini-cyan);">3.8x Faster</div>
+                <div class="stat-sparkline"><div class="sparkline-fill" style="width: 82%;"></div></div>
             </div>
 
-            <a href="https://www.youtube.com/@techiesagnik" target="_blank" rel="noopener" class="btn-primary">
-                <span>Join Channel @techiesagnik</span>
-                <span style="font-size: 1.2rem;">➔</span>
-            </a>
+            <div class="stat-card" id="card-stat-health">
+                <div class="stat-label">
+                    <span>CACHE FLUSH</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                </div>
+                <div class="stat-value" style="color: var(--gemini-green);">100% CLEAN</div>
+                <div class="stat-sparkline"><div class="sparkline-fill" style="width: 100%; background: var(--gemini-green);"></div></div>
+            </div>
+        </section>
+
+        <div>
+            <div class="tabs-container" id="tabs-wrapper">
+                <div class="tab-glider" id="tab-glider"></div>
+                <button class="tab-button active" data-tab="all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>All Dispatches</span>
+                </button>
+                <button class="tab-button" data-tab="long">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <span>Deep Dives</span>
+                </button>
+                <button class="tab-button" data-tab="shorts">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                    <span>Shorts & Tricks</span>
+                </button>
+            </div>
         </div>
 
+        <main class="cards-grid" id="media-grid">
+            <!-- Video 1: Windows Junk Cleaner -->
+            <article class="fluent-card grid-full-width" data-category="long">
+                <div class="card-header-row">
+                    <div class="badge-chip pulse-active">
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+                        <span>TOP DISPATCH // WINDOWS STORAGE HACK</span>
+                    </div>
+                    <span class="badge-chip">1080P HD</span>
+                </div>
+
+                <div class="media-viewport ratio-16x9">
+                    <iframe src="https://www.youtube-nocookie.com/embed/_-SvBNpiF3E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="How to Clear Gigabytes of Hidden Windows Junk Fast!"></iframe>
+                </div>
+
+                <div class="card-content">
+                    <h2 class="card-heading">How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀</h2>
+                    <p class="card-desc">Reclaim gigabytes of hidden temporary storage, old system update cache, and background log bloatware in less than 60 seconds.</p>
+                </div>
+
+                <div class="card-footer">
+                    <a href="https://www.youtube.com/watch?v=_-SvBNpiF3E" target="_blank" rel="noopener" class="inspect-link">WATCH ON YOUTUBE ➔</a>
+                    <span class="badge-chip">SYSTEM CLEANER</span>
+                </div>
+            </article>
+
+            <!-- Video 2: Windows Emoji Shortcut -->
+            <article class="fluent-card" data-category="shorts">
+                <div class="card-header-row">
+                    <span class="badge-chip pulse-active">VIRAL TRICK</span>
+                    <span class="badge-chip">9:16 VERTICAL</span>
+                </div>
+
+                <div class="media-viewport ratio-9x16">
+                    <iframe src="https://www.youtube-nocookie.com/embed/DSPExrqZDKo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Stop Copy-Pasting Emojis on PC!"></iframe>
+                </div>
+
+                <div class="card-content">
+                    <h3 class="card-heading">Stop Copy-Pasting Emojis on PC, Do THIS Instead! 😂🔥</h3>
+                    <p class="card-desc">Unlock Windows' built-in secret emoji, kaomoji, and symbol palette instantly with this shortcut.</p>
+                </div>
+
+                <div class="card-footer">
+                    <a href="https://www.youtube.com/watch?v=DSPExrqZDKo" target="_blank" rel="noopener" class="inspect-link">VIEW SHORT ➔</a>
+                    <span class="badge-chip">SHORTCUTS</span>
+                </div>
+            </article>
+
+            <!-- Channel Join Card -->
+            <article class="fluent-card" data-category="shorts">
+                <div class="card-header-row">
+                    <span class="badge-chip">JOIN THE COMMUNITY</span>
+                    <span class="badge-chip">1-CLICK SUB</span>
+                </div>
+
+                <div style="background: rgba(0, 242, 254, 0.05); border: 1px dashed rgba(0, 242, 254, 0.3); border-radius: var(--radius-lg); padding: 32px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-height: 280px;">
+                    <div class="brand-avatar-ring" style="width: 64px; height: 64px;">
+                        <img src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=03060f&bold=true'">
+                    </div>
+                    <div style="font-weight: 800; font-size: 1.15rem;">Never Miss a Windows Hack</div>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); max-width: 240px;">Get exclusive PC diagnostic tricks and speed optimizations delivered directly to your feed.</p>
+                    <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-flagship" style="padding: 10px 20px; font-size: 0.85rem;">
+                        Confirm Subscription ➔
+                    </a>
+                </div>
+
+                <div class="card-footer">
+                    <span style="font-size: 0.75rem; color: var(--text-tertiary); font-family: var(--font-mono);">CHANNEL UC7iDb0g7a62P5tcSEwZeAFA</span>
+                </div>
+            </article>
+        </main>
+
         <footer>
-            © 2026 TECHIE SAGNIK // ALL RIGHTS RESERVED
+            <div>© 2026 TECHIE SAGNIK // DEEPMIND CYBER FRAMEWORK</div>
+            <div>
+                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" style="color: var(--gemini-cyan); text-decoration: none;">YouTube Portal</a>
+            </div>
         </footer>
     </div>
 
-    <!-- Interactive Canvas Particles Script -->
+    <div class="cmd-modal-backdrop" id="cmd-modal">
+        <div class="cmd-modal-box">
+            <div class="cmd-search-input-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="var(--text-tertiary)">
+                    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="cmd-search-input" id="cmd-input" placeholder="Search commands, tips, or press Esc..." autocomplete="off">
+            </div>
+            <div class="cmd-results-list" id="cmd-results">
+                <div class="cmd-item" data-action="filter-long">
+                    <span>📺 Filter Long-Form Videos</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gemini-cyan);">TAB</span>
+                </div>
+                <div class="cmd-item" data-action="filter-shorts">
+                    <span>📱 Filter Shorts Feed</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gemini-cyan);">TAB</span>
+                </div>
+                <div class="cmd-item" data-action="channel">
+                    <span>🚀 Subscribe to Techie Sagnik</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gemini-cyan);">EXTERNAL</span>
+                </div>
+                <div class="cmd-item" data-action="copy">
+                    <span>🔗 Copy Portal Link</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gemini-cyan);">CLIPBOARD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-shelf" id="toast-shelf"></div>
+
     <script>
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
+        /* ----------------------------------------------------
+           1. 3D MAGNETIC WORD PHYSICS & HOVER SPECULAR TILT
+        ---------------------------------------------------- */
+        function initInteractiveWord(tokenEl, wrapEl, hudEl) {
+            let isHovered = false;
 
-        let particles = [];
-        let mouse = { x: null, y: null, radius: 150 };
+            wrapEl.addEventListener('mouseenter', () => {
+                isHovered = true;
+                tokenEl.classList.add('is-hovered');
+            });
 
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = [];
-            const particleCount = Math.floor((canvas.width * canvas.height) / 9000);
-            
-            for (let i = 0; i < particleCount; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 1,
-                    vx: (Math.random() - 0.5) * 0.8,
-                    vy: (Math.random() - 0.5) * 0.8,
-                    color: Math.random() > 0.5 ? '#00f2fe' : '#7000ff'
-                });
-            }
+            wrapEl.addEventListener('mousemove', (e) => {
+                const rect = wrapEl.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // 3D vector rotation based on cursor offset
+                const rotateX = ((y - centerY) / centerY) * -16;
+                const rotateY = ((x - centerX) / centerX) * 16;
+                const translateZ = 12;
+
+                tokenEl.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+            });
+
+            wrapEl.addEventListener('mouseleave', () => {
+                isHovered = false;
+                tokenEl.classList.remove('is-hovered');
+                tokenEl.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+            });
+
+            // Click interaction triggers benchmark telemetry pulse
+            tokenEl.addEventListener('click', () => {
+                const word = tokenEl.getAttribute('data-word');
+                if (word === 'high') {
+                    showToast('⚡ Executing Low-Latency System Diagnostic: 12.4µs verified!');
+                } else if (word === 'velocity') {
+                    showToast('🚀 Fast NVMe Cache Flush triggered: 0.00 GB Junk Remaining!');
+                }
+            });
+
+            // Touch support for mobile tap
+            tokenEl.addEventListener('touchstart', (e) => {
+                wrapEl.classList.toggle('active-touch');
+            });
         }
 
-        window.addEventListener('resize', initCanvas);
+        initInteractiveWord(
+            document.getElementById('token-high'),
+            document.getElementById('wrap-high'),
+            document.getElementById('hud-high')
+        );
+
+        initInteractiveWord(
+            document.getElementById('token-velocity'),
+            document.getElementById('wrap-velocity'),
+            document.getElementById('hud-velocity')
+        );
+
+        /* ----------------------------------------------------
+           2. DEEPMIND IRIDESCENT AURORA CANVAS
+        ---------------------------------------------------- */
+        const canvas = document.getElementById('aurora-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = 0;
+        let height = 0;
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let targetX = mouseX;
+        let targetY = mouseY;
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
         window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
+            targetX = e.clientX;
+            targetY = e.clientY;
         });
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const orbs = [
+            { x: width * 0.25, y: height * 0.3, r: 380, color: 'rgba(0, 242, 254, 0.14)', vx: 0.3, vy: 0.2 },
+            { x: width * 0.75, y: height * 0.25, r: 420, color: 'rgba(139, 92, 246, 0.16)', vx: -0.25, vy: 0.3 },
+            { x: width * 0.5, y: height * 0.75, r: 350, color: 'rgba(236, 72, 153, 0.11)', vx: 0.2, vy: -0.25 }
+        ];
 
-            for (let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
+        function renderAurora() {
+            ctx.clearRect(0, 0, width, height);
 
-                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            mouseX += (targetX - mouseX) * 0.05;
+            mouseY += (targetY - mouseY) * 0.05;
 
-                // Mouse Interaction
-                if (mouse.x) {
-                    let dx = mouse.x - p.x;
-                    let dy = mouse.y - p.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < mouse.radius) {
-                        p.x -= dx * 0.03;
-                        p.y -= dy * 0.03;
-                    }
-                }
+            orbs.forEach(orb => {
+                orb.x += orb.vx;
+                orb.y += orb.vy;
 
+                if (orb.x < -100 || orb.x > width + 100) orb.vx *= -1;
+                if (orb.y < -100 || orb.y > height + 100) orb.vy *= -1;
+
+                const dx = mouseX - orb.x;
+                const dy = mouseY - orb.y;
+                orb.x += dx * 0.002;
+                orb.y += dy * 0.002;
+
+                const grad = ctx.createRadialGradient(orb.x, orb.y, 10, orb.x, orb.y, orb.r);
+                grad.addColorStop(0, orb.color);
+                grad.addColorStop(1, 'rgba(3, 6, 15, 0)');
+
+                ctx.fillStyle = grad;
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = p.color;
+                ctx.arc(orb.x, orb.y, orb.r, 0, Math.PI * 2);
                 ctx.fill();
+            });
 
-                // Connect nearby particles
-                for (let j = i + 1; j < particles.length; j++) {
-                    let p2 = particles[j];
-                    let dx = p.x - p2.x;
-                    let dy = p.y - p2.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
+            requestAnimationFrame(renderAurora);
+        }
+        renderAurora();
 
-                    if (dist < 110) {
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 110})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
+        /* ----------------------------------------------------
+           3. FLUID SLIDING PILL TABS
+        ---------------------------------------------------- */
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const glider = document.getElementById('tab-glider');
+        const cards = document.querySelectorAll('.fluent-card');
+
+        function positionGlider(button) {
+            glider.style.width = `${button.offsetWidth}px`;
+            glider.style.transform = `translateX(${button.offsetLeft - 6}px)`;
+        }
+
+        const activeTab = document.querySelector('.tab-button.active');
+        if (activeTab) positionGlider(activeTab);
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                positionGlider(btn);
+
+                const filter = btn.getAttribute('data-tab');
+                cards.forEach(card => {
+                    const cat = card.getAttribute('data-category');
+                    if (filter === 'all' || cat === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
                     }
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
-        initCanvas();
-        animateParticles();
-    </script>
-
-    <!-- Video Loader Script -->
-    <script>
-        function loadVideo(iframeId, titleId, videoData) {
-            const iframe = document.getElementById(iframeId);
-            const titleElem = document.getElementById(titleId);
-
-            if (videoData && videoData.id) {
-                iframe.src = `https://www.youtube.com/embed/${videoData.id}`;
-                titleElem.textContent = videoData.title || 'Watch on YouTube';
-            } else {
-                titleElem.textContent = 'Visit @techiesagnik for details';
-            }
-        }
-
-        fetch('videos.json')
-            .then(res => {
-                if (!res.ok) throw new Error('File not ready');
-                return res.json();
-            })
-            .then(data => {
-                loadVideo('latest-video', 'latest-title', data.latest);
-                loadVideo('most-viewed-video', 'most-viewed-title', data.mostViewed);
-                loadVideo('latest-short', 'latest-short-title', data.latestShort);
-                loadVideo('most-viewed-short', 'most-viewed-short-title', data.mostViewedShort);
-            })
-            .catch(() => {
-                document.querySelectorAll('.video-caption').forEach(el => {
-                    el.textContent = 'Check out @techiesagnik on YouTube';
                 });
             });
+        });
+
+        window.addEventListener('resize', () => {
+            const current = document.querySelector('.tab-button.active');
+            if (current) positionGlider(current);
+        });
+
+        /* ----------------------------------------------------
+           4. COMMAND PALETTE (CMD+K) & TOAST SYSTEM
+        ---------------------------------------------------- */
+        const cmdModal = document.getElementById('cmd-modal');
+        const cmdInput = document.getElementById('cmd-input');
+        const cmdToggle = document.getElementById('cmd-toggle');
+        const toastShelf = document.getElementById('toast-shelf');
+
+        function toggleCommandPalette(show) {
+            if (show) {
+                cmdModal.classList.add('open');
+                cmdInput.value = '';
+                cmdInput.focus();
+            } else {
+                cmdModal.classList.remove('open');
+            }
+        }
+
+        cmdToggle.addEventListener('click', () => toggleCommandPalette(true));
+        cmdModal.addEventListener('click', (e) => {
+            if (e.target === cmdModal) toggleCommandPalette(false);
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                toggleCommandPalette(!cmdModal.classList.contains('open'));
+            } else if (e.key === 'Escape' && cmdModal.classList.contains('open')) {
+                toggleCommandPalette(false);
+            }
+        });
+
+        document.querySelectorAll('.cmd-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const action = item.getAttribute('data-action');
+                toggleCommandPalette(false);
+
+                if (action === 'filter-long') {
+                    document.querySelector('[data-tab="long"]').click();
+                    showToast('Filtered to Deep Dives');
+                } else if (action === 'filter-shorts') {
+                    document.querySelector('[data-tab="shorts"]').click();
+                    showToast('Filtered to Shorts Feed');
+                } else if (action === 'channel') {
+                    window.open('https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1', '_blank', 'noopener');
+                } else if (action === 'copy') {
+                    copyPortalLink();
+                }
+            });
+        });
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-pill';
+            toast.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="var(--gemini-cyan)"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>${message}</span>
+            `;
+            toastShelf.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        }
+
+        function copyPortalLink() {
+            const url = window.location.href;
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(() => showToast('Portal link copied to clipboard!'));
+            } else {
+                const temp = document.createElement('input');
+                temp.value = url;
+                document.body.appendChild(temp);
+                temp.select();
+                document.execCommand('copy');
+                document.body.removeChild(temp);
+                showToast('Portal link copied to clipboard!');
+            }
+        }
+
+        document.getElementById('btn-copy-link').addEventListener('click', copyPortalLink);
+        document.getElementById('btn-share').addEventListener('click', copyPortalLink);
     </script>
 </body>
 </html>
