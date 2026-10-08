@@ -3,167 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techie Sagnik | Flagship DeepMind Cyber Portal</title>
-    <meta name="description" content="Official portfolio and engineering portal for Techie Sagnik — Systems optimization, cyber telemetry, and high-performance computing.">
+    <title>Techie Sagnik | Windows Hacks & PC Secrets</title>
+    <meta name="description" content="Official portal for Techie Sagnik — Windows tricks, keyboard shortcuts, and performance optimizations.">
 
-    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-void: #03060f;
-            --bg-surface-0: rgba(10, 15, 29, 0.72);
-            --bg-surface-1: rgba(17, 24, 43, 0.65);
-            --bg-surface-elevated: rgba(22, 32, 54, 0.88);
-            
-            --fluent-border: rgba(255, 255, 255, 0.08);
-            --fluent-border-hover: rgba(0, 242, 254, 0.4);
-            --fluent-acrylic: rgba(15, 23, 42, 0.62);
-
-            /* DeepMind Aurora & Microsoft Copilot Palette */
-            --gemini-cyan: #00f2fe;
-            --gemini-sky: #38bdf8;
-            --gemini-blue: #3b82f6;
-            --gemini-purple: #8b5cf6;
-            --gemini-magenta: #ec4899;
-            --gemini-green: #10b981;
-
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-tertiary: #64748b;
-
-            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --radius-xl: 24px;
-            --radius-lg: 18px;
-            --radius-md: 12px;
-            --radius-pill: 9999px;
+            --bg-base: #060911;
+            --panel-bg: rgba(13, 19, 33, 0.78);
+            --panel-border: rgba(0, 242, 254, 0.18);
+            --panel-border-hover: rgba(0, 242, 254, 0.6);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #38bdf8;
+            --accent-purple: #7000ff;
+            --accent-green: #10b981;
+            --text-high: #f8fafc;
+            --text-med: #94a3b8;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Fira Code', monospace;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+            font-family: var(--font-sans);
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-void);
-            color: var(--text-primary);
-            font-family: var(--font-sans);
+            background-color: var(--bg-base);
+            color: var(--text-high);
             min-height: 100vh;
+            padding: 30px 16px 60px;
+            display: flex;
+            justify-content: center;
             overflow-x: hidden;
-            position: relative;
-            line-height: 1.5;
         }
 
-        /* Fullscreen Interactive Aurora Web Canvas */
-        #aurora-canvas {
+        #bg-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            inset: 0;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.85;
         }
 
-        /* Subtle Noise Texture Overlay */
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
-        }
-
-        /* Layout Container */
-        .viewport-wrapper {
-            position: relative;
-            z-index: 2;
+        .portal-container {
             width: 100%;
-            max-width: 1040px;
-            margin: 0 auto;
-            padding: 32px 20px 100px;
+            max-width: 860px;
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            gap: 24px;
         }
 
-        .navbar-mica {
+        /* Top Bar */
+        .top-navbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 18px;
-            background: var(--bg-surface-0);
-            backdrop-filter: blur(28px) saturate(190%);
-            -webkit-backdrop-filter: blur(28px) saturate(190%);
-            border: 1px solid var(--fluent-border);
-            border-radius: var(--radius-pill);
-            box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            position: sticky;
-            top: 18px;
-            z-index: 100;
-            transition: border-color 0.3s ease;
+            padding: 14px 22px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--panel-border);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
-        .navbar-mica:hover {
-            border-color: rgba(255, 255, 255, 0.18);
-        }
-
-        .nav-brand {
+        .brand-cluster {
             display: flex;
             align-items: center;
             gap: 12px;
-            text-decoration: none;
-            color: inherit;
         }
 
-        .brand-avatar-ring {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            padding: 2px;
-            background: linear-gradient(135deg, var(--gemini-cyan), var(--gemini-purple), var(--gemini-magenta));
-            display: grid;
-            place-items: center;
-            position: relative;
-        }
-
-        .brand-avatar-ring img {
-            width: 100%;
-            height: 100%;
+        .brand-avatar {
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             object-fit: cover;
-            background: #03060f;
+            border: 2px solid var(--accent-cyan);
+            background: #000;
         }
 
-        .brand-text-block {
-            display: flex;
-            flex-direction: column;
+        .brand-meta h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #fff;
         }
 
-        .brand-name {
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .brand-status {
+        .brand-meta span {
+            font-size: 0.72rem;
             font-family: var(--font-mono);
-            font-size: 0.65rem;
-            color: var(--gemini-cyan);
-            letter-spacing: 0.5px;
+            color: var(--accent-cyan);
         }
 
         .nav-actions {
@@ -172,1228 +108,688 @@
             gap: 10px;
         }
 
-        .cmd-bar-trigger {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .sfx-toggle {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-pill);
-            padding: 6px 14px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-
-        .cmd-bar-trigger:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .kbd-key {
-            background: rgba(0, 0, 0, 0.35);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 6px;
-            padding: 2px 6px;
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            color: var(--text-primary);
-        }
-
-        .hero-billboard {
-            position: relative;
-            background: var(--bg-surface-0);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border: 1px solid var(--fluent-border);
-            border-radius: var(--radius-xl);
-            padding: 44px 38px;
-            overflow: visible;
-            box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.65);
-        }
-
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-mono);
-            font-size: 0.74rem;
-            font-weight: 600;
-            color: var(--gemini-cyan);
-            background: rgba(0, 242, 254, 0.08);
-            border: 1px solid rgba(0, 242, 254, 0.22);
-            padding: 5px 14px;
-            border-radius: var(--radius-pill);
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-
-        .hero-title {
-            font-size: clamp(2.3rem, 5.2vw, 3.6rem);
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -1.2px;
-            margin-bottom: 18px;
-            perspective: 1200px;
-        }
-
-        .interactive-word-wrapper {
-            position: relative;
-            display: inline-block;
-            vertical-align: baseline;
-            perspective: 900px;
-        }
-
-        .interactive-word {
-            display: inline-block;
-            cursor: pointer;
-            padding: 0px 8px;
-            margin: 0 -3px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #ffffff 10%, #00f2fe 55%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 850;
-            transition: transform 0.12s cubic-bezier(0.2, 0, 0.1, 1), text-shadow 0.25s ease;
-            position: relative;
-            transform-style: preserve-3d;
-            will-change: transform;
-        }
-
-        .interactive-word.is-hovered {
-            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 45%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
-        }
-
-        /* Subtle glowing underline badge beneath the word */
-        .interactive-word::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 8px;
-            right: 8px;
-            height: 3px;
-            border-radius: 4px;
-            background: linear-gradient(90deg, var(--gemini-cyan), var(--gemini-purple));
-            opacity: 0.55;
-            transition: opacity 0.25s ease, height 0.25s ease;
-        }
-
-        .interactive-word.is-hovered::after {
-            opacity: 1;
-            height: 4px;
-            box-shadow: 0 0 14px var(--gemini-cyan);
-        }
-
-        /* Holographic Specular Tooltip Card */
-        .hologram-hud-card {
-            position: absolute;
-            bottom: calc(100% + 14px);
-            left: 50%;
-            transform: translateX(-50%) translateY(10px) scale(0.92);
-            width: 310px;
-            padding: 16px;
-            background: var(--bg-surface-elevated);
-            backdrop-filter: blur(28px) saturate(200%);
-            -webkit-backdrop-filter: blur(28px) saturate(200%);
-            border: 1px solid rgba(0, 242, 254, 0.4);
-            border-radius: 16px;
-            box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.25);
-            pointer-events: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
-            z-index: 1000;
-        }
-
-        .interactive-word-wrapper:hover .hologram-hud-card,
-        .interactive-word-wrapper.active-touch .hologram-hud-card {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0) scale(1);
-            pointer-events: auto;
-        }
-
-        /* Tooltip Pointer Needle */
-        .hologram-hud-card::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 7px 7px 0 7px;
-            border-style: solid;
-            border-color: rgba(0, 242, 254, 0.4) transparent transparent transparent;
-        }
-
-        .hud-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 8px;
-            margin-bottom: 10px;
-        }
-
-        .hud-title {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--gemini-cyan);
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .hud-badge {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            padding: 2px 6px;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.35);
-            border-radius: 4px;
-            color: var(--gemini-green);
-        }
-
-        .hud-stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .hud-stat-cell {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 8px;
-            padding: 8px;
-        }
-
-        .hud-cell-label {
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-        }
-
-        .hud-cell-val {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            font-family: var(--font-mono);
-        }
-
-        .hud-footer-note {
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-            line-height: 1.4;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 640px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .hero-cta-group {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 14px;
-        }
-
-        .btn-flagship {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #ffffff;
-            color: #03060f;
-            font-size: 0.92rem;
-            font-weight: 700;
-            padding: 13px 26px;
-            border-radius: var(--radius-pill);
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .btn-flagship:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(0, 242, 254, 0.4);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-            font-size: 0.92rem;
-            font-weight: 600;
-            padding: 13px 22px;
-            border-radius: var(--radius-pill);
-            text-decoration: none;
-            border: 1px solid var(--fluent-border);
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.25s ease;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .telemetry-strip {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-        }
-
-        .stat-card {
-            background: var(--bg-surface-0);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--fluent-border);
-            border-radius: var(--radius-lg);
-            padding: 18px;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--fluent-border-hover);
-            box-shadow: 0 12px 25px rgba(0, 242, 254, 0.12);
-        }
-
-        .stat-label {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .stat-value {
-            font-size: 1.7rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--text-primary);
-            font-family: var(--font-mono);
-        }
-
-        .stat-sparkline {
-            height: 3px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.06);
-            margin-top: 12px;
-            border-radius: 2px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .sparkline-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background: linear-gradient(90deg, var(--gemini-cyan), var(--gemini-purple));
-            width: 80%;
-            border-radius: 2px;
-            transition: width 0.6s ease;
-        }
-
-        .tabs-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(10, 15, 29, 0.6);
-            padding: 6px;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--fluent-border);
-            backdrop-filter: blur(20px);
-            width: fit-content;
-        }
-
-        .tab-button {
-            position: relative;
-            z-index: 2;
-            padding: 8px 18px;
-            border: none;
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: var(--radius-pill);
-            transition: color 0.25s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tab-button.active {
-            color: #ffffff;
-        }
-
-        .tab-glider {
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            height: calc(100% - 12px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: var(--radius-pill);
-            z-index: 1;
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 22px;
-        }
-
-        .grid-full-width {
-            grid-column: span 2;
-        }
-
-        .fluent-card {
-            position: relative;
-            background: var(--bg-surface-0);
-            border: 1px solid var(--fluent-border);
-            border-radius: var(--radius-xl);
-            padding: 22px;
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .fluent-card:hover {
-            border-color: var(--fluent-border-hover);
-            box-shadow: 0 16px 36px -10px rgba(0, 242, 254, 0.18);
-        }
-
-        .card-header-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .badge-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: var(--radius-pill);
-            background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-secondary);
-        }
-
-        .badge-chip.pulse-active {
-            background: rgba(0, 242, 254, 0.1);
-            border-color: rgba(0, 242, 254, 0.3);
-            color: var(--gemini-cyan);
-        }
-
-        .media-viewport {
-            position: relative;
-            width: 100%;
-            background: #000000;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .ratio-16x9 { padding-bottom: 56.25%; }
-        .ratio-9x16 { padding-bottom: 140%; max-width: 380px; margin: 0 auto; width: 100%; }
-
-        .media-viewport iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .card-content {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .card-heading {
-            font-size: 1.02rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: -0.2px;
-            line-height: 1.35;
-        }
-
-        .card-desc {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .inspect-link {
-            font-size: 0.78rem;
-            font-weight: 600;
+            color: var(--text-med);
+            padding: 8px 12px;
+            border-radius: 10px;
             font-family: var(--font-mono);
-            color: var(--gemini-cyan);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: gap 0.2s ease;
-        }
-
-        .fluent-card:hover .inspect-link {
-            gap: 9px;
-        }
-
-        .toast-shelf {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            pointer-events: none;
-        }
-
-        .toast-pill {
-            background: var(--bg-surface-elevated);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            color: #ffffff;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 10px 18px;
-            border-radius: var(--radius-pill);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: toastPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            pointer-events: auto;
-        }
-
-        @keyframes toastPop {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Command Palette Modal */
-        .cmd-modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(16px);
-            z-index: 1000;
-            display: none;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 15vh;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-
-        .cmd-modal-backdrop.open {
-            display: flex;
-            opacity: 1;
-        }
-
-        .cmd-modal-box {
-            width: 100%;
-            max-width: 580px;
-            background: var(--bg-surface-elevated);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            border-radius: var(--radius-xl);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
-            overflow: hidden;
-        }
-
-        .cmd-search-input-wrap {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 18px 24px;
-            border-bottom: 1px solid var(--fluent-border);
-        }
-
-        .cmd-search-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #fff;
-            font-size: 1.05rem;
-            font-family: var(--font-sans);
-        }
-
-        .cmd-results-list {
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .cmd-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-radius: var(--radius-md);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .cmd-item:hover {
-            background: rgba(255, 255, 255, 0.08);
+        .sfx-toggle.active {
+            color: var(--accent-green);
+            border-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .btn-subscribe {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            box-shadow: 0 4px 18px rgba(0, 242, 254, 0.25);
+            transition: transform 0.2s ease;
+        }
+
+        .btn-subscribe:hover {
+            transform: scale(1.03);
+        }
+
+        /* Hero Header */
+        .hero-section {
+            text-align: center;
+            padding: 30px 14px 20px;
+            position: relative;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.35;
+            letter-spacing: -0.5px;
             color: #fff;
         }
 
-        footer {
+        .interactive-token {
+            display: inline-block;
+            color: var(--accent-cyan);
+            border-bottom: 2px dashed rgba(0, 242, 254, 0.6);
+            cursor: pointer;
+            padding: 0 6px;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .interactive-token:hover {
+            background: rgba(0, 242, 254, 0.15);
+            border-bottom-color: #fff;
+            color: #fff;
+        }
+
+        /* 3D Glass Tilted Preview Card (Hidden by Default) */
+        #interactive-popup-card {
+            position: absolute;
+            left: 50%;
+            top: -20px;
+            width: 320px;
+            padding: 22px 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.9) 0%, rgba(56, 189, 248, 0.85) 50%, rgba(112, 0, 255, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(0, 242, 254, 0.35);
+            color: #fff;
+            text-align: left;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translate(-50%, 25px) rotateX(12deg) rotateY(-8deg) scale(0.9);
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+        }
+
+        #interactive-popup-card.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translate(-50%, -20px) rotateX(6deg) rotateY(-6deg) scale(1);
+        }
+
+        .popup-badge {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.35);
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .popup-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .popup-desc {
+            font-size: 0.82rem;
+            line-height: 1.45;
+            opacity: 0.95;
+            margin-bottom: 14px;
+        }
+
+        .popup-btn {
+            background: #fff;
+            color: #030712;
+            padding: 8px 14px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s ease;
+        }
+
+        .popup-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Interactive Windows Run Console */
+        .interactive-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .panel-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .panel-title {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .run-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .run-input {
+            flex: 1;
+            background: rgba(4, 7, 17, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .run-input:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        .run-btn {
+            background: var(--accent-cyan);
+            color: #030712;
+            border: none;
+            border-radius: 12px;
+            padding: 0 20px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .run-btn:hover {
+            background: #fff;
+        }
+
+        .command-chips {
+            display: flex;
+            gap: 8px;
             flex-wrap: wrap;
-            gap: 16px;
-            padding: 24px 0 0;
-            border-top: 1px solid var(--fluent-border);
-            color: var(--text-tertiary);
-            font-size: 0.8rem;
+            margin-bottom: 16px;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-med);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chip:hover {
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.1);
+        }
+
+        .terminal-output {
+            background: #040711;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 14px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: #38bdf8;
+            line-height: 1.5;
+            min-height: 60px;
+        }
+
+        /* Interactive Windows Keyboard Simulator */
+        .keyboard-dock {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .key-cap {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-bottom: 3px solid rgba(255, 255, 255, 0.25);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-high);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.12s ease;
+        }
+
+        .key-cap:active, .key-cap.pressed {
+            border-bottom-width: 1px;
+            transform: translateY(2px);
+            background: rgba(0, 242, 254, 0.2);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .key-tip-banner {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: rgba(0, 242, 254, 0.08);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: var(--accent-cyan);
+            text-align: center;
             font-family: var(--font-mono);
         }
 
-        @media (max-width: 820px) {
-            .cards-grid { grid-template-columns: 1fr; }
-            .grid-full-width { grid-column: span 1; }
-            .telemetry-strip { grid-template-columns: repeat(2, 1fr); }
-            .hero-billboard { padding: 32px 22px; }
-            .ratio-9x16 { padding-bottom: 120%; }
+        /* Video Showcase */
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
-        @media (max-width: 520px) {
-            .telemetry-strip { grid-template-columns: 1fr; }
-            .cmd-bar-trigger span { display: none; }
+        .video-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 16px;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--panel-border-hover);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .badge-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .iframe-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .iframe-container.short {
+            padding-bottom: 140%;
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 12px;
+            color: #f1f5f9;
+        }
+
+        footer {
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: #475569;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 680px) {
+            .video-grid { grid-template-columns: 1fr; }
+            .hero-section h1 { font-size: 2rem; }
+            #interactive-popup-card { width: 280px; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="aurora-canvas"></canvas>
-    <div class="noise-overlay"></div>
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="viewport-wrapper">
-        <!-- Floating Acrylic Header -->
-        <nav class="navbar-mica">
-            <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="nav-brand">
-                <div class="brand-avatar-ring">
-                    <img src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=03060f&bold=true'">
+    <div class="portal-container">
+        <!-- Top Navbar -->
+        <header class="top-navbar">
+            <div class="brand-cluster">
+                <img class="brand-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                <div class="brand-meta">
+                    <h2>Techie Sagnik</h2>
+                    <span>PC Optimization &amp; Cybersecurity</span>
                 </div>
-                <div class="brand-text-block">
-                    <div class="brand-name">
-                        Techie Sagnik
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="var(--gemini-cyan)">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                    </div>
-                    <span class="brand-status">TELEMETRY // OPTIMIZATION ACTIVE</span>
-                </div>
-            </a>
+            </div>
 
             <div class="nav-actions">
-                <button class="cmd-bar-trigger" id="cmd-toggle">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <span>Quick Command</span>
-                    <span class="kbd-key">⌘K</span>
-                </button>
-
-                <button class="btn-secondary" id="btn-share" title="Share Portal">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                    </svg>
-                </button>
-            </div>
-        </nav>
-
-        <header class="hero-billboard">
-            <div class="hero-eyebrow">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                </svg>
-                <span>NEXT-GEN WINDOWS & CYBER ARCHITECTURE</span>
-            </div>
-
-            <h1 class="hero-title">
-                Architecting 
-                
-                <!-- Interactive Word: HIGH -->
-                <span class="interactive-word-wrapper" id="wrap-high">
-                    <span class="interactive-word" id="token-high" data-word="high">High</span>
-                    
-                    <!-- Holographic HUD Card for HIGH -->
-                    <div class="hologram-hud-card" id="hud-high">
-                        <div class="hud-header">
-                            <span class="hud-title">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                                HIGH-THROUGHPUT ENGINE
-                            </span>
-                            <span class="hud-badge">BENCHMARK</span>
-                        </div>
-                        <div class="hud-stats-grid">
-                            <div class="hud-stat-cell">
-                                <div class="hud-cell-label">DPC Latency</div>
-                                <div class="hud-cell-val" style="color: var(--gemini-green);">12.4 µs</div>
-                            </div>
-                            <div class="hud-stat-cell">
-                                <div class="hud-cell-label">RAM Overhead</div>
-                                <div class="hud-cell-val" style="color: var(--gemini-cyan);">-42.8%</div>
-                            </div>
-                            <div class="hud-stat-cell">
-                                <div class="hud-cell-label">Kernel Paging</div>
-                                <div class="hud-cell-val">Optimal</div>
-                            </div>
-                            <div class="hud-stat-cell">
-                                <div class="hud-cell-label">CPU Queues</div>
-                                <div class="hud-cell-val">Zero-Wait</div>
-                            </div>
-                        </div>
-                        <div class="hud-footer-note">
-                            <span>⚡ Click word to execute live diagnostics</span>
-                        </div>
-                    </div>
-                </span>
-
-                <!-- Interactive Word: VELOCITY -->
-                <span class="interactive-word-wrapper" id="wrap-velocity">
-                    <span class="interactive-word" id="token-velocity" data-word="velocity">Velocity</span>
-                    
-                    <!-- Holographic HUD Card for VELOCITY -->
-                    <div class="hologram-hud-card" id="hud-velocity">
-                        <div class="hud-header">
-                            <span class="hud-title">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                                NVME I/O PIPELINE
-                            </span>
-                            <span class="hud-badge">BURST MODE</span>
-                        </div>
-                        <div class="hud-stats-grid">
-                            <div class="hud-stat-cell">
-                                <div class="hud-cell-label">Read Burst</div>
-                                <div class="hud-cell-val" style="color: var(--gemini-cyan);">7,450 MB/s</div>
-                            </div>
-                            <div class="hud-stat-cell">
-                                <div class="hud-cell-label">Temp Junk</div>
-                                <div class="hud-cell-val" style="color: var(--gemini-magenta);">0.00 GB</div>
-                            </div>
-                            <div class="hud-stat-cell">
-                                <div class="hud-cell-label">App Launch</div>
-                                <div class="hud-cell-val">&lt; 0.28s</div>
-                            </div>
-                            <div class="hud-stat-cell">
-                                <div class="hud-cell-label">DirectStorage</div>
-                                <div class="hud-cell-val" style="color: var(--gemini-green);">Enabled</div>
-                            </div>
-                        </div>
-                        <div class="hud-footer-note">
-                            <span>🚀 Click word to trigger purge simulation</span>
-                        </div>
-                    </div>
-                </span>
-                
-                Digital Performance.
-            </h1>
-
-            <p class="hero-subtitle">
-                Official digital headquarters for <strong>Techie Sagnik</strong>. Specialized in lightning-fast Windows performance tweaks, deep registry cleaning, and hardware-accelerated computing pipelines.
-            </p>
-
-            <div class="hero-cta-group">
-                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-flagship">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
-                    <span>Subscribe to Channel</span>
+                <button class="sfx-toggle" id="sfx-btn">SFX: OFF</button>
+                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
+                    Subscribe ➔
                 </a>
-
-                <button class="btn-secondary" id="btn-copy-link">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                    <span>Copy Share URL</span>
-                </button>
             </div>
         </header>
 
-        <section class="telemetry-strip">
-            <div class="stat-card" id="card-stat-subs">
-                <div class="stat-label">
-                    <span>YOUTUBE CHANNEL</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
-                </div>
-                <div class="stat-value">@techiesagnik</div>
-                <div class="stat-sparkline"><div class="sparkline-fill" style="width: 88%;"></div></div>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <!-- 3D Glass Tilted Preview Card -->
+            <div id="interactive-popup-card">
+                <span class="popup-badge" id="popup-badge">FEATURED TIP</span>
+                <h3 class="popup-title" id="popup-title">Tip Title</h3>
+                <p class="popup-desc" id="popup-desc">Tip details...</p>
+                <button class="popup-btn" id="popup-btn">Watch Video ➔</button>
             </div>
 
-            <div class="stat-card" id="card-stat-focus">
-                <div class="stat-label">
-                    <span>CORE EXPERTISE</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                </div>
-                <div class="stat-value" style="font-size: 1.25rem;">Windows Hacks</div>
-                <div class="stat-sparkline"><div class="sparkline-fill" style="width: 95%;"></div></div>
+            <h1>
+                Master 
+                <span class="interactive-token" id="token-high">High</span>-impact
+                Windows secrets &amp; boost your PC's
+                <span class="interactive-token" id="token-velocity">Velocity</span>.
+            </h1>
+            <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;">
+                Hover over the highlighted words or explore the interactive tools below.
+            </p>
+        </section>
+
+        <!-- Interactive Windows Run Terminal Simulator -->
+        <section class="interactive-panel">
+            <div class="panel-header">
+                <span class="panel-title">⚡ Interactive Windows Run Console</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Win + R Emulator</span>
             </div>
 
-            <div class="stat-card" id="card-stat-boost">
-                <div class="stat-label">
-                    <span>SPEEDUP RATIO</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                </div>
-                <div class="stat-value" style="color: var(--gemini-cyan);">3.8x Faster</div>
-                <div class="stat-sparkline"><div class="sparkline-fill" style="width: 82%;"></div></div>
+            <div class="run-input-group">
+                <input type="text" class="run-input" id="run-input" placeholder="Type a command (e.g. cleanmgr, temp, mrt, msconfig)...">
+                <button class="run-btn" id="run-btn">Execute</button>
             </div>
 
-            <div class="stat-card" id="card-stat-health">
-                <div class="stat-label">
-                    <span>CACHE FLUSH</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-                </div>
-                <div class="stat-value" style="color: var(--gemini-green);">100% CLEAN</div>
-                <div class="stat-sparkline"><div class="sparkline-fill" style="width: 100%; background: var(--gemini-green);"></div></div>
+            <div class="command-chips">
+                <span class="chip" data-cmd="cleanmgr">cleanmgr</span>
+                <span class="chip" data-cmd="%temp%">%temp%</span>
+                <span class="chip" data-cmd="mrt">mrt</span>
+                <span class="chip" data-cmd="resmon">resmon</span>
+                <span class="chip" data-cmd="perfmon">perfmon</span>
+                <span class="chip" data-cmd="cmd">cmd</span>
+            </div>
+
+            <div class="terminal-output" id="term-out">
+                Ready. Type or click any command above to inspect its real diagnostic function.
             </div>
         </section>
 
-        <div>
-            <div class="tabs-container" id="tabs-wrapper">
-                <div class="tab-glider" id="tab-glider"></div>
-                <button class="tab-button active" data-tab="all">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                    <span>All Dispatches</span>
-                </button>
-                <button class="tab-button" data-tab="long">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                    <span>Deep Dives</span>
-                </button>
-                <button class="tab-button" data-tab="shorts">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                    <span>Shorts & Tricks</span>
-                </button>
+        <!-- Interactive Keyboard Playground -->
+        <section class="interactive-panel">
+            <div class="panel-header">
+                <span class="panel-title">⌨️ Keyboard Shortcut Lab</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Click or press keys</span>
             </div>
-        </div>
 
-        <main class="cards-grid" id="media-grid">
-            <!-- Video 1: Windows Junk Cleaner -->
-            <article class="fluent-card grid-full-width" data-category="long">
-                <div class="card-header-row">
-                    <div class="badge-chip pulse-active">
-                        <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-                        <span>TOP DISPATCH // WINDOWS STORAGE HACK</span>
-                    </div>
-                    <span class="badge-chip">1080P HD</span>
-                </div>
+            <div class="keyboard-dock">
+                <div class="key-cap" data-key="Win">⊞ Win</div>
+                <div class="key-cap" data-key=".">. (Period)</div>
+                <div class="key-cap" data-key="R">R</div>
+                <div class="key-cap" data-key="Shift">Shift</div>
+                <div class="key-cap" data-key="S">S</div>
+                <div class="key-cap" data-key="V">V</div>
+                <div class="key-cap" data-key="Esc">Esc</div>
+            </div>
 
-                <div class="media-viewport ratio-16x9">
-                    <iframe src="https://www.youtube-nocookie.com/embed/_-SvBNpiF3E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="How to Clear Gigabytes of Hidden Windows Junk Fast!"></iframe>
-                </div>
+            <div class="key-tip-banner" id="key-tip">
+                Press or click [⊞ Win] + [. (Period)] to test the emoji picker shortcut!
+            </div>
+        </section>
 
-                <div class="card-content">
-                    <h2 class="card-heading">How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀</h2>
-                    <p class="card-desc">Reclaim gigabytes of hidden temporary storage, old system update cache, and background log bloatware in less than 60 seconds.</p>
+        <!-- Video Showcase -->
+        <main class="video-grid">
+            <article class="video-card" id="sec-cleaner">
+                <div class="card-top">
+                    <span class="badge-tag">⚡ SYSTEM STORAGE HACK</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">1080P HD</span>
                 </div>
-
-                <div class="card-footer">
-                    <a href="https://www.youtube.com/watch?v=_-SvBNpiF3E" target="_blank" rel="noopener" class="inspect-link">WATCH ON YOUTUBE ➔</a>
-                    <span class="badge-chip">SYSTEM CLEANER</span>
+                <div class="iframe-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/_-SvBNpiF3E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="How to Clear Gigabytes of Hidden Windows Junk Fast!"></iframe>
                 </div>
+                <h2 class="video-title">How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀</h2>
             </article>
 
-            <!-- Video 2: Windows Emoji Shortcut -->
-            <article class="fluent-card" data-category="shorts">
-                <div class="card-header-row">
-                    <span class="badge-chip pulse-active">VIRAL TRICK</span>
-                    <span class="badge-chip">9:16 VERTICAL</span>
+            <article class="video-card" id="sec-emoji">
+                <div class="card-top">
+                    <span class="badge-tag">🔥 DAILY WINDOWS SHORTCUT</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 VERTICAL</span>
                 </div>
-
-                <div class="media-viewport ratio-9x16">
-                    <iframe src="https://www.youtube-nocookie.com/embed/DSPExrqZDKo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Stop Copy-Pasting Emojis on PC!"></iframe>
+                <div class="iframe-container short">
+                    <iframe src="https://www.youtube-nocookie.com/embed/DSPExrqZDKo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Stop copy-pasting emojis on PC, do THIS instead!"></iframe>
                 </div>
-
-                <div class="card-content">
-                    <h3 class="card-heading">Stop Copy-Pasting Emojis on PC, Do THIS Instead! 😂🔥</h3>
-                    <p class="card-desc">Unlock Windows' built-in secret emoji, kaomoji, and symbol palette instantly with this shortcut.</p>
-                </div>
-
-                <div class="card-footer">
-                    <a href="https://www.youtube.com/watch?v=DSPExrqZDKo" target="_blank" rel="noopener" class="inspect-link">VIEW SHORT ➔</a>
-                    <span class="badge-chip">SHORTCUTS</span>
-                </div>
-            </article>
-
-            <!-- Channel Join Card -->
-            <article class="fluent-card" data-category="shorts">
-                <div class="card-header-row">
-                    <span class="badge-chip">JOIN THE COMMUNITY</span>
-                    <span class="badge-chip">1-CLICK SUB</span>
-                </div>
-
-                <div style="background: rgba(0, 242, 254, 0.05); border: 1px dashed rgba(0, 242, 254, 0.3); border-radius: var(--radius-lg); padding: 32px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-height: 280px;">
-                    <div class="brand-avatar-ring" style="width: 64px; height: 64px;">
-                        <img src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=03060f&bold=true'">
-                    </div>
-                    <div style="font-weight: 800; font-size: 1.15rem;">Never Miss a Windows Hack</div>
-                    <p style="font-size: 0.82rem; color: var(--text-secondary); max-width: 240px;">Get exclusive PC diagnostic tricks and speed optimizations delivered directly to your feed.</p>
-                    <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-flagship" style="padding: 10px 20px; font-size: 0.85rem;">
-                        Confirm Subscription ➔
-                    </a>
-                </div>
-
-                <div class="card-footer">
-                    <span style="font-size: 0.75rem; color: var(--text-tertiary); font-family: var(--font-mono);">CHANNEL UC7iDb0g7a62P5tcSEwZeAFA</span>
-                </div>
+                <h2 class="video-title">Stop copy-pasting emojis on PC, do THIS instead! 😂🔥</h2>
             </article>
         </main>
 
         <footer>
-            <div>© 2026 TECHIE SAGNIK // DEEPMIND CYBER FRAMEWORK</div>
-            <div>
-                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" style="color: var(--gemini-cyan); text-decoration: none;">YouTube Portal</a>
-            </div>
+            © 2026 TECHIE SAGNIK // OFFICIAL PORTAL
         </footer>
     </div>
 
-    <div class="cmd-modal-backdrop" id="cmd-modal">
-        <div class="cmd-modal-box">
-            <div class="cmd-search-input-wrap">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="var(--text-tertiary)">
-                    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <input type="text" class="cmd-search-input" id="cmd-input" placeholder="Search commands, tips, or press Esc..." autocomplete="off">
-            </div>
-            <div class="cmd-results-list" id="cmd-results">
-                <div class="cmd-item" data-action="filter-long">
-                    <span>📺 Filter Long-Form Videos</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gemini-cyan);">TAB</span>
-                </div>
-                <div class="cmd-item" data-action="filter-shorts">
-                    <span>📱 Filter Shorts Feed</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gemini-cyan);">TAB</span>
-                </div>
-                <div class="cmd-item" data-action="channel">
-                    <span>🚀 Subscribe to Techie Sagnik</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gemini-cyan);">EXTERNAL</span>
-                </div>
-                <div class="cmd-item" data-action="copy">
-                    <span>🔗 Copy Portal Link</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gemini-cyan);">CLIPBOARD</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="toast-shelf" id="toast-shelf"></div>
-
+    <!-- Scripts -->
     <script>
-        /* ----------------------------------------------------
-           1. 3D MAGNETIC WORD PHYSICS & HOVER SPECULAR TILT
-        ---------------------------------------------------- */
-        function initInteractiveWord(tokenEl, wrapEl, hudEl) {
-            let isHovered = false;
+        // Synthesizer Audio Engine (Zero external dependencies)
+        let sfxEnabled = false;
+        let audioCtx = null;
+        const sfxBtn = document.getElementById('sfx-btn');
 
-            wrapEl.addEventListener('mouseenter', () => {
-                isHovered = true;
-                tokenEl.classList.add('is-hovered');
-            });
+        sfxBtn.addEventListener('click', () => {
+            sfxEnabled = !sfxEnabled;
+            sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
+            sfxBtn.classList.toggle('active', sfxEnabled);
+            if (sfxEnabled && !audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        });
 
-            wrapEl.addEventListener('mousemove', (e) => {
-                const rect = wrapEl.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                // 3D vector rotation based on cursor offset
-                const rotateX = ((y - centerY) / centerY) * -16;
-                const rotateY = ((x - centerX) / centerX) * 16;
-                const translateZ = 12;
-
-                tokenEl.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
-            });
-
-            wrapEl.addEventListener('mouseleave', () => {
-                isHovered = false;
-                tokenEl.classList.remove('is-hovered');
-                tokenEl.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
-            });
-
-            // Click interaction triggers benchmark telemetry pulse
-            tokenEl.addEventListener('click', () => {
-                const word = tokenEl.getAttribute('data-word');
-                if (word === 'high') {
-                    showToast('⚡ Executing Low-Latency System Diagnostic: 12.4µs verified!');
-                } else if (word === 'velocity') {
-                    showToast('🚀 Fast NVMe Cache Flush triggered: 0.00 GB Junk Remaining!');
-                }
-            });
-
-            // Touch support for mobile tap
-            tokenEl.addEventListener('touchstart', (e) => {
-                wrapEl.classList.toggle('active-touch');
-            });
+        function playSound(freq = 600, type = 'sine', duration = 0.08) {
+            if (!sfxEnabled || !audioCtx) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
         }
 
-        initInteractiveWord(
-            document.getElementById('token-high'),
-            document.getElementById('wrap-high'),
-            document.getElementById('hud-high')
-        );
-
-        initInteractiveWord(
-            document.getElementById('token-velocity'),
-            document.getElementById('wrap-velocity'),
-            document.getElementById('hud-velocity')
-        );
-
-        /* ----------------------------------------------------
-           2. DEEPMIND IRIDESCENT AURORA CANVAS
-        ---------------------------------------------------- */
-        const canvas = document.getElementById('aurora-canvas');
+        // Particle Canvas
+        const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-        let width = 0;
-        let height = 0;
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let targetX = mouseX;
-        let targetY = mouseY;
+        let particles = [];
 
-        function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        window.addEventListener('mousemove', (e) => {
-            targetX = e.clientX;
-            targetY = e.clientY;
-        });
-
-        const orbs = [
-            { x: width * 0.25, y: height * 0.3, r: 380, color: 'rgba(0, 242, 254, 0.14)', vx: 0.3, vy: 0.2 },
-            { x: width * 0.75, y: height * 0.25, r: 420, color: 'rgba(139, 92, 246, 0.16)', vx: -0.25, vy: 0.3 },
-            { x: width * 0.5, y: height * 0.75, r: 350, color: 'rgba(236, 72, 153, 0.11)', vx: 0.2, vy: -0.25 }
-        ];
-
-        function renderAurora() {
-            ctx.clearRect(0, 0, width, height);
-
-            mouseX += (targetX - mouseX) * 0.05;
-            mouseY += (targetY - mouseY) * 0.05;
-
-            orbs.forEach(orb => {
-                orb.x += orb.vx;
-                orb.y += orb.vy;
-
-                if (orb.x < -100 || orb.x > width + 100) orb.vx *= -1;
-                if (orb.y < -100 || orb.y > height + 100) orb.vy *= -1;
-
-                const dx = mouseX - orb.x;
-                const dy = mouseY - orb.y;
-                orb.x += dx * 0.002;
-                orb.y += dy * 0.002;
-
-                const grad = ctx.createRadialGradient(orb.x, orb.y, 10, orb.x, orb.y, orb.r);
-                grad.addColorStop(0, orb.color);
-                grad.addColorStop(1, 'rgba(3, 6, 15, 0)');
-
-                ctx.fillStyle = grad;
-                ctx.beginPath();
-                ctx.arc(orb.x, orb.y, orb.r, 0, Math.PI * 2);
-                ctx.fill();
-            });
-
-            requestAnimationFrame(renderAurora);
-        }
-        renderAurora();
-
-        /* ----------------------------------------------------
-           3. FLUID SLIDING PILL TABS
-        ---------------------------------------------------- */
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const glider = document.getElementById('tab-glider');
-        const cards = document.querySelectorAll('.fluent-card');
-
-        function positionGlider(button) {
-            glider.style.width = `${button.offsetWidth}px`;
-            glider.style.transform = `translateX(${button.offsetLeft - 6}px)`;
-        }
-
-        const activeTab = document.querySelector('.tab-button.active');
-        if (activeTab) positionGlider(activeTab);
-
-        tabButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tabButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                positionGlider(btn);
-
-                const filter = btn.getAttribute('data-tab');
-                cards.forEach(card => {
-                    const cat = card.getAttribute('data-category');
-                    if (filter === 'all' || cat === filter) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            const count = Math.floor((window.innerWidth * window.innerHeight) / 12000);
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1
                 });
-            });
-        });
-
-        window.addEventListener('resize', () => {
-            const current = document.querySelector('.tab-button.active');
-            if (current) positionGlider(current);
-        });
-
-        /* ----------------------------------------------------
-           4. COMMAND PALETTE (CMD+K) & TOAST SYSTEM
-        ---------------------------------------------------- */
-        const cmdModal = document.getElementById('cmd-modal');
-        const cmdInput = document.getElementById('cmd-input');
-        const cmdToggle = document.getElementById('cmd-toggle');
-        const toastShelf = document.getElementById('toast-shelf');
-
-        function toggleCommandPalette(show) {
-            if (show) {
-                cmdModal.classList.add('open');
-                cmdInput.value = '';
-                cmdInput.focus();
-            } else {
-                cmdModal.classList.remove('open');
             }
         }
 
-        cmdToggle.addEventListener('click', () => toggleCommandPalette(true));
-        cmdModal.addEventListener('click', (e) => {
-            if (e.target === cmdModal) toggleCommandPalette(false);
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+
+        function renderParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00f2fe';
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            requestAnimationFrame(renderParticles);
+        }
+        renderParticles();
+
+        // 3D Glass Tilted Card Physics & Triggers
+        const popupCard = document.getElementById('interactive-popup-card');
+        const popupBadge = document.getElementById('popup-badge');
+        const popupTitle = document.getElementById('popup-title');
+        const popupDesc = document.getElementById('popup-desc');
+        const popupBtn = document.getElementById('popup-btn');
+
+        const tokenHigh = document.getElementById('token-high');
+        const tokenVelocity = document.getElementById('token-velocity');
+
+        let hideTimer;
+
+        function showPopup(badge, title, desc, targetId) {
+            clearTimeout(hideTimer);
+            playSound(520, 'sine', 0.12);
+            popupBadge.textContent = badge;
+            popupTitle.textContent = title;
+            popupDesc.textContent = desc;
+            popupBtn.onclick = () => {
+                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            };
+            popupCard.classList.add('active');
+        }
+
+        function scheduleHide() {
+            hideTimer = setTimeout(() => {
+                popupCard.classList.remove('active');
+            }, 300);
+        }
+
+        tokenHigh.addEventListener('mouseenter', () => {
+            showPopup(
+                "COMMAND: cleanmgr.exe",
+                "Clear Gigabytes of Hidden Junk",
+                "Hit Win + R, type 'cleanmgr' and select 'Clean up system files' to safely delete old Windows updates and cache.",
+                "sec-cleaner"
+            );
+        });
+        tokenHigh.addEventListener('mouseleave', scheduleHide);
+
+        tokenVelocity.addEventListener('mouseenter', () => {
+            showPopup(
+                "SHORTCUT: Win + Period (.)",
+                "Instant Windows Emoji Picker",
+                "No need to browse copy-paste websites. Press Win + . inside any app or browser to instantly open emojis, GIFs, and symbols.",
+                "sec-emoji"
+            );
+        });
+        tokenVelocity.addEventListener('mouseleave', scheduleHide);
+
+        popupCard.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+        popupCard.addEventListener('mouseleave', scheduleHide);
+
+        // Windows Run Simulator
+        const commands = {
+            'cleanmgr': 'Opens Windows Disk Cleanup. Frees up gigabytes of cached update files and junk.',
+            '%temp%': 'Opens your current user temporary files directory (C:\\Users\\...\\AppData\\Local\\Temp). Safe to empty.',
+            'temp': 'Opens Windows System Temp folder. Delete obsolete installer archives here.',
+            'mrt': 'Launches Microsoft Malicious Software Removal Tool for an on-demand malware scan.',
+            'resmon': 'Opens Resource Monitor to inspect real-time CPU, RAM, Disk, and Network bottlenecks.',
+            'perfmon': 'Launches Performance Monitor for deep diagnostic telemetry logs.',
+            'cmd': 'Opens Command Prompt (Command Line Interpreter).'
+        };
+
+        const runInput = document.getElementById('run-input');
+        const runBtn = document.getElementById('run-btn');
+        const termOut = document.getElementById('term-out');
+
+        function executeRun(cmd) {
+            const cleanCmd = cmd.trim().toLowerCase();
+            playSound(800, 'triangle', 0.08);
+            if (commands[cleanCmd]) {
+                termOut.innerHTML = `<strong>&gt; ${cleanCmd}</strong>: ${commands[cleanCmd]}`;
+            } else {
+                termOut.innerHTML = `<strong>&gt; ${cleanCmd}</strong>: Command recognized in Windows. Type 'cleanmgr', '%temp%', or 'mrt' for dedicated performance tricks.`;
+            }
+        }
+
+        runBtn.addEventListener('click', () => {
+            if (runInput.value) executeRun(runInput.value);
+        });
+
+        runInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && runInput.value) executeRun(runInput.value);
+        });
+
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const cmd = chip.getAttribute('data-cmd');
+                runInput.value = cmd;
+                executeRun(cmd);
+            });
+        });
+
+        // Interactive Keyboard Lab
+        const keyCaps = document.querySelectorAll('.key-cap');
+        const keyTip = document.getElementById('key-tip');
+
+        const keyCombos = {
+            'Win': 'Windows Key: Press with other keys for instant shortcuts (Win + R, Win + ., Win + Shift + S).',
+            '.': 'Period Key: Combined with Win (Win + .), opens the hidden emoji and symbol board!',
+            'R': 'R Key: Combined with Win (Win + R), opens the Run dialog.',
+            'Shift': 'Shift Key: Modifies commands and enables selective screen snapping.',
+            'S': 'S Key: Combined with Win + Shift (Win + Shift + S), triggers the Snipping Tool.',
+            'V': 'V Key: Combined with Win (Win + V), enables Windows Clipboard History!',
+            'Esc': 'Escape Key: Dismisses open overlays, full screens, and prompt boxes.'
+        };
+
+        keyCaps.forEach(cap => {
+            cap.addEventListener('click', () => {
+                playSound(650, 'square', 0.04);
+                cap.classList.add('pressed');
+                setTimeout(() => cap.classList.remove('pressed'), 200);
+                const key = cap.getAttribute('data-key');
+                keyTip.textContent = keyCombos[key] || `Pressed: ${key}`;
+            });
         });
 
         window.addEventListener('keydown', (e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-                e.preventDefault();
-                toggleCommandPalette(!cmdModal.classList.contains('open'));
-            } else if (e.key === 'Escape' && cmdModal.classList.contains('open')) {
-                toggleCommandPalette(false);
-            }
-        });
-
-        document.querySelectorAll('.cmd-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const action = item.getAttribute('data-action');
-                toggleCommandPalette(false);
-
-                if (action === 'filter-long') {
-                    document.querySelector('[data-tab="long"]').click();
-                    showToast('Filtered to Deep Dives');
-                } else if (action === 'filter-shorts') {
-                    document.querySelector('[data-tab="shorts"]').click();
-                    showToast('Filtered to Shorts Feed');
-                } else if (action === 'channel') {
-                    window.open('https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1', '_blank', 'noopener');
-                } else if (action === 'copy') {
-                    copyPortalLink();
+            let pressedKey = e.key;
+            if (e.key === 'Meta' || e.key === 'OS') pressedKey = 'Win';
+            keyCaps.forEach(cap => {
+                if (cap.getAttribute('data-key').toLowerCase() === pressedKey.toLowerCase()) {
+                    playSound(650, 'square', 0.04);
+                    cap.classList.add('pressed');
+                    setTimeout(() => cap.classList.remove('pressed'), 200);
                 }
             });
         });
-
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'toast-pill';
-            toast.innerHTML = `
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="var(--gemini-cyan)"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>${message}</span>
-            `;
-            toastShelf.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(10px)';
-                setTimeout(() => toast.remove(), 300);
-            }, 3200);
-        }
-
-        function copyPortalLink() {
-            const url = window.location.href;
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(url).then(() => showToast('Portal link copied to clipboard!'));
-            } else {
-                const temp = document.createElement('input');
-                temp.value = url;
-                document.body.appendChild(temp);
-                temp.select();
-                document.execCommand('copy');
-                document.body.removeChild(temp);
-                showToast('Portal link copied to clipboard!');
-            }
-        }
-
-        document.getElementById('btn-copy-link').addEventListener('click', copyPortalLink);
-        document.getElementById('btn-share').addEventListener('click', copyPortalLink);
     </script>
 </body>
 </html>
