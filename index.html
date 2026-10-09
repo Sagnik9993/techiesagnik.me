@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techie Sagnik | Cyber Lab, Thalapathy Arena & Learn Hub</title>
-    <meta name="description" content="Official portal for Techie Sagnik — Windows optimizations, cybersecurity quizzes, and Thalapathy cinematic edits.">
+    <title>Techie Sagnik | PC Optimization & Thalapathy Cinema Hub</title>
+    <meta name="description" content="Official portal for Techie Sagnik — Windows optimizations, endless tech quizzes, and Thalapathy cinematic edits.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,12 +72,12 @@
 
         .portal-container {
             width: 100%;
-            max-width: 880px;
+            max-width: 900px;
             position: relative;
             z-index: 1;
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 20px;
         }
 
         /* Top Navbar */
@@ -179,7 +179,7 @@
         /* 3-Option Mode Switcher */
         .hub-mode-bar {
             display: flex;
-            background: rgba(8, 12, 22, 0.8);
+            background: rgba(8, 12, 22, 0.85);
             border: 1px solid var(--panel-border);
             padding: 5px;
             border-radius: 14px;
@@ -226,20 +226,127 @@
             color: #030712;
         }
 
+        /* Universal Instant Search Bar */
+        .omni-search-wrapper {
+            position: relative;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+            padding: 12px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+            transition: var(--theme-transition);
+        }
+
+        .search-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-icon {
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+
+        .omni-search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 0.92rem;
+            font-family: var(--font-sans);
+        }
+
+        .omni-search-input::placeholder {
+            color: var(--text-med);
+        }
+
+        .search-filter-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .search-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-med);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .search-chip.active {
+            background: rgba(0, 242, 254, 0.15);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .search-dropdown-results {
+            max-height: 280px;
+            overflow-y: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 8px;
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .search-result-item {
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .search-result-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-primary);
+            transform: translateX(3px);
+        }
+
+        .search-item-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .search-item-badge {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--accent-primary);
+        }
+
         /* Hero Section */
         .hero-section {
             text-align: center;
-            padding: 26px 14px 14px;
+            padding: 20px 14px 10px;
             position: relative;
         }
 
         .hero-section h1 {
-            font-size: 2.35rem;
+            font-size: 2.25rem;
             font-weight: 800;
             line-height: 1.35;
             letter-spacing: -0.5px;
             color: #fff;
-            min-height: 90px;
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -508,6 +615,7 @@
             font-family: var(--font-mono);
         }
 
+        /* Learn Lab: Endless Quiz Engine Controls */
         .quiz-controls-bar {
             display: flex;
             justify-content: space-between;
@@ -519,25 +627,34 @@
             margin-bottom: 18px;
         }
 
-        .quiz-category-chips {
+        .quiz-filters-cluster {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
-        .quiz-cat-btn {
+        .filter-label {
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            color: var(--text-med);
+            margin-right: 4px;
+        }
+
+        .quiz-diff-btn {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-med);
             padding: 6px 12px;
             border-radius: 8px;
             font-size: 0.76rem;
+            font-family: var(--font-mono);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .quiz-cat-btn.active {
+        .quiz-diff-btn.active {
             background: rgba(16, 185, 129, 0.15);
             border-color: var(--accent-green);
             color: var(--accent-green);
@@ -545,7 +662,7 @@
 
         .quiz-metrics {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             font-family: var(--font-mono);
             font-size: 0.78rem;
         }
@@ -558,7 +675,7 @@
         }
 
         .quiz-card {
-            background: rgba(4, 7, 17, 0.7);
+            background: rgba(4, 7, 17, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             padding: 22px;
@@ -644,8 +761,15 @@
 
         .quiz-nav-row {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 16px;
+        }
+
+        .quiz-loading-notice {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-med);
         }
 
         .btn-quiz-next {
@@ -660,21 +784,7 @@
             display: none;
         }
 
-        .quiz-summary-card {
-            text-align: center;
-            padding: 30px 20px;
-            display: none;
-        }
-
-        .summary-score-large {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--accent-green);
-            font-family: var(--font-mono);
-            margin: 10px 0;
-        }
-
-        /* Thalapathy Aura Booster (Realtime Cloud Sync) */
+        /* Thalapathy Section: Aura Booster */
         .aura-station-box {
             display: flex;
             flex-direction: column;
@@ -774,7 +884,7 @@
             color: #94a3b8;
         }
 
-        /* Thalapathy Soundboard */
+        /* Soundboard */
         .soundboard-grid {
             display: flex;
             gap: 10px;
@@ -914,6 +1024,7 @@
             .hero-section h1 { font-size: 1.85rem; }
             #interactive-popup-card { width: 290px; }
             .hub-mode-bar { flex-direction: column; }
+            .quiz-controls-bar { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -929,7 +1040,7 @@
                 <img class="brand-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
                 <div class="brand-meta">
                     <h2>Techie Sagnik</h2>
-                    <span id="brand-tag">Cyber Lab &amp; Thalapathy Arena</span>
+                    <span id="brand-tag">PC Optimization &amp; Thalapathy Cinema Hub</span>
                 </div>
             </div>
 
@@ -945,8 +1056,23 @@
         <nav class="hub-mode-bar" aria-label="Portal Mode Selection">
             <button class="mode-btn active" data-mode="tech">⚡ Cyber &amp; Tech Lab</button>
             <button class="mode-btn" data-mode="thalapathy">🔥 Thalapathy Arena</button>
-            <button class="mode-btn" data-mode="learn">📚 Learn Lab</button>
+            <button class="mode-btn" data-mode="learn">📚 Learn Lab (Tech Quizzes)</button>
         </nav>
+
+        <!-- Universal Instant Search Bar -->
+        <div class="omni-search-wrapper">
+            <div class="search-row">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="omni-search-input" id="omni-search" placeholder="Search videos, Windows hacks, Run commands, or quiz topics...">
+            </div>
+            <div class="search-filter-chips">
+                <span class="search-chip active" data-filter="all">ALL (0)</span>
+                <span class="search-chip" data-filter="videos">VIDEOS</span>
+                <span class="search-chip" data-filter="quizzes">QUIZZES</span>
+                <span class="search-chip" data-filter="hacks">HACKS &amp; RUN</span>
+            </div>
+            <div class="search-dropdown-results" id="search-results-box"></div>
+        </div>
 
         <!-- Dynamic Hero Section -->
         <section class="hero-section">
@@ -1060,53 +1186,44 @@
             </div>
         </section>
 
-        <!-- Learn Lab Section: Tech & Cyber Quizzes -->
+        <!-- Learn Lab Section: Endless Tech Quizzes with Difficulty Engine -->
         <section class="interactive-panel section-learn" id="sec-learn-lab" style="display: none;">
             <div class="panel-header">
-                <span class="panel-title">📚 Learn Lab // Tech &amp; Cybersecurity Quizzes</span>
-                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-green);">Interactive Skill Tester</span>
+                <span class="panel-title">📚 Learn Lab // Infinite Tech Quiz Engine</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-green);">Auto-Batching Stream</span>
             </div>
 
             <div class="quiz-controls-bar">
-                <div class="quiz-category-chips">
-                    <button class="quiz-cat-btn active" data-cat="all">All Topics</button>
-                    <button class="quiz-cat-btn" data-cat="windows">Windows Secrets</button>
-                    <button class="quiz-cat-btn" data-cat="cyber">Cyber &amp; Safety</button>
-                    <button class="quiz-cat-btn" data-cat="hardware">Performance</button>
+                <div class="quiz-filters-cluster">
+                    <span class="filter-label">LEVEL:</span>
+                    <button class="quiz-diff-btn active" data-diff="all">ALL</button>
+                    <button class="quiz-diff-btn" data-diff="easy">EASY</button>
+                    <button class="quiz-diff-btn" data-diff="medium">MEDIUM</button>
+                    <button class="quiz-diff-btn" data-diff="hard">HARD</button>
                 </div>
                 <div class="quiz-metrics">
                     <span class="metric-pill">Streak: <strong id="quiz-streak" style="color: #ffb703;">0🔥</strong></span>
-                    <span class="metric-pill">Score: <strong id="quiz-score" style="color: #10b981;">0/0</strong></span>
+                    <span class="metric-pill">Score: <strong id="quiz-score" style="color: #10b981;">0</strong></span>
                 </div>
             </div>
 
             <!-- Dynamic Question Box -->
             <div class="quiz-card" id="quiz-card-box">
                 <div class="quiz-q-header">
-                    <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-med);" id="q-counter">Question 1 of 6</span>
-                    <span class="q-difficulty diff-easy" id="q-diff">Easy</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-med);" id="q-counter">Question 1</span>
+                    <span class="q-difficulty diff-easy" id="q-diff">EASY</span>
                 </div>
-                <h3 class="quiz-question-text" id="q-text">Loading question...</h3>
+                <h3 class="quiz-question-text" id="q-text">Loading fresh tech questions...</h3>
                 <div class="quiz-options-grid" id="q-options"></div>
                 <div class="quiz-explanation-box" id="q-explanation"></div>
                 <div class="quiz-nav-row">
+                    <span class="quiz-loading-notice" id="q-loading-sub">Endless batching enabled</span>
                     <button class="btn-quiz-next" id="btn-next-question">Next Question ➔</button>
                 </div>
             </div>
-
-            <!-- Quiz Completion Summary Box -->
-            <div class="quiz-card quiz-summary-card" id="quiz-summary-box">
-                <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-green);">🎉 QUIZ COMPLETE!</span>
-                <div class="summary-score-large" id="summary-final-score">6/6</div>
-                <p style="color: var(--text-med); margin-bottom: 20px; font-size: 0.92rem;" id="summary-feedback-msg">
-                    Outstanding! You're a certified Windows Power User!
-                </p>
-                <button class="btn-subscribe" id="btn-restart-quiz" style="cursor: pointer; border: none; font-size: 0.9rem;">
-                    🔄 Retake Quiz
-                </button>
-            </div>
         </section>
 
+        <!-- Video Showcase -->
         <main class="video-grid">
             <!-- Video 1 -->
             <article class="video-card" id="sec-video-1">
@@ -1134,14 +1251,13 @@
         </main>
 
         <footer>
-            © 2026 TECHIE SAGNIK // TECH OPTIMIZATION, CYBER QUIZZES &amp; THALAPATHY HUB
+            © 2026 TECHIE SAGNIK // OFFICIAL HYBRID FLAGSHIP PORTAL
         </footer>
     </div>
 
     <script>
         // ==========================================
         // 1. Crisp 'Tih' Web Audio Synthesizer (ON by Default)
-        // Precise, crystal-clear transient high-frequency decay click (never blunt)
         // ==========================================
         let sfxEnabled = true;
         let audioCtx = null;
@@ -1169,8 +1285,7 @@
             }
         });
 
-        // The Signature 'Tih' Sound:
-        // ~1800Hz down-sweep with a crisp 15ms exponential envelope
+        // The Signature 'Tih' Sound: 1950Hz to 1100Hz micro-sweep, 18ms exponential envelope
         function playTihSound() {
             if (!sfxEnabled) return;
             ensureAudioContext();
@@ -1182,11 +1297,9 @@
                 const gain = audioCtx.createGain();
 
                 osc.type = 'sine';
-                // Frequency rapid micro-pitch bend from 1950Hz to 1100Hz
                 osc.frequency.setValueAtTime(1950, t);
                 osc.frequency.exponentialRampToValueAtTime(1100, t + 0.018);
 
-                // Precise transient envelope: snappy attack, 18ms decay
                 gain.gain.setValueAtTime(0.0001, t);
                 gain.gain.linearRampToValueAtTime(0.08, t + 0.002);
                 gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.018);
@@ -1199,7 +1312,6 @@
             } catch(e) {}
         }
 
-        // Positive chime for correct answer
         function playSuccessChime() {
             if (!sfxEnabled) return;
             ensureAudioContext();
@@ -1223,7 +1335,6 @@
             } catch(e) {}
         }
 
-        // Low error buzz for incorrect answer
         function playErrorBuzz() {
             if (!sfxEnabled) return;
             ensureAudioContext();
@@ -1245,7 +1356,6 @@
             } catch(e) {}
         }
 
-        // Cinema tones for Thalapathy section
         function playCinemaTone(type) {
             if (!sfxEnabled) return;
             ensureAudioContext();
@@ -1301,7 +1411,7 @@
             }
         }
 
-        // ==========================================
+        //        // ==========================================
         // 2. High-DPI Interactive Particle Canvas
         // ==========================================
         const canvas = document.getElementById('bg-canvas');
@@ -1352,7 +1462,7 @@
         }
         renderCanvas();
 
-        // ==========================================
+        //        // ==========================================
         // 3. Dynamic Video Feeds Database
         // ==========================================
         const mediaDatabase = {
@@ -1421,7 +1531,6 @@
         function renderVideosForMode(mode) {
             const data = mediaDatabase[mode];
             
-            // Video 1
             const frame1 = document.getElementById('iframe-v1');
             const wrap1 = document.getElementById('v1-frame-wrap');
             frame1.src = `https://www.youtube-nocookie.com/embed/${data.v1.id}`;
@@ -1430,7 +1539,6 @@
             document.getElementById('v1-res').textContent = data.v1.res;
             wrap1.className = data.v1.isShort ? "iframe-container short" : "iframe-container";
 
-            // Video 2
             const frame2 = document.getElementById('iframe-v2');
             const wrap2 = document.getElementById('v2-frame-wrap');
             frame2.src = `https://www.youtube-nocookie.com/embed/${data.v2.id}`;
@@ -1527,6 +1635,9 @@
             }
         }
 
+        // ==========================================
+        // 5. Mode Switcher Controller
+        // ==========================================
         const modeBtns = document.querySelectorAll('.mode-btn');
         const headline = document.getElementById('hero-headline');
         const subtext = document.getElementById('hero-subtext');
@@ -1544,7 +1655,6 @@
                 btn.classList.toggle('active', btn.dataset.mode === mode);
             });
 
-            // Hide all specialized sections initially
             techSections.forEach(s => s.style.display = 'none');
             thalapathySections.forEach(s => s.style.display = 'none');
             learnSections.forEach(s => s.style.display = 'none');
@@ -1565,7 +1675,7 @@
                 document.body.className = 'theme-learn';
                 brandTag.textContent = 'Interactive Tech Knowledge Hub';
                 headline.innerHTML = `Test your <span class="interactive-token" id="token-1">Cyber Knowledge</span> &amp; boost your <span class="interactive-token" id="token-2">Tech IQ</span>.`;
-                subtext.textContent = 'Take the interactive quizzes below to earn streaks and level up!';
+                subtext.textContent = 'Choose your difficulty and test your tech skills endlessly!';
                 learnSections.forEach(s => s.style.display = 'block');
             }
 
@@ -1577,11 +1687,95 @@
             btn.addEventListener('click', () => switchMode(btn.dataset.mode));
         });
 
-        // Initialize default view to Tech Lab
-        switchMode('tech');
-
+        //        // ==========================================
+        // 6. Universal Real-Time Omni-Search Bar
         // ==========================================
-        // 6. Windows Run Simulator (Tech Mode)
+        const omniInput = document.getElementById('omni-search');
+        const resultsBox = document.getElementById('search-results-box');
+        const searchChips = document.querySelectorAll('.search-chip');
+        let currentSearchFilter = 'all';
+
+        // Indexable content repository
+        const searchableItems = [
+            { type: 'videos', title: 'How to Clear Gigabytes of Hidden Windows Junk Fast!', sub: 'PC Storage Hack', targetId: 'sec-video-1', mode: 'tech' },
+            { type: 'videos', title: 'Stop copy-pasting emojis on PC, do THIS instead!', sub: 'Daily Shortcut', targetId: 'sec-video-2', mode: 'tech' },
+            { type: 'videos', title: 'Thalapathy Ultimate Mass Action Tribute', sub: 'Cinema Edit Short', targetId: 'sec-video-1', mode: 'thalapathy' },
+            { type: 'hacks', title: 'cleanmgr', sub: 'Windows Disk Cleanup utility for update cache', targetId: 'sec-run-lab', mode: 'tech' },
+            { type: 'hacks', title: '%temp%', sub: 'User Temporary folder purge shortcut', targetId: 'sec-run-lab', mode: 'tech' },
+            { type: 'hacks', title: 'mrt', sub: 'Microsoft Malicious Software Removal Tool', targetId: 'sec-run-lab', mode: 'tech' },
+            { type: 'hacks', title: 'resmon', sub: 'Real-time CPU/RAM/Disk performance monitor', targetId: 'sec-run-lab', mode: 'tech' },
+            { type: 'hacks', title: 'Win + . (Period)', sub: 'Instant Windows Emoji & GIF Picker keyboard hack', targetId: 'sec-keyboard-lab', mode: 'tech' },
+            { type: 'hacks', title: 'Win + V', sub: 'Multi-item clipboard history viewer', targetId: 'sec-keyboard-lab', mode: 'tech' },
+            { type: 'quizzes', title: 'Windows Shortcut & Run Diagnostic Quiz', sub: 'Level: Easy • Learn Lab', targetId: 'sec-learn-lab', mode: 'learn' },
+            { type: 'quizzes', title: 'Phishing & Typosquatting Defense Test', sub: 'Level: Medium • Learn Lab', targetId: 'sec-learn-lab', mode: 'learn' },
+            { type: 'quizzes', title: 'NVMe Gen 4/5 Throughput & RAM Architecture', sub: 'Level: Hard • Learn Lab', targetId: 'sec-learn-lab', mode: 'learn' }
+        ];
+
+        function executeOmniSearch() {
+            const query = omniInput.value.trim().toLowerCase();
+            if (!query) {
+                resultsBox.style.display = 'none';
+                resultsBox.innerHTML = '';
+                return;
+            }
+
+            const filtered = searchableItems.filter(item => {
+                const matchesFilter = (currentSearchFilter === 'all') || (item.type === currentSearchFilter);
+                const matchesQuery = item.title.toLowerCase().includes(query) || item.sub.toLowerCase().includes(query);
+                return matchesFilter && matchesQuery;
+            });
+
+            if (filtered.length === 0) {
+                resultsBox.innerHTML = `<div style="padding: 10px; color: var(--text-med); font-size: 0.82rem; font-family: var(--font-mono);">No items matching "${query}". Try searching "cleanmgr", "emoji", or "quiz".</div>`;
+                resultsBox.style.display = 'flex';
+                return;
+            }
+
+            resultsBox.innerHTML = '';
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.innerHTML = `
+                    <div>
+                        <div class="search-item-title">${item.title}</div>
+                        <div style="font-size: 0.72rem; color: var(--text-med);">${item.sub}</div>
+                    </div>
+                    <span class="search-item-badge">${item.type.toUpperCase()}</span>
+                `;
+                div.addEventListener('click', () => {
+                    playTihSound();
+                    switchMode(item.mode);
+                    resultsBox.style.display = 'none';
+                    const targetEl = document.getElementById(item.targetId);
+                    if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+                });
+                resultsBox.appendChild(div);
+            });
+
+            resultsBox.style.display = 'flex';
+        }
+
+        omniInput.addEventListener('input', executeOmniSearch);
+
+        searchChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                playTihSound();
+                searchChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentSearchFilter = chip.dataset.filter;
+                executeOmniSearch();
+            });
+        });
+
+        // Close search dropdown on click outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.omni-search-wrapper')) {
+                resultsBox.style.display = 'none';
+            }
+        });
+
+        //        // ==========================================
+        // 7. Windows Run Simulator (Tech Mode)
         // ==========================================
         const runCommands = {
             'cleanmgr': 'Windows Disk Cleanup: Scans and safely clears gigabytes of old update logs, thumbnails, and temp cache.',
@@ -1625,7 +1819,7 @@
         });
 
         // ==========================================
-        // 7. Interactive Keyboard Lab (Tech Mode)
+        // 8. Interactive Keyboard Lab (Tech Mode)
         // ==========================================
         const keyCaps = document.querySelectorAll('.key-cap');
         const keyTip = document.getElementById('key-tip');
@@ -1663,83 +1857,148 @@
             });
         });
 
-        const quizBank = [
-            {
-                category: "windows",
-                difficulty: "easy",
-                question: "Which Windows shortcut instantly summons the multi-item Clipboard History?",
-                options: ["Ctrl + V", "Win + V", "Alt + C", "Win + Shift + V"],
-                correct: 1,
-                explanation: "Win + V opens the Windows Clipboard History, allowing you to paste text, code, and screenshots copied earlier."
-            },
-            {
-                category: "windows",
-                difficulty: "easy",
-                question: "What Windows Run command launches the built-in system Disk Cleanup tool?",
-                options: ["cleanmgr", "diskclean", "cleandisk", "purgetemp"],
-                correct: 0,
-                explanation: "Pressing Win + R and typing 'cleanmgr' launches Disk Cleanup to safely remove gigabytes of update caches and temp logs."
-            },
-            {
-                category: "cyber",
-                difficulty: "medium",
-                question: "A website URL displays 'http://paypa1-secure-login.com'. What type of attack is this?",
-                options: ["Man-in-the-middle", "Typosquatting / Phishing", "Buffer Overflow", "SQL Injection"],
-                correct: 1,
-                explanation: "Replacing letters with numbers (e.g. 1 instead of l) is typosquatting used in phishing schemes to steal login credentials."
-            },
-            {
-                category: "hardware",
-                difficulty: "medium",
-                question: "Which hotkey opens the Windows Task Manager directly without interrupting the screen with the Ctrl+Alt+Del lock menu?",
-                options: ["Ctrl + Shift + Esc", "Win + T", "Ctrl + Alt + T", "Alt + Shift + Esc"],
-                correct: 0,
-                explanation: "Ctrl + Shift + Esc is the fastest shortcut to launch Task Manager instantly without showing the Windows security lock screen."
-            },
-            {
-                category: "cyber",
-                difficulty: "hard",
-                question: "What built-in command prompt tool scans and automatically repairs corrupted Windows core system files?",
-                options: ["chkdsk /f", "sfc /scannow", "ipconfig /flushdns", "netsh winsock reset"],
-                correct: 1,
-                explanation: "'sfc /scannow' (System File Checker) scans protected Windows integrity files and replaces corrupt files from the cached store."
-            },
-            {
-                category: "hardware",
-                difficulty: "easy",
-                question: "Which storage technology provides the lowest latency and highest read/write throughput for modern PCs?",
-                options: ["SATA HDD (5400 RPM)", "SATA SSD (2.5-inch)", "NVMe PCIe Gen 4/5 SSD", "USB 3.0 Flash Drive"],
-                correct: 2,
-                explanation: "NVMe SSDs connect directly to the PCIe bus, achieving read/write speeds over 7,000 MB/s compared to ~550 MB/s on SATA."
-            }
-        ];
+        //        // ==========================================
+        // 9. Endless Quiz Engine with Difficulty Selector (Learn Mode)
+        // ==========================================
+        let currentDifficulty = 'all';
+        let quizQueue = [];
+        let currentQuestionIndex = 0;
+        let userQuizScore = 0;
+        let userQuizStreak = 0;
+        let isFetchingBatch = false;
 
-        let activeQuizQuestions = [...quizBank];
-        let currentQIndex = 0;
-        let quizScore = 0;
-        let quizStreak = 0;
-        let selectedCategory = 'all';
-
-        const qCardBox = document.getElementById('quiz-card-box');
-        const qSummaryBox = document.getElementById('quiz-summary-box');
-        const qCounterEl = document.getElementById('q-counter');
-        const qDiffEl = document.getElementById('q-diff');
         const qTextEl = document.getElementById('q-text');
         const qOptionsEl = document.getElementById('q-options');
+        const qDiffEl = document.getElementById('q-diff');
+        const qCounterEl = document.getElementById('q-counter');
         const qExplanationEl = document.getElementById('q-explanation');
         const btnNextQ = document.getElementById('btn-next-question');
         const scoreTrackerEl = document.getElementById('quiz-score');
         const streakTrackerEl = document.getElementById('quiz-streak');
+        const loadingSubEl = document.getElementById('q-loading-sub');
 
-        function loadQuestion(index) {
-            if (index >= activeQuizQuestions.length) {
-                showQuizSummary();
+        // Embedded Curated Fallback Library for Windows, Hardware & Cyber
+        const fallbackQuizLibrary = [
+            {
+                question: "Which Windows shortcut opens the multi-item Clipboard History?",
+                options: ["Ctrl + V", "Win + V", "Alt + C", "Win + Shift + V"],
+                correct: 1,
+                difficulty: "easy",
+                explanation: "Win + V opens the Windows Clipboard History to paste text and screenshots copied earlier."
+            },
+            {
+                question: "What does the Windows Run command 'cleanmgr' do?",
+                options: ["Device Manager", "Disk Cleanup", "Task Manager", "Network Reset"],
+                correct: 1,
+                difficulty: "easy",
+                explanation: "Pressing Win + R and typing 'cleanmgr' launches Disk Cleanup to safely remove gigabytes of update cache and junk."
+            },
+            {
+                question: "Which hotkey opens Task Manager directly without going through the lock screen menu?",
+                options: ["Ctrl + Shift + Esc", "Ctrl + Alt + Del", "Win + T", "Alt + Shift + Esc"],
+                correct: 0,
+                difficulty: "medium",
+                explanation: "Ctrl + Shift + Esc launches Task Manager instantly without showing the full screen security lock menu."
+            },
+            {
+                question: "A website uses 'http://paypa1-security.com' with the number '1' instead of letter 'l'. What is this attack called?",
+                options: ["Buffer Overflow", "Typosquatting / Phishing", "SQL Injection", "DDoS Flood"],
+                correct: 1,
+                difficulty: "medium",
+                explanation: "Typosquatting registers misleading domains mimicking genuine brands to trick visitors into entering credentials."
+            },
+            {
+                question: "Which Command Prompt utility inspects and repairs corrupted Windows core operating system files?",
+                options: ["chkdsk /f", "sfc /scannow", "ipconfig /flushdns", "netsh winsock reset"],
+                correct: 1,
+                difficulty: "hard",
+                explanation: "'sfc /scannow' (System File Checker) scans and replaces damaged core Windows files with fresh cached copies."
+            },
+            {
+                question: "Which storage protocol connects directly to the CPU PCIe lanes for ultra-low latency?",
+                options: ["SATA III", "NVMe PCIe", "eMMC 5.1", "IDE / PATA"],
+                correct: 1,
+                difficulty: "hard",
+                explanation: "NVMe communicates directly over PCIe lanes, avoiding legacy SATA bus controllers to achieve speeds over 7000 MB/s."
+            }
+        ];
+
+        function decodeHTMLEntities(str) {
+            const txt = document.createElement('textarea');
+            txt.innerHTML = str;
+            return txt.value;
+        }
+
+        // Fetch fresh batch from OpenTDB (Category 18: Science & Computers)
+        async function fetchQuizBatch() {
+            if (isFetchingBatch) return;
+            isFetchingBatch = true;
+            loadingSubEl.textContent = "Fetching fresh questions...";
+
+            let url = 'https://opentdb.com/api.php?amount=10&category=18&type=multiple';
+            if (currentDifficulty !== 'all') {
+                url += `&difficulty=${currentDifficulty}`;
+            }
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    const parsed = data.results.map(item => {
+                        const rawOptions = [...item.incorrect_answers, item.correct_answer]
+                            .map(decodeHTMLEntities)
+                            .sort(() => 0.5 - Math.random());
+
+                        return {
+                            question: decodeHTMLEntities(item.question),
+                            options: rawOptions,
+                            correct: rawOptions.indexOf(decodeHTMLEntities(item.correct_answer)),
+                            difficulty: item.difficulty.toLowerCase(),
+                            explanation: `Correct answer: "${decodeHTMLEntities(item.correct_answer)}". OpenTDB Computer Science category.`
+                        };
+                    });
+
+                    quizQueue = quizQueue.concat(parsed);
+                } else {
+                    useFallbackQuestions();
+                }
+            } catch (err) {
+                useFallbackQuestions();
+            } finally {
+                isFetchingBatch = false;
+                loadingSubEl.textContent = "Endless batching enabled";
+                if (quizQueue.length > 0 && currentQuestionIndex >= quizQueue.length - 1) {
+                    displayCurrentQuestion();
+                }
+            }
+        }
+
+        function useFallbackQuestions() {
+            let pool = fallbackQuizLibrary;
+            if (currentDifficulty !== 'all') {
+                pool = fallbackQuizLibrary.filter(q => q.difficulty === currentDifficulty);
+            }
+            if (pool.length === 0) pool = fallbackQuizLibrary;
+            // Shuffle fallback pool
+            const shuffled = [...pool].sort(() => 0.5 - Math.random());
+            quizQueue = quizQueue.concat(shuffled);
+        }
+
+        function displayCurrentQuestion() {
+            if (currentQuestionIndex >= quizQueue.length) {
+                fetchQuizBatch();
                 return;
             }
 
-            const q = activeQuizQuestions[index];
-            qCounterEl.textContent = `Question ${index + 1} of ${activeQuizQuestions.length}`;
-            qDiffEl.textContent = q.difficulty;
+            // Auto-fetch next batch before queue empties
+            if (quizQueue.length - currentQuestionIndex <= 3) {
+                fetchQuizBatch();
+            }
+
+            const q = quizQueue[currentQuestionIndex];
+            qCounterEl.textContent = `Question ${currentQuestionIndex + 1}`;
+            qDiffEl.textContent = q.difficulty.toUpperCase();
             qDiffEl.className = `q-difficulty diff-${q.difficulty}`;
             qTextEl.textContent = q.question;
 
@@ -1752,111 +2011,86 @@
                 const btn = document.createElement('button');
                 btn.className = 'quiz-opt-btn';
                 btn.innerHTML = `<span>${optText}</span> <span class="opt-indicator">➔</span>`;
-                btn.addEventListener('click', () => handleOptionSelection(optIdx, btn));
+                btn.addEventListener('click', () => handleQuizOptionClick(optIdx, btn));
                 qOptionsEl.appendChild(btn);
             });
         }
 
-        function handleOptionSelection(selectedIdx, clickedBtn) {
+        function handleQuizOptionClick(selectedIdx, clickedBtn) {
             playTihSound();
-            const q = activeQuizQuestions[currentQIndex];
+            const q = quizQueue[currentQuestionIndex];
             const allBtns = qOptionsEl.querySelectorAll('.quiz-opt-btn');
-            allBtns.forEach(btn => btn.disabled = true);
+            allBtns.forEach(b => b.disabled = true);
 
             if (selectedIdx === q.correct) {
                 clickedBtn.classList.add('correct');
                 clickedBtn.querySelector('.opt-indicator').textContent = '✓ Correct';
-                quizScore++;
-                quizStreak++;
+                userQuizScore += 10;
+                userQuizStreak++;
                 playSuccessChime();
             } else {
                 clickedBtn.classList.add('incorrect');
                 clickedBtn.querySelector('.opt-indicator').textContent = '✕ Incorrect';
-                allBtns[q.correct].classList.add('correct');
-                allBtns[q.correct].querySelector('.opt-indicator').textContent = '✓ Correct Answer';
-                quizStreak = 0;
+                if (allBtns[q.correct]) {
+                    allBtns[q.correct].classList.add('correct');
+                    allBtns[q.correct].querySelector('.opt-indicator').textContent = '✓ Correct Answer';
+                }
+                userQuizStreak = 0;
                 playErrorBuzz();
             }
 
-            // Update metrics
-            scoreTrackerEl.textContent = `${quizScore}/${activeQuizQuestions.length}`;
-            streakTrackerEl.textContent = `${quizStreak}🔥`;
+            scoreTrackerEl.textContent = userQuizScore;
+            streakTrackerEl.textContent = `${userQuizStreak}🔥`;
 
-            // Display explanation
             qExplanationEl.innerHTML = `<strong>💡 Tech Insight:</strong> ${q.explanation}`;
             qExplanationEl.style.display = 'block';
-
             btnNextQ.style.display = 'inline-block';
         }
 
         btnNextQ.addEventListener('click', () => {
             playTihSound();
-            currentQIndex++;
-            loadQuestion(currentQIndex);
+            currentQuestionIndex++;
+            displayCurrentQuestion();
         });
 
-        function showQuizSummary() {
-            qCardBox.style.display = 'none';
-            qSummaryBox.style.display = 'block';
-            document.getElementById('summary-final-score').textContent = `${quizScore}/${activeQuizQuestions.length}`;
-            
-            const msgEl = document.getElementById('summary-feedback-msg');
-            const pct = (quizScore / activeQuizQuestions.length) * 100;
-            if (pct === 100) {
-                msgEl.textContent = "🏆 Flawless Score! You are an elite Windows & Cybersecurity specialist!";
-            } else if (pct >= 60) {
-                msgEl.textContent = "🌟 Great job! You know your way around Windows optimizations and cyber safety.";
-            } else {
-                msgEl.textContent = "🚀 Keep exploring Techie Sagnik's video tips to sharpen your Windows and cybersecurity skills!";
-            }
-        }
-
-        document.getElementById('btn-restart-quiz').addEventListener('click', () => {
-            playTihSound();
-            resetQuiz();
-        });
-
-        function resetQuiz() {
-            currentQIndex = 0;
-            quizScore = 0;
-            quizStreak = 0;
-            scoreTrackerEl.textContent = `0/${activeQuizQuestions.length}`;
-            streakTrackerEl.textContent = `0🔥`;
-            qSummaryBox.style.display = 'none';
-            qCardBox.style.display = 'block';
-            loadQuestion(0);
-        }
-
-        // Category Filter Buttons
-        document.querySelectorAll('.quiz-cat-btn').forEach(catBtn => {
-            catBtn.addEventListener('click', () => {
+        // Difficulty Selection Buttons
+        document.querySelectorAll('.quiz-diff-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
                 playTihSound();
-                document.querySelectorAll('.quiz-cat-btn').forEach(b => b.classList.remove('active'));
-                catBtn.classList.add('active');
+                document.querySelectorAll('.quiz-diff-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-                const cat = catBtn.dataset.cat;
-                selectedCategory = cat;
+                currentDifficulty = btn.dataset.diff;
+                quizQueue = [];
+                currentQuestionIndex = 0;
+                userQuizStreak = 0;
+                streakTrackerEl.textContent = '0🔥';
 
-                if (cat === 'all') {
-                    activeQuizQuestions = [...quizBank];
-                } else {
-                    activeQuizQuestions = quizBank.filter(item => item.category === cat);
-                }
+                qTextEl.textContent = `Loading ${currentDifficulty.toUpperCase()} questions...`;
+                qOptionsEl.innerHTML = '';
+                qExplanationEl.style.display = 'none';
 
-                resetQuiz();
+                fetchQuizBatch().then(() => {
+                    displayCurrentQuestion();
+                });
             });
         });
 
-        // Initialize quiz
-        loadQuestion(0);
+        // Initialize quiz engine with first batch
+        fetchQuizBatch().then(() => {
+            displayCurrentQuestion();
+        });
 
+        //        // ==========================================
+        // 10. Thalapathy Global Aura Station
+        // ==========================================
         const boostBtn = document.getElementById('boost-mass-btn');
         const fillBar = document.getElementById('mass-fill');
         const counterVal = document.getElementById('mass-counter-val');
         const userMsg = document.getElementById('aura-user-msg');
 
         let globalAuraCount = 0;
-        const VOTE_STORAGE_KEY = 'thalapathy_aura_boosted_v2';
+        const VOTE_STORAGE_KEY = 'thalapathy_aura_boosted_v3';
 
         function checkUserVoteStatus() {
             try {
@@ -1866,9 +2100,7 @@
                     boostBtn.innerHTML = `<span>✨ Aura Boosted!</span> <span>✓</span>`;
                     userMsg.innerHTML = `<span style="color: #10b981;">✓ Your tribute is active! Thank you, Thalapathy fan!</span>`;
                 }
-            } catch (e) {
-                console.warn("Storage check:", e);
-            }
+            } catch (e) {}
         }
 
         function updateAuraUI(count) {
@@ -1878,11 +2110,9 @@
             fillBar.style.width = pct + '%';
         }
 
-        // Initialize with default 0
         updateAuraUI(0);
         checkUserVoteStatus();
 
-        // 1 user can give only 1 vote at a time
         boostBtn.addEventListener('click', () => {
             const alreadyVoted = window.localStorage ? localStorage.getItem(VOTE_STORAGE_KEY) : false;
             if (alreadyVoted) return;
@@ -1896,9 +2126,11 @@
             checkUserVoteStatus();
             playTihSound();
             playCinemaTone('impact');
-
             updateAuraUI(globalAuraCount + 1);
         });
+
+        // Start in default Tech mode
+        switchMode('tech');
     </script>
 </body>
 </html>
