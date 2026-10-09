@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Techie Sagnik | Windows Hacks & PC Secrets</title>
-    <meta name="description" content="Official portal for Techie Sagnik — Windows tricks, keyboard shortcuts, and performance optimizations.">
+    <meta name="description" content="Official portal for Techie Sagnik — Windows tricks, keyboard shortcuts, disk cleaner hacks, and PC optimizations.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,13 +13,14 @@
     <style>
         :root {
             --bg-base: #060911;
-            --panel-bg: rgba(13, 19, 33, 0.78);
+            --panel-bg: rgba(13, 19, 33, 0.82);
             --panel-border: rgba(0, 242, 254, 0.18);
-            --panel-border-hover: rgba(0, 242, 254, 0.6);
+            --panel-border-hover: rgba(0, 242, 254, 0.65);
             --accent-cyan: #00f2fe;
             --accent-blue: #38bdf8;
             --accent-purple: #7000ff;
             --accent-green: #10b981;
+            --accent-orange: #ff5722;
             --text-high: #f8fafc;
             --text-med: #94a3b8;
             --font-sans: 'Plus Jakarta Sans', sans-serif;
@@ -38,7 +39,7 @@
             background-color: var(--bg-base);
             color: var(--text-high);
             min-height: 100vh;
-            padding: 30px 16px 60px;
+            padding: 24px 16px 60px;
             display: flex;
             justify-content: center;
             overflow-x: hidden;
@@ -53,7 +54,7 @@
 
         .portal-container {
             width: 100%;
-            max-width: 860px;
+            max-width: 880px;
             position: relative;
             z-index: 1;
             display: flex;
@@ -61,7 +62,7 @@
             gap: 24px;
         }
 
-        /* Top Bar */
+        /* Top Navbar */
         .top-navbar {
             display: flex;
             align-items: center;
@@ -109,21 +110,22 @@
         }
 
         .sfx-toggle {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-med);
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
             padding: 8px 12px;
             border-radius: 10px;
             font-family: var(--font-mono);
             font-size: 0.75rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .sfx-toggle.active {
-            color: var(--accent-green);
-            border-color: var(--accent-green);
-            background: rgba(16, 185, 129, 0.1);
+        .sfx-toggle.off {
+            color: var(--text-med);
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .btn-subscribe {
@@ -142,10 +144,10 @@
             transform: scale(1.03);
         }
 
-        /* Hero Header */
+        /* Hero Section */
         .hero-section {
             text-align: center;
-            padding: 30px 14px 20px;
+            padding: 30px 14px 16px;
             position: relative;
         }
 
@@ -181,7 +183,7 @@
             width: 320px;
             padding: 22px 20px;
             border-radius: 20px;
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.9) 0%, rgba(56, 189, 248, 0.85) 50%, rgba(112, 0, 255, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.92) 0%, rgba(56, 189, 248, 0.88) 50%, rgba(112, 0, 255, 0.92) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.45);
@@ -215,9 +217,10 @@
         }
 
         .popup-title {
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             font-weight: 800;
             margin-bottom: 8px;
+            line-height: 1.3;
         }
 
         .popup-desc {
@@ -244,7 +247,7 @@
             transform: scale(1.05);
         }
 
-        /* Interactive Windows Run Console */
+        /* Generic Interactive Panel */
         .interactive-panel {
             background: var(--panel-bg);
             border: 1px solid var(--panel-border);
@@ -269,6 +272,7 @@
             letter-spacing: 0.5px;
         }
 
+        /* Windows Run Simulator */
         .run-input-group {
             display: flex;
             gap: 10px;
@@ -345,7 +349,7 @@
             min-height: 60px;
         }
 
-        /* Interactive Windows Keyboard Simulator */
+        /* Keyboard Shortcut Lab */
         .keyboard-dock {
             display: flex;
             gap: 8px;
@@ -388,7 +392,7 @@
             font-family: var(--font-mono);
         }
 
-        /* Video Showcase */
+        /* Video Showcase Deck */
         .video-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -418,8 +422,22 @@
         .badge-tag {
             font-family: var(--font-mono);
             font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge-new {
+            background: rgba(0, 242, 254, 0.15);
             color: var(--accent-cyan);
-            font-weight: 700;
+            border: 1px solid rgba(0, 242, 254, 0.4);
+        }
+
+        .badge-popular {
+            background: rgba(255, 87, 34, 0.15);
+            color: #ff7043;
+            border: 1px solid rgba(255, 87, 34, 0.4);
         }
 
         .iframe-container {
@@ -481,7 +499,7 @@
             </div>
 
             <div class="nav-actions">
-                <button class="sfx-toggle" id="sfx-btn">SFX: OFF</button>
+                <button class="sfx-toggle" id="sfx-btn">SFX: ON</button>
                 <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
                     Subscribe ➔
                 </a>
@@ -490,9 +508,9 @@
 
         <!-- Hero Section -->
         <section class="hero-section">
-            <!-- 3D Glass Tilted Preview Card -->
+            <!-- 3D Glass Tilted Preview Card (Dynamically updated via JS) -->
             <div id="interactive-popup-card">
-                <span class="popup-badge" id="popup-badge">FEATURED TIP</span>
+                <span class="popup-badge" id="popup-badge">LOADING...</span>
                 <h3 class="popup-title" id="popup-title">Tip Title</h3>
                 <p class="popup-desc" id="popup-desc">Tip details...</p>
                 <button class="popup-btn" id="popup-btn">Watch Video ➔</button>
@@ -505,7 +523,7 @@
                 <span class="interactive-token" id="token-velocity">Velocity</span>.
             </h1>
             <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;">
-                Hover over the highlighted words or explore the interactive tools below.
+                Hover over the highlighted words to preview the latest uploads and popular shortcuts!
             </p>
         </section>
 
@@ -517,7 +535,7 @@
             </div>
 
             <div class="run-input-group">
-                <input type="text" class="run-input" id="run-input" placeholder="Type a command (e.g. cleanmgr, temp, mrt, msconfig)...">
+                <input type="text" class="run-input" id="run-input" placeholder="Type a command (e.g. cleanmgr, temp, mrt, resmon)...">
                 <button class="run-btn" id="run-btn">Execute</button>
             </div>
 
@@ -559,26 +577,28 @@
 
         <!-- Video Showcase -->
         <main class="video-grid">
-            <article class="video-card" id="sec-cleaner">
+            <!-- Video 1: New Upload -->
+            <article class="video-card" id="sec-new-upload">
                 <div class="card-top">
-                    <span class="badge-tag">⚡ SYSTEM STORAGE HACK</span>
+                    <span class="badge-tag badge-new">🚀 NEW UPLOAD</span>
                     <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">1080P HD</span>
                 </div>
                 <div class="iframe-container">
-                    <iframe src="https://www.youtube-nocookie.com/embed/_-SvBNpiF3E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="How to Clear Gigabytes of Hidden Windows Junk Fast!"></iframe>
+                    <iframe id="iframe-latest" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Latest Upload"></iframe>
                 </div>
-                <h2 class="video-title">How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀</h2>
+                <h2 class="video-title" id="title-latest">Loading video...</h2>
             </article>
 
-            <article class="video-card" id="sec-emoji">
+            <!-- Video 2: Most Popular -->
+            <article class="video-card" id="sec-most-popular">
                 <div class="card-top">
-                    <span class="badge-tag">🔥 DAILY WINDOWS SHORTCUT</span>
+                    <span class="badge-tag badge-popular">🔥 MOST POPULAR</span>
                     <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 VERTICAL</span>
                 </div>
                 <div class="iframe-container short">
-                    <iframe src="https://www.youtube-nocookie.com/embed/DSPExrqZDKo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Stop copy-pasting emojis on PC, do THIS instead!"></iframe>
+                    <iframe id="iframe-popular" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Most Popular Short"></iframe>
                 </div>
-                <h2 class="video-title">Stop copy-pasting emojis on PC, do THIS instead! 😂🔥</h2>
+                <h2 class="video-title" id="title-popular">Loading short...</h2>
             </article>
         </main>
 
@@ -589,22 +609,41 @@
 
     <!-- Scripts -->
     <script>
-        // Synthesizer Audio Engine (Zero external dependencies)
-        let sfxEnabled = false;
+        // ==========================================
+        // 1. Web Audio Synthesizer (ON by default)
+        // ==========================================
+        let sfxEnabled = true;
         let audioCtx = null;
         const sfxBtn = document.getElementById('sfx-btn');
+
+        function ensureAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Unlock browser audio context cleanly on first user action
+        window.addEventListener('click', ensureAudioContext, { once: true });
+        window.addEventListener('keydown', ensureAudioContext, { once: true });
 
         sfxBtn.addEventListener('click', () => {
             sfxEnabled = !sfxEnabled;
             sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
-            sfxBtn.classList.toggle('active', sfxEnabled);
-            if (sfxEnabled && !audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            sfxBtn.classList.toggle('off', !sfxEnabled);
+            if (sfxEnabled) {
+                ensureAudioContext();
+                playSound(700, 'sine', 0.08);
             }
         });
 
         function playSound(freq = 600, type = 'sine', duration = 0.08) {
-            if (!sfxEnabled || !audioCtx) return;
+            if (!sfxEnabled) return;
+            ensureAudioContext();
+            if (!audioCtx) return;
+
             try {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
@@ -619,7 +658,9 @@
             } catch(e) {}
         }
 
-        // Particle Canvas
+        // ==========================================
+        // 2. High-DPI Particle Canvas
+        // ==========================================
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -661,7 +702,53 @@
         }
         renderParticles();
 
-        // 3D Glass Tilted Card Physics & Triggers
+        // ==========================================
+        // 3. Dynamic Video Feed & Dynamic Words
+        // ==========================================
+        // Default initial data (guarantees no empty frames offline)
+        let activeFeed = {
+            latest: {
+                id: "_-SvBNpiF3E",
+                title: "How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀",
+                badge: "NEW UPLOAD",
+                tip: "Press Win + R, type 'cleanmgr' and select 'Clean up system files' to delete gigabytes of hidden update cache."
+            },
+            popular: {
+                id: "DSPExrqZDKo",
+                title: "Stop copy-pasting emojis on PC, do THIS instead! 😂🔥",
+                badge: "MOST POPULAR",
+                tip: "Hit Win + . (period) inside any Windows program or browser to instantly summon the emoji & GIF picker."
+            }
+        };
+
+        function updateVideoElements() {
+            // Update Video 1 (New Upload)
+            document.getElementById('iframe-latest').src = `https://www.youtube-nocookie.com/embed/${activeFeed.latest.id}`;
+            document.getElementById('title-latest').textContent = activeFeed.latest.title;
+
+            // Update Video 2 (Most Popular)
+            document.getElementById('iframe-popular').src = `https://www.youtube-nocookie.com/embed/${activeFeed.popular.id}`;
+            document.getElementById('title-popular').textContent = activeFeed.popular.title;
+        }
+
+        // Apply immediately
+        updateVideoElements();
+
+        // Fetch dynamic videos.json when available
+        fetch('videos.json')
+            .then(res => res.ok ? res.json() : null)
+            .then(data => {
+                if (data) {
+                    if (data.latest) activeFeed.latest = Object.assign(activeFeed.latest, data.latest);
+                    if (data.mostViewedShort || data.popular) activeFeed.popular = Object.assign(activeFeed.popular, data.mostViewedShort || data.popular);
+                    updateVideoElements();
+                }
+            })
+            .catch(() => {});
+
+        // ==========================================
+        // 4. Dynamic Hover Logic for "High" & "Velocity"
+        // ==========================================
         const popupCard = document.getElementById('interactive-popup-card');
         const popupBadge = document.getElementById('popup-badge');
         const popupTitle = document.getElementById('popup-title');
@@ -673,56 +760,54 @@
 
         let hideTimer;
 
-        function showPopup(badge, title, desc, targetId) {
+        function showDynamicPopup(data, targetElementId) {
             clearTimeout(hideTimer);
             playSound(520, 'sine', 0.12);
-            popupBadge.textContent = badge;
-            popupTitle.textContent = title;
-            popupDesc.textContent = desc;
+
+            // Dynamically bind to current feed values
+            popupBadge.textContent = data.badge;
+            popupTitle.textContent = data.title;
+            popupDesc.textContent = data.tip;
+
             popupBtn.onclick = () => {
-                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+                document.getElementById(targetElementId).scrollIntoView({ behavior: 'smooth' });
             };
+
             popupCard.classList.add('active');
         }
 
         function scheduleHide() {
             hideTimer = setTimeout(() => {
                 popupCard.classList.remove('active');
-            }, 300);
+            }, 250);
         }
 
+        // "High" triggers the current New Upload
         tokenHigh.addEventListener('mouseenter', () => {
-            showPopup(
-                "COMMAND: cleanmgr.exe",
-                "Clear Gigabytes of Hidden Junk",
-                "Hit Win + R, type 'cleanmgr' and select 'Clean up system files' to safely delete old Windows updates and cache.",
-                "sec-cleaner"
-            );
+            showDynamicPopup(activeFeed.latest, 'sec-new-upload');
         });
         tokenHigh.addEventListener('mouseleave', scheduleHide);
 
+        // "Velocity" triggers the current Most Popular
         tokenVelocity.addEventListener('mouseenter', () => {
-            showPopup(
-                "SHORTCUT: Win + Period (.)",
-                "Instant Windows Emoji Picker",
-                "No need to browse copy-paste websites. Press Win + . inside any app or browser to instantly open emojis, GIFs, and symbols.",
-                "sec-emoji"
-            );
+            showDynamicPopup(activeFeed.popular, 'sec-most-popular');
         });
         tokenVelocity.addEventListener('mouseleave', scheduleHide);
 
         popupCard.addEventListener('mouseenter', () => clearTimeout(hideTimer));
         popupCard.addEventListener('mouseleave', scheduleHide);
 
-        // Windows Run Simulator
+        // ==========================================
+        // 5. Windows Run Console Simulator
+        // ==========================================
         const commands = {
-            'cleanmgr': 'Opens Windows Disk Cleanup. Frees up gigabytes of cached update files and junk.',
-            '%temp%': 'Opens your current user temporary files directory (C:\\Users\\...\\AppData\\Local\\Temp). Safe to empty.',
-            'temp': 'Opens Windows System Temp folder. Delete obsolete installer archives here.',
-            'mrt': 'Launches Microsoft Malicious Software Removal Tool for an on-demand malware scan.',
-            'resmon': 'Opens Resource Monitor to inspect real-time CPU, RAM, Disk, and Network bottlenecks.',
-            'perfmon': 'Launches Performance Monitor for deep diagnostic telemetry logs.',
-            'cmd': 'Opens Command Prompt (Command Line Interpreter).'
+            'cleanmgr': 'Windows Disk Cleanup. Scans and safely clears gigabytes of old update logs, thumbnails, and temp cache.',
+            '%temp%': 'Opens User Temporary Files directory. Safe to empty everything inside to recover disk capacity.',
+            'temp': 'Opens Windows System Temp directory. Removes outdated driver and application setup remnants.',
+            'mrt': 'Launches Microsoft Malicious Software Removal Tool for a direct on-demand virus scan.',
+            'resmon': 'Resource Monitor. Pinpoint which app is using high CPU, RAM, or disk speed in real time.',
+            'perfmon': 'Performance Monitor for deep system health diagnostics and telemetry graphs.',
+            'cmd': 'Command Prompt interpreter.'
         };
 
         const runInput = document.getElementById('run-input');
@@ -735,7 +820,7 @@
             if (commands[cleanCmd]) {
                 termOut.innerHTML = `<strong>&gt; ${cleanCmd}</strong>: ${commands[cleanCmd]}`;
             } else {
-                termOut.innerHTML = `<strong>&gt; ${cleanCmd}</strong>: Command recognized in Windows. Type 'cleanmgr', '%temp%', or 'mrt' for dedicated performance tricks.`;
+                termOut.innerHTML = `<strong>&gt; ${cleanCmd}</strong>: Valid Windows command recognized. Try 'cleanmgr', '%temp%', or 'mrt' for instant optimizations.`;
             }
         }
 
@@ -755,38 +840,40 @@
             });
         });
 
-        // Interactive Keyboard Lab
+        // ==========================================
+        // 6. Interactive Keyboard Simulator
+        // ==========================================
         const keyCaps = document.querySelectorAll('.key-cap');
         const keyTip = document.getElementById('key-tip');
 
         const keyCombos = {
-            'Win': 'Windows Key: Press with other keys for instant shortcuts (Win + R, Win + ., Win + Shift + S).',
-            '.': 'Period Key: Combined with Win (Win + .), opens the hidden emoji and symbol board!',
-            'R': 'R Key: Combined with Win (Win + R), opens the Run dialog.',
-            'Shift': 'Shift Key: Modifies commands and enables selective screen snapping.',
-            'S': 'S Key: Combined with Win + Shift (Win + Shift + S), triggers the Snipping Tool.',
-            'V': 'V Key: Combined with Win (Win + V), enables Windows Clipboard History!',
-            'Esc': 'Escape Key: Dismisses open overlays, full screens, and prompt boxes.'
+            'Win': 'Windows Key: Combine with other keys for system shortcuts (Win + R, Win + ., Win + Shift + S).',
+            '.': 'Period Key: Press with Win (Win + .) to open the instant emoji, symbol, and GIF keyboard!',
+            'R': 'R Key: Press with Win (Win + R) to open the Run box.',
+            'Shift': 'Shift Key: Modifies keys for power-user commands.',
+            'S': 'S Key: Combined with Win + Shift (Win + Shift + S) to open the Snipping Tool.',
+            'V': 'V Key: Combined with Win (Win + V) to open multi-item Clipboard History.',
+            'Esc': 'Escape Key: Closes active overlays and prompts.'
         };
 
         keyCaps.forEach(cap => {
             cap.addEventListener('click', () => {
                 playSound(650, 'square', 0.04);
                 cap.classList.add('pressed');
-                setTimeout(() => cap.classList.remove('pressed'), 200);
+                setTimeout(() => cap.classList.remove('pressed'), 180);
                 const key = cap.getAttribute('data-key');
-                keyTip.textContent = keyCombos[key] || `Pressed: ${key}`;
+                keyTip.textContent = keyCombos[key] || `Key Pressed: ${key}`;
             });
         });
 
         window.addEventListener('keydown', (e) => {
-            let pressedKey = e.key;
-            if (e.key === 'Meta' || e.key === 'OS') pressedKey = 'Win';
+            let pressed = e.key;
+            if (e.key === 'Meta' || e.key === 'OS') pressed = 'Win';
             keyCaps.forEach(cap => {
-                if (cap.getAttribute('data-key').toLowerCase() === pressedKey.toLowerCase()) {
+                if (cap.getAttribute('data-key').toLowerCase() === pressed.toLowerCase()) {
                     playSound(650, 'square', 0.04);
                     cap.classList.add('pressed');
-                    setTimeout(() => cap.classList.remove('pressed'), 200);
+                    setTimeout(() => cap.classList.remove('pressed'), 180);
                 }
             });
         });
