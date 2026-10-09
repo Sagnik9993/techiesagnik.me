@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techie Sagnik | Windows Hacks & PC Secrets</title>
-    <meta name="description" content="Official portal for Techie Sagnik — Windows tricks, keyboard shortcuts, disk cleaner hacks, and PC optimizations.">
+    <title>Techie Sagnik | Thalapathy Edits & Clash Arena</title>
+    <meta name="description" content="Official edit hub for Techie Sagnik — Thalapathy Vijay mass edits, Leo Das vs JD clash shorts, and cinema tributes.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-base: #060911;
-            --panel-bg: rgba(13, 19, 33, 0.82);
-            --panel-border: rgba(0, 242, 254, 0.18);
-            --panel-border-hover: rgba(0, 242, 254, 0.65);
+            --bg-base: #05070e;
+            --panel-bg: rgba(12, 17, 28, 0.85);
+            --panel-border: rgba(255, 30, 86, 0.25);
+            --panel-border-hover: rgba(0, 242, 254, 0.7);
             --accent-cyan: #00f2fe;
-            --accent-blue: #38bdf8;
-            --accent-purple: #7000ff;
-            --accent-green: #10b981;
-            --accent-orange: #ff5722;
+            --accent-red: #ff1e56;
+            --accent-gold: #ffb703;
             --text-high: #f8fafc;
             --text-med: #94a3b8;
             --font-sans: 'Plus Jakarta Sans', sans-serif;
@@ -73,7 +71,7 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--panel-border);
             border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
         .brand-cluster {
@@ -83,11 +81,11 @@
         }
 
         .brand-avatar {
-            width: 44px;
-            height: 44px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--accent-cyan);
+            border: 2px solid var(--accent-red);
             background: #000;
         }
 
@@ -100,7 +98,8 @@
         .brand-meta span {
             font-size: 0.72rem;
             font-family: var(--font-mono);
-            color: var(--accent-cyan);
+            color: var(--accent-gold);
+            letter-spacing: 0.5px;
         }
 
         .nav-actions {
@@ -110,9 +109,9 @@
         }
 
         .sfx-toggle {
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
+            background: rgba(255, 30, 86, 0.15);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
             padding: 8px 12px;
             border-radius: 10px;
             font-family: var(--font-mono);
@@ -129,14 +128,14 @@
         }
 
         .btn-subscribe {
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            background: linear-gradient(135deg, var(--accent-red), #7000ff);
             color: #fff;
             padding: 10px 18px;
             border-radius: 12px;
             font-weight: 700;
             font-size: 0.85rem;
             text-decoration: none;
-            box-shadow: 0 4px 18px rgba(0, 242, 254, 0.25);
+            box-shadow: 0 4px 20px rgba(255, 30, 86, 0.4);
             transition: transform 0.2s ease;
         }
 
@@ -169,25 +168,36 @@
             transition: all 0.25s ease;
         }
 
+        .interactive-token.token-leo {
+            color: var(--accent-red);
+            border-bottom-color: rgba(255, 30, 86, 0.6);
+        }
+
         .interactive-token:hover {
             background: rgba(0, 242, 254, 0.15);
             border-bottom-color: #fff;
             color: #fff;
         }
 
-        /* 3D Glass Tilted Preview Card (Hidden by Default) */
+        .interactive-token.token-leo:hover {
+            background: rgba(255, 30, 86, 0.2);
+            border-bottom-color: #fff;
+            color: #fff;
+        }
+
+        /* 3D Glass Tilted Preview Card */
         #interactive-popup-card {
             position: absolute;
             left: 50%;
             top: -20px;
-            width: 320px;
+            width: 330px;
             padding: 22px 20px;
             border-radius: 20px;
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.92) 0%, rgba(56, 189, 248, 0.88) 50%, rgba(112, 0, 255, 0.92) 100%);
+            background: linear-gradient(135deg, rgba(255, 30, 86, 0.92) 0%, rgba(112, 0, 255, 0.92) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.45);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(0, 242, 254, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(255, 30, 86, 0.35);
             color: #fff;
             text-align: left;
             z-index: 100;
@@ -209,18 +219,19 @@
             font-family: var(--font-mono);
             font-size: 0.72rem;
             font-weight: 700;
-            background: rgba(0, 0, 0, 0.35);
+            background: rgba(0, 0, 0, 0.4);
             display: inline-block;
             padding: 4px 10px;
             border-radius: 8px;
             margin-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
         .popup-title {
-            font-size: 1.12rem;
+            font-size: 1.05rem;
             font-weight: 800;
             margin-bottom: 8px;
-            line-height: 1.3;
+            line-height: 1.35;
         }
 
         .popup-desc {
@@ -233,7 +244,7 @@
         .popup-btn {
             background: #fff;
             color: #030712;
-            padding: 8px 14px;
+            padding: 8px 16px;
             border-radius: 100px;
             font-size: 0.78rem;
             font-weight: 800;
@@ -253,7 +264,7 @@
             border: 1px solid var(--panel-border);
             border-radius: 20px;
             padding: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .panel-header {
@@ -266,133 +277,100 @@
         .panel-title {
             font-family: var(--font-mono);
             font-size: 0.85rem;
-            color: var(--accent-cyan);
+            color: var(--accent-gold);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* Windows Run Simulator */
-        .run-input-group {
+        /* Fan Vote Arena */
+        .vote-arena {
             display: flex;
-            gap: 10px;
-            margin-bottom: 14px;
+            gap: 14px;
+            margin-top: 10px;
         }
 
-        .run-input {
+        .vote-card {
             flex: 1;
-            background: rgba(4, 7, 17, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
-            padding: 12px 16px;
-            color: #fff;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .run-input:focus {
-            border-color: var(--accent-cyan);
-        }
-
-        .run-btn {
-            background: var(--accent-cyan);
-            color: #030712;
-            border: none;
-            border-radius: 12px;
-            padding: 0 20px;
-            font-weight: 700;
-            font-family: var(--font-mono);
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .run-btn:hover {
-            background: #fff;
-        }
-
-        .command-chips {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
-
-        .chip {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-med);
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
+            border-radius: 16px;
+            padding: 18px 14px;
+            text-align: center;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .chip:hover {
-            color: var(--accent-cyan);
+        .vote-card:hover {
+            transform: translateY(-3px);
             border-color: var(--accent-cyan);
-            background: rgba(0, 242, 254, 0.1);
-        }
-
-        .terminal-output {
-            background: #040711;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            padding: 14px;
-            font-family: var(--font-mono);
-            font-size: 0.82rem;
-            color: #38bdf8;
-            line-height: 1.5;
-            min-height: 60px;
-        }
-
-        /* Keyboard Shortcut Lab */
-        .keyboard-dock {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 14px;
-        }
-
-        .key-cap {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-bottom: 3px solid rgba(255, 255, 255, 0.25);
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-family: var(--font-mono);
-            font-size: 0.82rem;
-            font-weight: 700;
-            color: var(--text-high);
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.12s ease;
-        }
-
-        .key-cap:active, .key-cap.pressed {
-            border-bottom-width: 1px;
-            transform: translateY(2px);
-            background: rgba(0, 242, 254, 0.2);
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
-        }
-
-        .key-tip-banner {
-            margin-top: 12px;
-            padding: 10px 14px;
             background: rgba(0, 242, 254, 0.08);
-            border-radius: 10px;
-            font-size: 0.82rem;
-            color: var(--accent-cyan);
-            text-align: center;
+        }
+
+        .vote-card.vote-leo:hover {
+            border-color: var(--accent-red);
+            background: rgba(255, 30, 86, 0.1);
+        }
+
+        .vote-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .vote-meta {
+            font-size: 0.75rem;
+            color: var(--text-med);
+            font-family: var(--font-mono);
+            margin-bottom: 14px;
+        }
+
+        .vote-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            pointer-events: none;
+        }
+
+        .vote-score {
+            font-size: 0.85rem;
+            font-weight: 800;
+            margin-top: 10px;
+            color: var(--accent-gold);
             font-family: var(--font-mono);
         }
 
-        /* Video Showcase Deck */
+        /* Soundboard */
+        .soundboard-grid {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .sfx-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-high);
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sfx-chip:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.15);
+            transform: scale(1.03);
+        }
+
+        /* Video Showcase (Shorts Optimized) */
         .video-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -435,22 +413,18 @@
         }
 
         .badge-popular {
-            background: rgba(255, 87, 34, 0.15);
-            color: #ff7043;
-            border: 1px solid rgba(255, 87, 34, 0.4);
+            background: rgba(255, 30, 86, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(255, 30, 86, 0.4);
         }
 
         .iframe-container {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 140%; /* 9:16 Shorts ratio */
             height: 0;
             border-radius: 12px;
             overflow: hidden;
             background: #000;
-        }
-
-        .iframe-container.short {
-            padding-bottom: 140%;
         }
 
         .iframe-container iframe {
@@ -466,6 +440,7 @@
             font-weight: 600;
             margin-top: 12px;
             color: #f1f5f9;
+            line-height: 1.4;
         }
 
         footer {
@@ -480,6 +455,7 @@
             .video-grid { grid-template-columns: 1fr; }
             .hero-section h1 { font-size: 2rem; }
             #interactive-popup-card { width: 280px; }
+            .vote-arena { flex-direction: column; }
         }
     </style>
 </head>
@@ -491,10 +467,10 @@
         <!-- Top Navbar -->
         <header class="top-navbar">
             <div class="brand-cluster">
-                <img class="brand-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                <img class="brand-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=ff1e56&color=fff&bold=true'">
                 <div class="brand-meta">
                     <h2>Techie Sagnik</h2>
-                    <span>PC Optimization &amp; Cybersecurity</span>
+                    <span>Thalapathy Vijay Edits &amp; Clash Hub</span>
                 </div>
             </div>
 
@@ -508,94 +484,86 @@
 
         <!-- Hero Section -->
         <section class="hero-section">
-            <!-- 3D Glass Tilted Preview Card (Dynamically updated via JS) -->
+            <!-- 3D Glass Tilted Preview Card -->
             <div id="interactive-popup-card">
-                <span class="popup-badge" id="popup-badge">LOADING...</span>
-                <h3 class="popup-title" id="popup-title">Tip Title</h3>
-                <p class="popup-desc" id="popup-desc">Tip details...</p>
-                <button class="popup-btn" id="popup-btn">Watch Video ➔</button>
+                <span class="popup-badge" id="popup-badge">FEATURED CLASH</span>
+                <h3 class="popup-title" id="popup-title">Edit Title</h3>
+                <p class="popup-desc" id="popup-desc"></p>
+                <button class="popup-btn" id="popup-btn">Watch Short ➔</button>
             </div>
 
             <h1>
-                Master 
-                <span class="interactive-token" id="token-high">High</span>-impact
-                Windows secrets &amp; boost your PC's
-                <span class="interactive-token" id="token-velocity">Velocity</span>.
+                Experience 
+                <span class="interactive-token" id="token-high">Master JD</span> 
+                vs 
+                <span class="interactive-token token-leo" id="token-velocity">Leo Das</span> 
+                in High Velocity Edits.
             </h1>
             <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;">
-                Hover over the highlighted words to preview the latest uploads and popular shortcuts!
+                Hover over the highlighted characters to preview the clash shorts!
             </p>
         </section>
 
-        <!-- Interactive Windows Run Terminal Simulator -->
+        <!-- Clash Vote Arena -->
         <section class="interactive-panel">
             <div class="panel-header">
-                <span class="panel-title">⚡ Interactive Windows Run Console</span>
-                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Win + R Emulator</span>
+                <span class="panel-title">⚔️ Thalapathy Clash Arena // Vote Your Favorite</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Live Fan Poll</span>
             </div>
 
-            <div class="run-input-group">
-                <input type="text" class="run-input" id="run-input" placeholder="Type a command (e.g. cleanmgr, temp, mrt, resmon)...">
-                <button class="run-btn" id="run-btn">Execute</button>
-            </div>
+            <div class="vote-arena">
+                <div class="vote-card" id="vote-jd">
+                    <div class="vote-name" style="color: var(--accent-cyan);">JD (Master)</div>
+                    <div class="vote-meta">"Professor JD • Chidambaram"</div>
+                    <button class="vote-btn">Vote for JD 🎧</button>
+                    <div class="vote-score" id="score-jd">1,248 Votes (52%)</div>
+                </div>
 
-            <div class="command-chips">
-                <span class="chip" data-cmd="cleanmgr">cleanmgr</span>
-                <span class="chip" data-cmd="%temp%">%temp%</span>
-                <span class="chip" data-cmd="mrt">mrt</span>
-                <span class="chip" data-cmd="resmon">resmon</span>
-                <span class="chip" data-cmd="perfmon">perfmon</span>
-                <span class="chip" data-cmd="cmd">cmd</span>
-            </div>
-
-            <div class="terminal-output" id="term-out">
-                Ready. Type or click any command above to inspect its real diagnostic function.
+                <div class="vote-card vote-leo" id="vote-leo">
+                    <div class="vote-name" style="color: var(--accent-red);">Leo Das (Leo)</div>
+                    <div class="vote-meta">"Bloody Sweet • Badass Maam"</div>
+                    <button class="vote-btn">Vote for Leo 🍫</button>
+                    <div class="vote-score" id="score-leo">1,152 Votes (48%)</div>
+                </div>
             </div>
         </section>
 
-        <!-- Interactive Keyboard Playground -->
+        <!-- Cinema SFX Soundboard -->
         <section class="interactive-panel">
             <div class="panel-header">
-                <span class="panel-title">⌨️ Keyboard Shortcut Lab</span>
-                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Click or press keys</span>
+                <span class="panel-title">🔊 Cinema SFX Soundboard</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Click to trigger beat</span>
             </div>
 
-            <div class="keyboard-dock">
-                <div class="key-cap" data-key="Win">⊞ Win</div>
-                <div class="key-cap" data-key=".">. (Period)</div>
-                <div class="key-cap" data-key="R">R</div>
-                <div class="key-cap" data-key="Shift">Shift</div>
-                <div class="key-cap" data-key="S">S</div>
-                <div class="key-cap" data-key="V">V</div>
-                <div class="key-cap" data-key="Esc">Esc</div>
-            </div>
-
-            <div class="key-tip-banner" id="key-tip">
-                Press or click [⊞ Win] + [. (Period)] to test the emoji picker shortcut!
+            <div class="soundboard-grid">
+                <button class="sfx-chip" onclick="playCinemaSFX('bass')">🔥 Sub-Bass Drop</button>
+                <button class="sfx-chip" onclick="playCinemaSFX('impact')">⚔️ Action Impact</button>
+                <button class="sfx-chip" onclick="playCinemaSFX('stutter')">⚡ Anirudh Beat Stutter</button>
+                <button class="sfx-chip" onclick="playCinemaSFX('glitch')">🎬 Trailer Glitch</button>
             </div>
         </section>
 
         <!-- Video Showcase -->
         <main class="video-grid">
-            <!-- Video 1: New Upload -->
+            <!-- Video 1 -->
             <article class="video-card" id="sec-new-upload">
                 <div class="card-top">
-                    <span class="badge-tag badge-new">🚀 NEW UPLOAD</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">1080P HD</span>
+                    <span class="badge-tag badge-new">🚀 NEW CLASH SHORT</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 SHORTS</span>
                 </div>
                 <div class="iframe-container">
-                    <iframe id="iframe-latest" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Latest Upload"></iframe>
+                    <iframe id="iframe-latest" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Latest Clash Short"></iframe>
                 </div>
-                <h2 class="video-title" id="title-latest">Loading video...</h2>
+                <h2 class="video-title" id="title-latest">Loading short...</h2>
             </article>
 
-            <!-- Video 2: Most Popular -->
+            <!-- Video 2 -->
             <article class="video-card" id="sec-most-popular">
                 <div class="card-top">
-                    <span class="badge-tag badge-popular">🔥 MOST POPULAR</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 VERTICAL</span>
+                    <span class="badge-tag badge-popular">🔥 MOST POPULAR EDIT</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 SHORTS</span>
                 </div>
-                <div class="iframe-container short">
+                <div class="iframe-container">
                     <iframe id="iframe-popular" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Most Popular Short"></iframe>
                 </div>
                 <h2 class="video-title" id="title-popular">Loading short...</h2>
@@ -603,15 +571,13 @@
         </main>
 
         <footer>
-            © 2026 TECHIE SAGNIK // OFFICIAL PORTAL
+            © 2026 TECHIE SAGNIK // THALAPATHY VIJAY CREATOR HUB
         </footer>
     </div>
 
     <!-- Scripts -->
     <script>
-        // ==========================================
-        // 1. Web Audio Synthesizer (ON by default)
-        // ==========================================
+        // SFX Audio Engine (ON by default)
         let sfxEnabled = true;
         let audioCtx = null;
         const sfxBtn = document.getElementById('sfx-btn');
@@ -625,7 +591,6 @@
             }
         }
 
-        // Unlock browser audio context cleanly on first user action
         window.addEventListener('click', ensureAudioContext, { once: true });
         window.addEventListener('keydown', ensureAudioContext, { once: true });
 
@@ -635,32 +600,66 @@
             sfxBtn.classList.toggle('off', !sfxEnabled);
             if (sfxEnabled) {
                 ensureAudioContext();
-                playSound(700, 'sine', 0.08);
+                playCinemaSFX('impact');
             }
         });
 
-        function playSound(freq = 600, type = 'sine', duration = 0.08) {
+        function playCinemaSFX(type) {
             if (!sfxEnabled) return;
             ensureAudioContext();
             if (!audioCtx) return;
 
-            try {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            const t = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            if (type === 'bass') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(140, t);
+                osc.frequency.exponentialRampToValueAtTime(32, t + 0.5);
+                gain.gain.setValueAtTime(0.3, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch(e) {}
+                osc.start(t);
+                osc.stop(t + 0.5);
+            } else if (type === 'impact') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(220, t);
+                osc.frequency.exponentialRampToValueAtTime(40, t + 0.25);
+                gain.gain.setValueAtTime(0.25, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.25);
+            } else if (type === 'stutter') {
+                for (let i = 0; i < 4; i++) {
+                    const oscS = audioCtx.createOscillator();
+                    const gainS = audioCtx.createGain();
+                    oscS.type = 'square';
+                    oscS.frequency.setValueAtTime(420, t + i * 0.07);
+                    gainS.gain.setValueAtTime(0.08, t + i * 0.07);
+                    gainS.gain.exponentialRampToValueAtTime(0.001, t + (i + 1) * 0.07);
+                    oscS.connect(gainS);
+                    gainS.connect(audioCtx.destination);
+                    oscS.start(t + i * 0.07);
+                    oscS.stop(t + (i + 1) * 0.07);
+                }
+            } else if (type === 'glitch') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(800, t);
+                osc.frequency.linearRampToValueAtTime(150, t + 0.12);
+                gain.gain.setValueAtTime(0.12, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.12);
+            }
         }
 
-        // ==========================================
-        // 2. High-DPI Particle Canvas
-        // ==========================================
+        // Particle Canvas
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -674,9 +673,10 @@
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    size: Math.random() * 2 + 1
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    size: Math.random() * 2 + 1,
+                    color: Math.random() > 0.5 ? '#00f2fe' : '#ff1e56'
                 });
             }
         }
@@ -686,7 +686,6 @@
 
         function renderParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00f2fe';
             for (let i = 0; i < particles.length; i++) {
                 let p = particles[i];
                 p.x += p.vx;
@@ -696,59 +695,51 @@
 
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
                 ctx.fill();
             }
             requestAnimationFrame(renderParticles);
         }
         renderParticles();
 
-        // ==========================================
-        // 3. Dynamic Video Feed & Dynamic Words
-        // ==========================================
-        // Default initial data (guarantees no empty frames offline)
+        // Feed Data with Real Video ID (683RsckWKG4)
         let activeFeed = {
             latest: {
-                id: "_-SvBNpiF3E",
-                title: "How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀",
-                badge: "NEW UPLOAD",
-                tip: "Press Win + R, type 'cleanmgr' and select 'Clean up system files' to delete gigabytes of hidden update cache."
+                id: "683RsckWKG4",
+                title: "JD vs Leo Das: The Ultimate Clash ⚔️ Comment Your Fav!",
+                badge: "LATEST MASS SHORT",
+                desc: "Attitude, Swag & Raw Destruction: Professor JD vs Leo Das!"
             },
             popular: {
-                id: "DSPExrqZDKo",
-                title: "Stop copy-pasting emojis on PC, do THIS instead! 😂🔥",
-                badge: "MOST POPULAR",
-                tip: "Hit Win + . (period) inside any Windows program or browser to instantly summon the emoji & GIF picker."
+                id: "683RsckWKG4",
+                title: "Can ANY Bollywood Villain Stop Leo Das? 🔥 #Shorts",
+                badge: "MOST VIRAL EDIT",
+                desc: "Leo Das ruthless combat mode — Anirudh mass track."
             }
         };
 
         function updateVideoElements() {
-            // Update Video 1 (New Upload)
             document.getElementById('iframe-latest').src = `https://www.youtube-nocookie.com/embed/${activeFeed.latest.id}`;
             document.getElementById('title-latest').textContent = activeFeed.latest.title;
 
-            // Update Video 2 (Most Popular)
             document.getElementById('iframe-popular').src = `https://www.youtube-nocookie.com/embed/${activeFeed.popular.id}`;
             document.getElementById('title-popular').textContent = activeFeed.popular.title;
         }
 
-        // Apply immediately
         updateVideoElements();
 
-        // Fetch dynamic videos.json when available
         fetch('videos.json')
             .then(res => res.ok ? res.json() : null)
             .then(data => {
                 if (data) {
                     if (data.latest) activeFeed.latest = Object.assign(activeFeed.latest, data.latest);
-                    if (data.mostViewedShort || data.popular) activeFeed.popular = Object.assign(activeFeed.popular, data.mostViewedShort || data.popular);
+                    if (data.popular) activeFeed.popular = Object.assign(activeFeed.popular, data.popular);
                     updateVideoElements();
                 }
             })
             .catch(() => {});
 
-        // ==========================================
-        // 4. Dynamic Hover Logic for "High" & "Velocity"
-        // ==========================================
+        // 3D Glass Tilted Card Logic
         const popupCard = document.getElementById('interactive-popup-card');
         const popupBadge = document.getElementById('popup-badge');
         const popupTitle = document.getElementById('popup-title');
@@ -762,12 +753,18 @@
 
         function showDynamicPopup(data, targetElementId) {
             clearTimeout(hideTimer);
-            playSound(520, 'sine', 0.12);
+            playCinemaSFX('stutter');
 
-            // Dynamically bind to current feed values
-            popupBadge.textContent = data.badge;
+            popupBadge.textContent = data.badge || "THALAPATHY SHORT";
             popupTitle.textContent = data.title;
-            popupDesc.textContent = data.tip;
+
+            if (data.desc) {
+                popupDesc.textContent = data.desc;
+                popupDesc.style.display = 'block';
+            } else {
+                popupDesc.textContent = '';
+                popupDesc.style.display = 'none';
+            }
 
             popupBtn.onclick = () => {
                 document.getElementById(targetElementId).scrollIntoView({ behavior: 'smooth' });
@@ -782,13 +779,11 @@
             }, 250);
         }
 
-        // "High" triggers the current New Upload
         tokenHigh.addEventListener('mouseenter', () => {
             showDynamicPopup(activeFeed.latest, 'sec-new-upload');
         });
         tokenHigh.addEventListener('mouseleave', scheduleHide);
 
-        // "Velocity" triggers the current Most Popular
         tokenVelocity.addEventListener('mouseenter', () => {
             showDynamicPopup(activeFeed.popular, 'sec-most-popular');
         });
@@ -797,85 +792,30 @@
         popupCard.addEventListener('mouseenter', () => clearTimeout(hideTimer));
         popupCard.addEventListener('mouseleave', scheduleHide);
 
-        // ==========================================
-        // 5. Windows Run Console Simulator
-        // ==========================================
-        const commands = {
-            'cleanmgr': 'Windows Disk Cleanup. Scans and safely clears gigabytes of old update logs, thumbnails, and temp cache.',
-            '%temp%': 'Opens User Temporary Files directory. Safe to empty everything inside to recover disk capacity.',
-            'temp': 'Opens Windows System Temp directory. Removes outdated driver and application setup remnants.',
-            'mrt': 'Launches Microsoft Malicious Software Removal Tool for a direct on-demand virus scan.',
-            'resmon': 'Resource Monitor. Pinpoint which app is using high CPU, RAM, or disk speed in real time.',
-            'perfmon': 'Performance Monitor for deep system health diagnostics and telemetry graphs.',
-            'cmd': 'Command Prompt interpreter.'
-        };
+        // Fan Vote Counter
+        let jdVotes = 1248;
+        let leoVotes = 1152;
 
-        const runInput = document.getElementById('run-input');
-        const runBtn = document.getElementById('run-btn');
-        const termOut = document.getElementById('term-out');
-
-        function executeRun(cmd) {
-            const cleanCmd = cmd.trim().toLowerCase();
-            playSound(800, 'triangle', 0.08);
-            if (commands[cleanCmd]) {
-                termOut.innerHTML = `<strong>&gt; ${cleanCmd}</strong>: ${commands[cleanCmd]}`;
-            } else {
-                termOut.innerHTML = `<strong>&gt; ${cleanCmd}</strong>: Valid Windows command recognized. Try 'cleanmgr', '%temp%', or 'mrt' for instant optimizations.`;
-            }
+        function updatePoll() {
+            const total = jdVotes + leoVotes;
+            const jdPct = Math.round((jdVotes / total) * 100);
+            const leoPct = 100 - jdPct;
+            document.getElementById('score-jd').textContent = `${jdVotes.toLocaleString()} Votes (${jdPct}%)`;
+            document.getElementById('score-leo').textContent = `${leoVotes.toLocaleString()} Votes (${leoPct}%)`;
         }
 
-        runBtn.addEventListener('click', () => {
-            if (runInput.value) executeRun(runInput.value);
+        document.getElementById('vote-jd').addEventListener('click', () => {
+            jdVotes++;
+            playCinemaSFX('bass');
+            updatePoll();
+            document.getElementById('vote-jd').style.borderColor = '#00f2fe';
         });
 
-        runInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && runInput.value) executeRun(runInput.value);
-        });
-
-        document.querySelectorAll('.chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                const cmd = chip.getAttribute('data-cmd');
-                runInput.value = cmd;
-                executeRun(cmd);
-            });
-        });
-
-        // ==========================================
-        // 6. Interactive Keyboard Simulator
-        // ==========================================
-        const keyCaps = document.querySelectorAll('.key-cap');
-        const keyTip = document.getElementById('key-tip');
-
-        const keyCombos = {
-            'Win': 'Windows Key: Combine with other keys for system shortcuts (Win + R, Win + ., Win + Shift + S).',
-            '.': 'Period Key: Press with Win (Win + .) to open the instant emoji, symbol, and GIF keyboard!',
-            'R': 'R Key: Press with Win (Win + R) to open the Run box.',
-            'Shift': 'Shift Key: Modifies keys for power-user commands.',
-            'S': 'S Key: Combined with Win + Shift (Win + Shift + S) to open the Snipping Tool.',
-            'V': 'V Key: Combined with Win (Win + V) to open multi-item Clipboard History.',
-            'Esc': 'Escape Key: Closes active overlays and prompts.'
-        };
-
-        keyCaps.forEach(cap => {
-            cap.addEventListener('click', () => {
-                playSound(650, 'square', 0.04);
-                cap.classList.add('pressed');
-                setTimeout(() => cap.classList.remove('pressed'), 180);
-                const key = cap.getAttribute('data-key');
-                keyTip.textContent = keyCombos[key] || `Key Pressed: ${key}`;
-            });
-        });
-
-        window.addEventListener('keydown', (e) => {
-            let pressed = e.key;
-            if (e.key === 'Meta' || e.key === 'OS') pressed = 'Win';
-            keyCaps.forEach(cap => {
-                if (cap.getAttribute('data-key').toLowerCase() === pressed.toLowerCase()) {
-                    playSound(650, 'square', 0.04);
-                    cap.classList.add('pressed');
-                    setTimeout(() => cap.classList.remove('pressed'), 180);
-                }
-            });
+        document.getElementById('vote-leo').addEventListener('click', () => {
+            leoVotes++;
+            playCinemaSFX('impact');
+            updatePoll();
+            document.getElementById('vote-leo').style.borderColor = '#ff1e56';
         });
     </script>
 </body>
