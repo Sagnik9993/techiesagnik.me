@@ -646,4 +646,1529 @@
             border-bottom-width: 1px;
             transform: translateY(2px);
             background: rgba(0, 242, 254, 0.2);
-            border-color: var
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .key-tip-banner {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: rgba(0, 242, 254, 0.08);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: var(--accent-primary);
+            text-align: center;
+            font-family: var(--font-mono);
+        }
+
+        /* Learn Lab: Endless Quiz Engine Controls */
+        .quiz-controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 18px;
+        }
+
+        .quiz-filters-cluster {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            color: var(--text-med);
+            margin-right: 4px;
+        }
+
+        .quiz-diff-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-med);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.76rem;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-diff-btn.active {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .quiz-metrics {
+            display: flex;
+            gap: 12px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+        }
+
+        .metric-pill {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .quiz-card {
+            background: rgba(4, 7, 17, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .q-difficulty {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .diff-easy { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .diff-medium { background: rgba(255, 183, 3, 0.2); color: #ffb703; }
+        .diff-hard { background: rgba(255, 30, 86, 0.2); color: #ff1e56; }
+
+        .quiz-question-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.45;
+            margin-bottom: 18px;
+        }
+
+        .quiz-options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .quiz-opt-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: var(--text-high);
+            text-align: left;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .quiz-opt-btn:hover:not(:disabled) {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--accent-green);
+            transform: translateX(4px);
+        }
+
+        .quiz-opt-btn.correct {
+            background: rgba(16, 185, 129, 0.2) !important;
+            border-color: #10b981 !important;
+            color: #fff !important;
+        }
+
+        .quiz-opt-btn.incorrect {
+            background: rgba(255, 30, 86, 0.2) !important;
+            border-color: #ff1e56 !important;
+            color: #fff !important;
+        }
+
+        .quiz-explanation-box {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .quiz-nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        .quiz-loading-notice {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-med);
+        }
+
+        .btn-quiz-next {
+            background: var(--accent-primary);
+            color: #030712;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Thalapathy Section: Aura Booster */
+        .aura-station-box {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            padding: 12px 0;
+            text-align: center;
+        }
+
+        .aura-status-tag {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+            animation: pulse-live 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        .aura-progress-track {
+            width: 100%;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 100px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 30, 86, 0.3);
+            position: relative;
+        }
+
+        .aura-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff1e56, #ffb703);
+            border-radius: 100px;
+            box-shadow: 0 0 16px rgba(255, 30, 86, 0.6);
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .aura-btn-trigger {
+            background: linear-gradient(135deg, #ff1e56, #ffb703);
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 30, 86, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .aura-btn-trigger:hover:not(:disabled) {
+            transform: scale(1.04);
+            box-shadow: 0 6px 26px rgba(255, 30, 86, 0.6);
+        }
+
+        .aura-btn-trigger:disabled {
+            background: rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .aura-counter-display {
+            font-family: var(--font-mono);
+            font-size: 0.92rem;
+            color: var(--text-high);
+        }
+
+        .aura-counter-display strong {
+            color: var(--accent-gold);
+            font-size: 1.15rem;
+        }
+
+        .aura-user-status {
+            font-size: 0.78rem;
+            font-family: var(--font-mono);
+            color: #94a3b8;
+        }
+
+        /* Soundboard */
+        .soundboard-grid {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .sfx-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-high);
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sfx-chip:hover {
+            border-color: var(--accent-primary);
+            background: rgba(255, 30, 86, 0.15);
+            transform: scale(1.03);
+        }
+
+        /* Video Showcase */
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .video-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 16px;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--panel-border-hover);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .badge-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge-new {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--accent-primary);
+            border: 1px solid rgba(0, 242, 254, 0.4);
+        }
+
+        body.theme-thalapathy .badge-new {
+            background: rgba(255, 30, 86, 0.15);
+            color: var(--accent-primary);
+            border: 1px solid rgba(255, 30, 86, 0.4);
+        }
+
+        body.theme-learn .badge-new {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-primary);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .badge-popular {
+            background: rgba(255, 87, 34, 0.15);
+            color: #ff7043;
+            border: 1px solid rgba(255, 87, 34, 0.4);
+        }
+
+        body.theme-thalapathy .badge-popular {
+            background: rgba(255, 183, 3, 0.15);
+            color: var(--accent-gold);
+            border-color: rgba(255, 183, 3, 0.4);
+        }
+
+        body.theme-learn .badge-popular {
+            background: rgba(0, 242, 254, 0.15);
+            color: #00f2fe;
+            border-color: rgba(0, 242, 254, 0.4);
+        }
+
+        .iframe-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .iframe-container.short {
+            padding-bottom: 140%;
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 12px;
+            color: #f1f5f9;
+            line-height: 1.4;
+        }
+
+        footer {
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: #475569;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 680px) {
+            .video-grid { grid-template-columns: 1fr; }
+            .hero-section h1 { font-size: 1.85rem; }
+            #interactive-popup-card { width: 290px; }
+            .hub-mode-bar { flex-direction: column; }
+            .quiz-controls-bar { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Particle Web Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="portal-container">
+        <!-- Top Navbar -->
+        <header class="top-navbar">
+            <div class="brand-cluster">
+                <img class="brand-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                <div class="brand-meta">
+                    <h2>Techie Sagnik</h2>
+                    <span id="brand-tag">PC Optimization &amp; Thalapathy Cinema Hub</span>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <button class="sfx-toggle" id="sfx-btn">SFX: ON</button>
+                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
+                    Subscribe ➔
+                </a>
+            </div>
+        </header>
+
+        <!-- 3-Option Mode Switcher -->
+        <nav class="hub-mode-bar" aria-label="Portal Mode Selection">
+            <button class="mode-btn active" data-mode="tech">⚡ Cyber &amp; Tech Lab</button>
+            <button class="mode-btn" data-mode="thalapathy">🔥 Thalapathy Arena</button>
+            <button class="mode-btn" data-mode="learn">📚 Learn Lab (Tech Quizzes)</button>
+        </nav>
+
+        <!-- Universal Instant Search Bar -->
+        <div class="omni-search-wrapper">
+            <div class="search-row">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="omni-search-input" id="omni-search" placeholder="Search videos, Windows hacks, Run commands, or quiz topics...">
+            </div>
+            <div class="search-filter-chips">
+                <span class="search-chip active" data-filter="all">ALL (0)</span>
+                <span class="search-chip" data-filter="videos">VIDEOS</span>
+                <span class="search-chip" data-filter="quizzes">QUIZZES</span>
+                <span class="search-chip" data-filter="hacks">HACKS &amp; RUN</span>
+            </div>
+            <div class="search-dropdown-results" id="search-results-box"></div>
+        </div>
+
+        <!-- Dynamic Hero Section -->
+        <section class="hero-section">
+            <!-- 3D Glass Tilted Preview Card -->
+            <div id="interactive-popup-card">
+                <span class="popup-badge" id="popup-badge">DISPATCH</span>
+                <h3 class="popup-title" id="popup-title">Title</h3>
+                <p class="popup-desc" id="popup-desc" style="display: none;"></p>
+                <button class="popup-btn" id="popup-btn">Watch Now ➔</button>
+            </div>
+
+            <!-- Dynamic Headline Container -->
+            <h1 id="hero-headline">
+                Master 
+                <span class="interactive-token" id="token-1">High</span>-impact 
+                Windows secrets &amp; boost your PC's
+                <span class="interactive-token" id="token-2">Velocity</span>.
+            </h1>
+            <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;" id="hero-subtext">
+                Hover over the highlighted words to preview the cleanmgr hack and emoji shortcuts!
+            </p>
+        </section>
+
+        <!-- Tech Section: Windows Run Console Simulator -->
+        <section class="interactive-panel section-tech" id="sec-run-lab">
+            <div class="panel-header">
+                <span class="panel-title">⚡ Interactive Windows Run Console</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Win + R Emulator</span>
+            </div>
+
+            <div class="run-input-group">
+                <input type="text" class="run-input" id="run-input" placeholder="Type a command (e.g. cleanmgr, %temp%, mrt, dxdiag)...">
+                <button class="run-btn" id="run-btn">Execute</button>
+            </div>
+
+            <div class="command-chips">
+                <span class="chip" data-cmd="cleanmgr">cleanmgr</span>
+                <span class="chip" data-cmd="%temp%">%temp%</span>
+                <span class="chip" data-cmd="temp">temp</span>
+                <span class="chip" data-cmd="mrt">mrt</span>
+                <span class="chip" data-cmd="resmon">resmon</span>
+                <span class="chip" data-cmd="perfmon">perfmon</span>
+                <span class="chip" data-cmd="dxdiag">dxdiag</span>
+                <span class="chip" data-cmd="cmd">cmd</span>
+            </div>
+
+            <div class="terminal-output" id="term-out">
+                Ready. Type or click any command above to inspect its real diagnostic function.
+            </div>
+        </section>
+
+        <!-- Tech Section: Keyboard Shortcut Lab -->
+        <section class="interactive-panel section-tech" id="sec-keyboard-lab">
+            <div class="panel-header">
+                <span class="panel-title">⌨️ Keyboard Shortcut Lab</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Click or press keys</span>
+            </div>
+
+            <div class="keyboard-dock">
+                <div class="key-cap" data-key="Win">⊞ Win</div>
+                <div class="key-cap" data-key=".">. (Period)</div>
+                <div class="key-cap" data-key="R">R</div>
+                <div class="key-cap" data-key="Shift">Shift</div>
+                <div class="key-cap" data-key="S">S</div>
+                <div class="key-cap" data-key="V">V</div>
+                <div class="key-cap" data-key="Esc">Esc</div>
+            </div>
+
+            <div class="key-tip-banner" id="key-tip">
+                Press or click [⊞ Win] + [. (Period)] to test the emoji picker shortcut!
+            </div>
+        </section>
+
+        <!-- Thalapathy Section: Realtime Aura Booster -->
+        <section class="interactive-panel section-thalapathy" id="sec-thalapathy-tribute" style="display: none;">
+            <div class="panel-header">
+                <span class="panel-title">🔥 Thalapathy Global Aura Station</span>
+                <span class="aura-status-tag"><span class="live-dot"></span> Live Local/Cloud Sync</span>
+            </div>
+
+            <div class="aura-station-box">
+                <div class="aura-status-tag">✦ LEVEL: THE GREATEST OF ALL TIME ✦</div>
+                <div class="aura-progress-track">
+                    <div class="aura-progress-fill" id="mass-fill"></div>
+                </div>
+                <button class="aura-btn-trigger" id="boost-mass-btn">
+                    <span>✨ Boost Thalapathy Aura</span>
+                    <span>🔥</span>
+                </button>
+                <div class="aura-counter-display" id="mass-counter-val">
+                    Global Aura Energy: <strong>0</strong>
+                </div>
+                <div class="aura-user-status" id="aura-user-msg">
+                    1 vote per fan across the web • Adds to the global tribute counter
+                </div>
+            </div>
+        </section>
+
+        <!-- Thalapathy Section: Cinema Soundboard -->
+        <section class="interactive-panel section-thalapathy" id="sec-thalapathy-sfx" style="display: none;">
+            <div class="panel-header">
+                <span class="panel-title">🎶 Cinema SFX &amp; Beats</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Anirudh Style Tones</span>
+            </div>
+
+            <div class="soundboard-grid">
+                <button class="sfx-chip" onclick="playCinemaTone('impact')">⚔️ Action Impact</button>
+                <button class="sfx-chip" onclick="playCinemaTone('bass')">🔥 Sub-Bass Drop</button>
+                <button class="sfx-chip" onclick="playCinemaTone('stutter')">⚡ Anirudh Stutter</button>
+                <button class="sfx-chip" onclick="playCinemaTone('glitch')">🎬 Action Glitch</button>
+            </div>
+        </section>
+
+        <!-- Learn Lab Section: Endless Tech Quizzes with Difficulty Engine -->
+        <section class="interactive-panel section-learn" id="sec-learn-lab" style="display: none;">
+            <div class="panel-header">
+                <span class="panel-title">📚 Learn Lab // Infinite Tech Quiz Engine</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-green);">Auto-Batching Stream</span>
+            </div>
+
+            <div class="quiz-controls-bar">
+                <div class="quiz-filters-cluster">
+                    <span class="filter-label">LEVEL:</span>
+                    <button class="quiz-diff-btn active" data-diff="all">ALL</button>
+                    <button class="quiz-diff-btn" data-diff="easy">EASY</button>
+                    <button class="quiz-diff-btn" data-diff="medium">MEDIUM</button>
+                    <button class="quiz-diff-btn" data-diff="hard">HARD</button>
+                </div>
+                <div class="quiz-metrics">
+                    <span class="metric-pill">Streak: <strong id="quiz-streak" style="color: #ffb703;">0🔥</strong></span>
+                    <span class="metric-pill">Score: <strong id="quiz-score" style="color: #10b981;">0</strong></span>
+                </div>
+            </div>
+
+            <!-- Dynamic Question Box -->
+            <div class="quiz-card" id="quiz-card-box">
+                <div class="quiz-q-header">
+                    <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-med);" id="q-counter">Question 1</span>
+                    <span class="q-difficulty diff-easy" id="q-diff">EASY</span>
+                </div>
+                <h3 class="quiz-question-text" id="q-text">Loading fresh tech questions...</h3>
+                <div class="quiz-options-grid" id="q-options"></div>
+                <div class="quiz-explanation-box" id="q-explanation"></div>
+                <div class="quiz-nav-row">
+                    <span class="quiz-loading-notice" id="q-loading-sub">Endless batching enabled</span>
+                    <button class="btn-quiz-next" id="btn-next-question">Next Question ➔</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Showcase -->
+        <main class="video-grid">
+            <!-- Video 1 -->
+            <article class="video-card" id="sec-video-1">
+                <div class="card-top">
+                    <span class="badge-tag badge-new" id="v1-badge">🚀 NEW UPLOAD</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;" id="v1-res">1080P HD</span>
+                </div>
+                <div class="iframe-container" id="v1-frame-wrap">
+                    <iframe id="iframe-v1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Primary Video"></iframe>
+                </div>
+                <h2 class="video-title" id="title-v1">Loading dispatch...</h2>
+            </article>
+
+            <!-- Video 2 -->
+            <article class="video-card" id="sec-video-2">
+                <div class="card-top">
+                    <span class="badge-tag badge-popular" id="v2-badge">🔥 MOST POPULAR</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;" id="v2-res">9:16 SHORTS</span>
+                </div>
+                <div class="iframe-container short" id="v2-frame-wrap">
+                    <iframe id="iframe-v2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Secondary Video"></iframe>
+                </div>
+                <h2 class="video-title" id="title-v2">Loading dispatch...</h2>
+            </article>
+        </main>
+
+        <footer>
+            © 2026 TECHIE SAGNIK // OFFICIAL HYBRID FLAGSHIP PORTAL
+        </footer>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. Crisp 'Tih' Web Audio Synthesizer (ON by Default)
+        // ==========================================
+        let sfxEnabled = true;
+        let audioCtx = null;
+        const sfxBtn = document.getElementById('sfx-btn');
+
+        function ensureAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        window.addEventListener('click', ensureAudioContext, { once: true });
+        window.addEventListener('keydown', ensureAudioContext, { once: true });
+
+        sfxBtn.addEventListener('click', () => {
+            sfxEnabled = !sfxEnabled;
+            sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
+            sfxBtn.classList.toggle('off', !sfxEnabled);
+            if (sfxEnabled) {
+                ensureAudioContext();
+                playTihSound();
+            }
+        });
+
+        // The Signature 'Tih' Sound: 1950Hz to 1100Hz micro-sweep, 18ms exponential envelope
+        function playTihSound() {
+            if (!sfxEnabled) return;
+            ensureAudioContext();
+            if (!audioCtx) return;
+
+            try {
+                const t = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1950, t);
+                osc.frequency.exponentialRampToValueAtTime(1100, t + 0.018);
+
+                gain.gain.setValueAtTime(0.0001, t);
+                gain.gain.linearRampToValueAtTime(0.08, t + 0.002);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.018);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(t);
+                osc.stop(t + 0.02);
+            } catch(e) {}
+        }
+
+        function playSuccessChime() {
+            if (!sfxEnabled) return;
+            ensureAudioContext();
+            if (!audioCtx) return;
+
+            try {
+                const t = audioCtx.currentTime;
+                [880, 1318.5].forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, t + idx * 0.05);
+                    gain.gain.setValueAtTime(0.001, t + idx * 0.05);
+                    gain.gain.linearRampToValueAtTime(0.06, t + idx * 0.05 + 0.01);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.05 + 0.28);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(t + idx * 0.05);
+                    osc.stop(t + idx * 0.05 + 0.3);
+                });
+            } catch(e) {}
+        }
+
+        function playErrorBuzz() {
+            if (!sfxEnabled) return;
+            ensureAudioContext();
+            if (!audioCtx) return;
+
+            try {
+                const t = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(140, t);
+                osc.frequency.exponentialRampToValueAtTime(85, t + 0.14);
+                gain.gain.setValueAtTime(0.05, t);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.15);
+            } catch(e) {}
+        }
+
+        function playCinemaTone(type) {
+            if (!sfxEnabled) return;
+            ensureAudioContext();
+            if (!audioCtx) return;
+
+            const t = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            if (type === 'bass') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(140, t);
+                osc.frequency.exponentialRampToValueAtTime(36, t + 0.45);
+                gain.gain.setValueAtTime(0.25, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.45);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.45);
+            } else if (type === 'impact') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(220, t);
+                osc.frequency.exponentialRampToValueAtTime(45, t + 0.22);
+                gain.gain.setValueAtTime(0.2, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.22);
+            } else if (type === 'stutter') {
+                for (let i = 0; i < 3; i++) {
+                    const oscS = audioCtx.createOscillator();
+                    const gainS = audioCtx.createGain();
+                    oscS.type = 'square';
+                    oscS.frequency.setValueAtTime(420, t + i * 0.06);
+                    gainS.gain.setValueAtTime(0.06, t + i * 0.06);
+                    gainS.gain.exponentialRampToValueAtTime(0.001, t + (i + 1) * 0.06);
+                    oscS.connect(gainS);
+                    gainS.connect(audioCtx.destination);
+                    oscS.start(t + i * 0.06);
+                    oscS.stop(t + (i + 1) * 0.06);
+                }
+            } else if (type === 'glitch') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(750, t);
+                osc.frequency.linearRampToValueAtTime(160, t + 0.1);
+                gain.gain.setValueAtTime(0.09, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.1);
+            }
+        }
+
+        // ==========================================
+        // 2. High-DPI Interactive Particle Canvas
+        // ==========================================
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let currentMode = 'tech';
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            const count = Math.floor((window.innerWidth * window.innerHeight) / 12000);
+            for (let i = 0; i < count; i++) {
+                let color = '#00f2fe';
+                if (currentMode === 'tech') color = Math.random() > 0.5 ? '#00f2fe' : '#7000ff';
+                else if (currentMode === 'thalapathy') color = Math.random() > 0.5 ? '#ff1e56' : '#ffb703';
+                else if (currentMode === 'learn') color = Math.random() > 0.5 ? '#10b981' : '#00f2fe';
+
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.45,
+                    vy: (Math.random() - 0.5) * 0.45,
+                    size: Math.random() * 2 + 1,
+                    color
+                });
+            }
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+
+        function renderCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+            }
+            requestAnimationFrame(renderCanvas);
+        }
+        renderCanvas();
+
+        // ==========================================
+        // 3. Dynamic Video Feeds Database
+        // ==========================================
+        const mediaDatabase = {
+            tech: {
+                v1: {
+                    id: "_-SvBNpiF3E",
+                    title: "How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀",
+                    badge: "⚡ PC STORAGE HACK",
+                    res: "1080P HD",
+                    isShort: false,
+                    desc: "Press Win + R, type 'cleanmgr' and select 'Clean up system files' to wipe junk update cache.",
+                    target: "sec-video-1"
+                },
+                v2: {
+                    id: "DSPExrqZDKo",
+                    title: "Stop copy-pasting emojis on PC, do THIS instead! 😂🔥",
+                    badge: "🔥 KEYBOARD SHORTCUT",
+                    res: "9:16 VERTICAL",
+                    isShort: true,
+                    desc: "Hit Win + . (period) inside any Windows program or browser to summon emojis & GIFs instantly.",
+                    target: "sec-video-2"
+                }
+            },
+            thalapathy: {
+                v1: {
+                    id: "683RsckWKG4",
+                    title: "Thalapathy Ultimate Mass Action Tribute 🔥 #Shorts #Thalapathy #Movie",
+                    badge: "🚀 NEW THALAPATHY EDIT",
+                    res: "9:16 VERTICAL",
+                    isShort: true,
+                    desc: "High energy cinematic cuts, attitude, and screen presence of Thalapathy.",
+                    target: "sec-video-1"
+                },
+                v2: {
+                    id: "683RsckWKG4",
+                    title: "Thalapathy Unstoppable Screen Presence & Aura 🔥 #Shorts",
+                    badge: "🔥 TOP VIRAL EDIT",
+                    res: "9:16 VERTICAL",
+                    isShort: true,
+                    desc: "Relive the iconic goosebump cinematic scenes with Anirudh mass track.",
+                    target: "sec-video-2"
+                }
+            },
+            learn: {
+                v1: {
+                    id: "_-SvBNpiF3E",
+                    title: "How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀",
+                    badge: "📚 TUTORIAL DISPATCH",
+                    res: "1080P HD",
+                    isShort: false,
+                    desc: "Essential diagnostic and disk management fundamentals for every PC user.",
+                    target: "sec-video-1"
+                },
+                v2: {
+                    id: "DSPExrqZDKo",
+                    title: "Stop copy-pasting emojis on PC, do THIS instead! 😂🔥",
+                    badge: "💡 QUICK HACK",
+                    res: "9:16 VERTICAL",
+                    isShort: true,
+                    desc: "Windows system level input methods and shortcuts guide.",
+                    target: "sec-video-2"
+                }
+            }
+        };
+
+        function renderVideosForMode(mode) {
+            const data = mediaDatabase[mode];
+            
+            const frame1 = document.getElementById('iframe-v1');
+            const wrap1 = document.getElementById('v1-frame-wrap');
+            frame1.src = `https://www.youtube-nocookie.com/embed/${data.v1.id}`;
+            document.getElementById('title-v1').textContent = data.v1.title;
+            document.getElementById('v1-badge').textContent = data.v1.badge;
+            document.getElementById('v1-res').textContent = data.v1.res;
+            wrap1.className = data.v1.isShort ? "iframe-container short" : "iframe-container";
+
+            const frame2 = document.getElementById('iframe-v2');
+            const wrap2 = document.getElementById('v2-frame-wrap');
+            frame2.src = `https://www.youtube-nocookie.com/embed/${data.v2.id}`;
+            document.getElementById('title-v2').textContent = data.v2.title;
+            document.getElementById('v2-badge').textContent = data.v2.badge;
+            document.getElementById('v2-res').textContent = data.v2.res;
+            wrap2.className = data.v2.isShort ? "iframe-container short" : "iframe-container";
+        }
+
+        // ==========================================
+        // 4. CapCut-Style 3D Hover Card Engine
+        // ==========================================
+        const popupCard = document.getElementById('interactive-popup-card');
+        const popupBadge = document.getElementById('popup-badge');
+        const popupTitle = document.getElementById('popup-title');
+        const popupDesc = document.getElementById('popup-desc');
+        const popupBtn = document.getElementById('popup-btn');
+
+        let hideTimer;
+
+        function showHoverPopup(info) {
+            clearTimeout(hideTimer);
+            playTihSound();
+
+            popupBadge.textContent = info.badge || "FEATURED";
+            popupTitle.textContent = info.title;
+
+            if (info.desc) {
+                popupDesc.textContent = info.desc;
+                popupDesc.style.display = 'block';
+            } else {
+                popupDesc.textContent = '';
+                popupDesc.style.display = 'none';
+            }
+
+            popupBtn.onclick = () => {
+                const target = document.getElementById(info.target);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            popupCard.classList.add('active');
+        }
+
+        function scheduleCardHide() {
+            hideTimer = setTimeout(() => {
+                popupCard.classList.remove('active');
+            }, 250);
+        }
+
+        popupCard.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+        popupCard.addEventListener('mouseleave', scheduleCardHide);
+
+        function attachHoverListeners() {
+            const t1 = document.getElementById('token-1');
+            const t2 = document.getElementById('token-2');
+
+            if (currentMode === 'tech') {
+                if (t1) {
+                    t1.addEventListener('mouseenter', () => showHoverPopup(mediaDatabase.tech.v1));
+                    t1.addEventListener('mouseleave', scheduleCardHide);
+                }
+                if (t2) {
+                    t2.addEventListener('mouseenter', () => showHoverPopup(mediaDatabase.tech.v2));
+                    t2.addEventListener('mouseleave', scheduleCardHide);
+                }
+            } else if (currentMode === 'thalapathy') {
+                if (t1) {
+                    t1.addEventListener('mouseenter', () => showHoverPopup(mediaDatabase.thalapathy.v1));
+                    t1.addEventListener('mouseleave', scheduleCardHide);
+                }
+                if (t2) {
+                    t2.addEventListener('mouseenter', () => showHoverPopup(mediaDatabase.thalapathy.v2));
+                    t2.addEventListener('mouseleave', scheduleCardHide);
+                }
+            } else {
+                if (t1) {
+                    t1.addEventListener('mouseenter', () => showHoverPopup({
+                        badge: "QUIZ TIP",
+                        title: "Master Windows Shortcuts & Security",
+                        desc: "Test your skills on cleanmgr, clipboard history, and safe browsing.",
+                        target: "sec-learn-lab"
+                    }));
+                    t1.addEventListener('mouseleave', scheduleCardHide);
+                }
+                if (t2) {
+                    t2.addEventListener('mouseenter', () => showHoverPopup({
+                        badge: "HARDWARE TRICK",
+                        title: "Ctrl + Shift + Esc for Task Manager",
+                        desc: "Bypasses the lock screen interrupt and directly launches Task Manager instantly.",
+                        target: "sec-learn-lab"
+                    }));
+                    t2.addEventListener('mouseleave', scheduleCardHide);
+                }
+            }
+        }
+
+        // ==========================================
+        // 5. Mode Switcher Controller
+        // ==========================================
+        const modeBtns = document.querySelectorAll('.mode-btn');
+        const headline = document.getElementById('hero-headline');
+        const subtext = document.getElementById('hero-subtext');
+        const brandTag = document.getElementById('brand-tag');
+        const techSections = document.querySelectorAll('.section-tech');
+        const thalapathySections = document.querySelectorAll('.section-thalapathy');
+        const learnSections = document.querySelectorAll('.section-learn');
+
+        function switchMode(mode) {
+            currentMode = mode;
+            playTihSound();
+            initCanvas();
+
+            modeBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === mode);
+            });
+
+            techSections.forEach(s => s.style.display = 'none');
+            thalapathySections.forEach(s => s.style.display = 'none');
+            learnSections.forEach(s => s.style.display = 'none');
+
+            if (mode === 'tech') {
+                document.body.className = '';
+                brandTag.textContent = 'PC Optimization & Cybersecurity';
+                headline.innerHTML = `Master <span class="interactive-token" id="token-1">High</span>-impact Windows secrets & boost your PC's <span class="interactive-token" id="token-2">Velocity</span>.`;
+                subtext.textContent = 'Hover over the highlighted words to preview the cleanmgr hack and emoji shortcuts!';
+                techSections.forEach(s => s.style.display = 'block');
+            } else if (mode === 'thalapathy') {
+                document.body.className = 'theme-thalapathy';
+                brandTag.textContent = 'Thalapathy Vijay Cinema Hub';
+                headline.innerHTML = `Celebrate <span class="interactive-token" id="token-1">Thalapathy</span> in High-Energy <span class="interactive-token token-alt" id="token-2">Mass Aura</span> Edits.`;
+                subtext.textContent = 'Hover over Thalapathy or Mass Aura to preview the cinematic shorts!';
+                thalapathySections.forEach(s => s.style.display = 'block');
+            } else if (mode === 'learn') {
+                document.body.className = 'theme-learn';
+                brandTag.textContent = 'Interactive Tech Knowledge Hub';
+                headline.innerHTML = `Test your <span class="interactive-token" id="token-1">Cyber Knowledge</span> &amp; boost your <span class="interactive-token" id="token-2">Tech IQ</span>.`;
+                subtext.textContent = 'Choose your difficulty and test your tech skills endlessly!';
+                learnSections.forEach(s => s.style.display = 'block');
+            }
+
+            renderVideosForMode(mode);
+            attachHoverListeners();
+        }
+
+        modeBtns.forEach(btn => {
+            btn.addEventListener('click', () => switchMode(btn.dataset.mode));
+        });
+
+        // ==========================================
+        // 6. Universal Real-Time Omni-Search Bar
+        // ==========================================
+        const omniInput = document.getElementById('omni-search');
+        const resultsBox = document.getElementById('search-results-box');
+        const searchChips = document.querySelectorAll('.search-chip');
+        let currentSearchFilter = 'all';
+
+        const searchableItems = [
+            { type: 'videos', title: 'How to Clear Gigabytes of Hidden Windows Junk Fast!', sub: 'PC Storage Hack', targetId: 'sec-video-1', mode: 'tech' },
+            { type: 'videos', title: 'Stop copy-pasting emojis on PC, do THIS instead!', sub: 'Daily Shortcut', targetId: 'sec-video-2', mode: 'tech' },
+            { type: 'videos', title: 'Thalapathy Ultimate Mass Action Tribute', sub: 'Cinema Edit Short', targetId: 'sec-video-1', mode: 'thalapathy' },
+            { type: 'hacks', title: 'cleanmgr', sub: 'Windows Disk Cleanup utility for update cache', targetId: 'sec-run-lab', mode: 'tech' },
+            { type: 'hacks', title: '%temp%', sub: 'User Temporary folder purge shortcut', targetId: 'sec-run-lab', mode: 'tech' },
+            { type: 'hacks', title: 'mrt', sub: 'Microsoft Malicious Software Removal Tool', targetId: 'sec-run-lab', mode: 'tech' },
+            { type: 'hacks', title: 'resmon', sub: 'Real-time CPU/RAM/Disk performance monitor', targetId: 'sec-run-lab', mode: 'tech' },
+            { type: 'hacks', title: 'Win + . (Period)', sub: 'Instant Windows Emoji & GIF Picker keyboard hack', targetId: 'sec-keyboard-lab', mode: 'tech' },
+            { type: 'hacks', title: 'Win + V', sub: 'Multi-item clipboard history viewer', targetId: 'sec-keyboard-lab', mode: 'tech' },
+            { type: 'quizzes', title: 'Windows Shortcut & Run Diagnostic Quiz', sub: 'Level: Easy • Learn Lab', targetId: 'sec-learn-lab', mode: 'learn' },
+            { type: 'quizzes', title: 'Phishing & Typosquatting Defense Test', sub: 'Level: Medium • Learn Lab', targetId: 'sec-learn-lab', mode: 'learn' },
+            { type: 'quizzes', title: 'NVMe Gen 4/5 Throughput & RAM Architecture', sub: 'Level: Hard • Learn Lab', targetId: 'sec-learn-lab', mode: 'learn' }
+        ];
+
+        function executeOmniSearch() {
+            const query = omniInput.value.trim().toLowerCase();
+            if (!query) {
+                resultsBox.style.display = 'none';
+                resultsBox.innerHTML = '';
+                return;
+            }
+
+            const filtered = searchableItems.filter(item => {
+                const matchesFilter = (currentSearchFilter === 'all') || (item.type === currentSearchFilter);
+                const matchesQuery = item.title.toLowerCase().includes(query) || item.sub.toLowerCase().includes(query);
+                return matchesFilter && matchesQuery;
+            });
+
+            if (filtered.length === 0) {
+                resultsBox.innerHTML = `<div style="padding: 10px; color: var(--text-med); font-size: 0.82rem; font-family: var(--font-mono);">No items matching "${query}". Try searching "cleanmgr", "emoji", or "quiz".</div>`;
+                resultsBox.style.display = 'flex';
+                return;
+            }
+
+            resultsBox.innerHTML = '';
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.innerHTML = `
+                    <div>
+                        <div class="search-item-title">${item.title}</div>
+                        <div style="font-size: 0.72rem; color: var(--text-med);">${item.sub}</div>
+                    </div>
+                    <span class="search-item-badge">${item.type.toUpperCase()}</span>
+                `;
+                div.addEventListener('click', () => {
+                    playTihSound();
+                    switchMode(item.mode);
+                    resultsBox.style.display = 'none';
+                    const targetEl = document.getElementById(item.targetId);
+                    if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+                });
+                resultsBox.appendChild(div);
+            });
+
+            resultsBox.style.display = 'flex';
+        }
+
+        omniInput.addEventListener('input', executeOmniSearch);
+
+        searchChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                playTihSound();
+                searchChips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentSearchFilter = chip.dataset.filter;
+                executeOmniSearch();
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.omni-search-wrapper')) {
+                resultsBox.style.display = 'none';
+            }
+        });
+
+        // ==========================================
+        // 7. Windows Run Simulator (Tech Mode)
+        // ==========================================
+        const runCommands = {
+            'cleanmgr': 'Windows Disk Cleanup: Scans and safely clears gigabytes of old update logs, thumbnails, and temp cache.',
+            '%temp%': 'Opens User Temporary Files directory. Safe to empty everything inside to recover disk capacity.',
+            'temp': 'Opens Windows System Temp directory. Removes outdated driver and application setup remnants.',
+            'mrt': 'Launches Microsoft Malicious Software Removal Tool for a direct on-demand malware scan.',
+            'resmon': 'Resource Monitor: Pinpoint which app is bottlenecking CPU, RAM, or disk speed in real time.',
+            'perfmon': 'Performance Monitor for deep system health diagnostics and telemetry graphs.',
+            'dxdiag': 'DirectX Diagnostic Tool: Inspect graphics card drivers, video memory, and hardware audio specs.',
+            'cmd': 'Command Prompt terminal interpreter.'
+        };
+
+        const runInput = document.getElementById('run-input');
+        const runBtn = document.getElementById('run-btn');
+        const termOut = document.getElementById('term-out');
+
+        function executeRun(cmd) {
+            const clean = cmd.trim().toLowerCase();
+            playTihSound();
+            if (runCommands[clean]) {
+                termOut.innerHTML = `<strong>&gt; ${clean}</strong>: ${runCommands[clean]}`;
+            } else {
+                termOut.innerHTML = `<strong>&gt; ${clean}</strong>: Command recognized in Windows. Type 'cleanmgr', '%temp%', or 'mrt' for dedicated performance tricks.`;
+            }
+        }
+
+        runBtn.addEventListener('click', () => {
+            if (runInput.value) executeRun(runInput.value);
+        });
+
+        runInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && runInput.value) executeRun(runInput.value);
+        });
+
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const cmd = chip.getAttribute('data-cmd');
+                runInput.value = cmd;
+                executeRun(cmd);
+            });
+        });
+
+        // ==========================================
+        // 8. Interactive Keyboard Lab (Tech Mode)
+        // ==========================================
+        const keyCaps = document.querySelectorAll('.key-cap');
+        const keyTip = document.getElementById('key-tip');
+
+        const keyCombos = {
+            'Win': 'Windows Key: Combine with other keys for system shortcuts (Win + R, Win + ., Win + Shift + S).',
+            '.': 'Period Key: Press with Win (Win + .) to open the instant emoji, symbol, and GIF keyboard!',
+            'R': 'R Key: Press with Win (Win + R) to open the Run box.',
+            'Shift': 'Shift Key: Modifies keys for power-user commands.',
+            'S': 'S Key: Combined with Win + Shift (Win + Shift + S) to open the Snipping Tool.',
+            'V': 'V Key: Combined with Win (Win + V) to open multi-item Clipboard History.',
+            'Esc': 'Escape Key: Closes active overlays and prompts.'
+        };
+
+        keyCaps.forEach(cap => {
+            cap.addEventListener('click', () => {
+                playTihSound();
+                cap.classList.add('pressed');
+                setTimeout(() => cap.classList.remove('pressed'), 180);
+                const key = cap.getAttribute('data-key');
+                keyTip.textContent = keyCombos[key] || `Key Pressed: ${key}`;
+            });
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (currentMode !== 'tech') return;
+            let pressed = e.key;
+            if (e.key === 'Meta' || e.key === 'OS') pressed = 'Win';
+            keyCaps.forEach(cap => {
+                if (cap.getAttribute('data-key').toLowerCase() === pressed.toLowerCase()) {
+                    playTihSound();
+                    cap.classList.add('pressed');
+                    setTimeout(() => cap.classList.remove('pressed'), 180);
+                }
+            });
+        });
+
+        // ==========================================
+        // 9. Endless Quiz Engine with Difficulty Selector (Learn Mode)
+        // ==========================================
+        let currentDifficulty = 'all';
+        let quizQueue = [];
+        let currentQuestionIndex = 0;
+        let userQuizScore = 0;
+        let userQuizStreak = 0;
+        let isFetchingBatch = false;
+
+        const qTextEl = document.getElementById('q-text');
+        const qOptionsEl = document.getElementById('q-options');
+        const qDiffEl = document.getElementById('q-diff');
+        const qCounterEl = document.getElementById('q-counter');
+        const qExplanationEl = document.getElementById('q-explanation');
+        const btnNextQ = document.getElementById('btn-next-question');
+        const scoreTrackerEl = document.getElementById('quiz-score');
+        const streakTrackerEl = document.getElementById('quiz-streak');
+        const loadingSubEl = document.getElementById('q-loading-sub');
+
+        const fallbackQuizLibrary = [
+            {
+                question: "Which Windows shortcut opens the multi-item Clipboard History?",
+                options: ["Ctrl + V", "Win + V", "Alt + C", "Win + Shift + V"],
+                correct: 1,
+                difficulty: "easy",
+                explanation: "Win + V opens the Windows Clipboard History to paste text and screenshots copied earlier."
+            },
+            {
+                question: "What does the Windows Run command 'cleanmgr' do?",
+                options: ["Device Manager", "Disk Cleanup", "Task Manager", "Network Reset"],
+                correct: 1,
+                difficulty: "easy",
+                explanation: "Pressing Win + R and typing 'cleanmgr' launches Disk Cleanup to safely remove gigabytes of update cache and junk."
+            },
+            {
+                question: "Which hotkey opens Task Manager directly without going through the lock screen menu?",
+                options: ["Ctrl + Shift + Esc", "Ctrl + Alt + Del", "Win + T", "Alt + Shift + Esc"],
+                correct: 0,
+                difficulty: "medium",
+                explanation: "Ctrl + Shift + Esc launches Task Manager instantly without showing the full screen security lock menu."
+            },
+            {
+                question: "A website uses 'http://paypa1-security.com' with the number '1' instead of letter 'l'. What is this attack called?",
+                options: ["Buffer Overflow", "Typosquatting / Phishing", "SQL Injection", "DDoS Flood"],
+                correct: 1,
+                difficulty: "medium",
+                explanation: "Typosquatting registers misleading domains mimicking genuine brands to trick visitors into entering credentials."
+            },
+            {
+                question: "Which Command Prompt utility inspects and repairs corrupted Windows core operating system files?",
+                options: ["chkdsk /f", "sfc /scannow", "ipconfig /flushdns", "netsh winsock reset"],
+                correct: 1,
+                difficulty: "hard",
+                explanation: "'sfc /scannow' (System File Checker) scans and replaces damaged core Windows files with fresh cached copies."
+            },
+            {
+                question: "Which storage protocol connects directly to the CPU PCIe lanes for ultra-low latency?",
+                options: ["SATA III", "NVMe PCIe", "eMMC 5.1", "IDE / PATA"],
+                correct: 1,
+                difficulty: "hard",
+                explanation: "NVMe communicates directly over PCIe lanes, avoiding legacy SATA bus controllers to achieve speeds over 7000 MB/s."
+            }
+        ];
+
+        function decodeHTMLEntities(str) {
+            const txt = document.createElement('textarea');
+            txt.innerHTML = str;
+            return txt.value;
+        }
+
+        async function fetchQuizBatch() {
+            if (isFetchingBatch) return;
+            isFetchingBatch = true;
+            loadingSubEl.textContent = "Fetching fresh questions...";
+
+            let url = 'https://opentdb.com/api.php?amount=10&category=18&type=multiple';
+            if (currentDifficulty !== 'all') {
+                url += `&difficulty=${currentDifficulty}`;
+            }
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    const parsed = data.results.map(item => {
+                        const rawOptions = [...item.incorrect_answers, item.correct_answer]
+                            .map(decodeHTMLEntities)
+                            .sort(() => 0.5 - Math.random());
+
+                        return {
+                            question: decodeHTMLEntities(item.question),
+                            options: rawOptions,
+                            correct: rawOptions.indexOf(decodeHTMLEntities(item.correct_answer)),
+                            difficulty: item.difficulty.toLowerCase(),
+                            explanation: `Correct answer: "${decodeHTMLEntities(item.correct_answer)}". OpenTDB Computer Science category.`
+                        };
+                    });
+
+                    quizQueue = quizQueue.concat(parsed);
+                } else {
+                    useFallbackQuestions();
+                }
+            } catch (err) {
+                useFallbackQuestions();
+            } finally {
+                isFetchingBatch = false;
+                loadingSubEl.textContent = "Endless batching enabled";
+                if (quizQueue.length > 0 && currentQuestionIndex >= quizQueue.length - 1) {
+                    displayCurrentQuestion();
+                }
+            }
+        }
+
+        function useFallbackQuestions() {
+            let pool = fallbackQuizLibrary;
+            if (currentDifficulty !== 'all') {
+                pool = fallbackQuizLibrary.filter(q => q.difficulty === currentDifficulty);
+            }
+            if (pool.length === 0) pool = fallbackQuizLibrary;
+            const shuffled = [...pool].sort(() => 0.5 - Math.random());
+            quizQueue = quizQueue.concat(shuffled);
+        }
+
+        function displayCurrentQuestion() {
+            if (currentQuestionIndex >= quizQueue.length) {
+                fetchQuizBatch();
+                return;
+            }
+
+            if (quizQueue.length - currentQuestionIndex <= 3) {
+                fetchQuizBatch();
+            }
+
+            const q = quizQueue[currentQuestionIndex];
+            qCounterEl.textContent = `Question ${currentQuestionIndex + 1}`;
+            qDiffEl.textContent = q.difficulty.toUpperCase();
+            qDiffEl.className = `q-difficulty diff-${q.difficulty}`;
+            qTextEl.textContent = q.question;
+
+            qExplanationEl.style.display = 'none';
+            qExplanationEl.textContent = '';
+            btnNextQ.style.display = 'none';
+            qOptionsEl.innerHTML = '';
+
+            q.options.forEach((optText, optIdx) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-opt-btn';
+                btn.innerHTML = `<span>${optText}</span> <span class="opt-indicator">➔</span>`;
+                btn.addEventListener('click', () => handleQuizOptionClick(optIdx, btn));
+                qOptionsEl.appendChild(btn);
+            });
+        }
+
+        function handleQuizOptionClick(selectedIdx, clickedBtn) {
+            playTihSound();
+            const q = quizQueue[currentQuestionIndex];
+            const allBtns = qOptionsEl.querySelectorAll('.quiz-opt-btn');
+            allBtns.forEach(b => b.disabled = true);
+
+            if (selectedIdx === q.correct) {
+                clickedBtn.classList.add('correct');
+                clickedBtn.querySelector('.opt-indicator').textContent = '✓ Correct';
+                userQuizScore += 10;
+                userQuizStreak++;
+                playSuccessChime();
+            } else {
+                clickedBtn.classList.add('incorrect');
+                clickedBtn.querySelector('.opt-indicator').textContent = '✕ Incorrect';
+                if (allBtns[q.correct]) {
+                    allBtns[q.correct].classList.add('correct');
+                    allBtns[q.correct].querySelector('.opt-indicator').textContent = '✓ Correct Answer';
+                }
+                userQuizStreak = 0;
+                playErrorBuzz();
+            }
+
+            scoreTrackerEl.textContent = userQuizScore;
+            streakTrackerEl.textContent = `${userQuizStreak}🔥`;
+
+            qExplanationEl.innerHTML = `<strong>💡 Tech Insight:</strong> ${q.explanation}`;
+            qExplanationEl.style.display = 'block';
+            btnNextQ.style.display = 'inline-block';
+        }
+
+        btnNextQ.addEventListener('click', () => {
+            playTihSound();
+            currentQuestionIndex++;
+            displayCurrentQuestion();
+        });
+
+        document.querySelectorAll('.quiz-diff-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                playTihSound();
+                document.querySelectorAll('.quiz-diff-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                currentDifficulty = btn.dataset.diff;
+                quizQueue = [];
+                currentQuestionIndex = 0;
+                userQuizStreak = 0;
+                streakTrackerEl.textContent = '0🔥';
+
+                qTextEl.textContent = `Loading ${currentDifficulty.toUpperCase()} questions...`;
+                qOptionsEl.innerHTML = '';
+                qExplanationEl.style.display = 'none';
+
+                fetchQuizBatch().then(() => {
+                    displayCurrentQuestion();
+                });
+            });
+        });
+
+        fetchQuizBatch().then(() => {
+            displayCurrentQuestion();
+        });
+
+        // ==========================================
+        // 10. Thalapathy Global Aura Station
+        // ==========================================
+        const boostBtn = document.getElementById('boost-mass-btn');
+        const fillBar = document.getElementById('mass-fill');
+        const counterVal = document.getElementById('mass-counter-val');
+        const userMsg = document.getElementById('aura-user-msg');
+
+        let globalAuraCount = 0;
+        const VOTE_STORAGE_KEY = 'thalapathy_aura_boosted_v3';
+
+        function checkUserVoteStatus() {
+            try {
+                const alreadyVoted = window.localStorage ? localStorage.getItem(VOTE_STORAGE_KEY) : false;
+                if (alreadyVoted) {
+                    boostBtn.disabled = true;
+                    boostBtn.innerHTML = `<span>✨ Aura Boosted!</span> <span>✓</span>`;
+                    userMsg.innerHTML = `<span style="color: #10b981;">✓ Your tribute is active! Thank you, Thalapathy fan!</span>`;
+                }
+            } catch (e) {}
+        }
+
+        function updateAuraUI(count) {
+            globalAuraCount = count;
+            counterVal.innerHTML = `Global Aura Energy: <strong>${count.toLocaleString()}</strong>`;
+            const pct = Math.min(100, Math.max(8, Math.round((count / 500) * 100)));
+            fillBar.style.width = pct + '%';
+        }
+
+        updateAuraUI(0);
+        checkUserVoteStatus();
+
+        boostBtn.addEventListener('click', () => {
+            const alreadyVoted = window.localStorage ? localStorage.getItem(VOTE_STORAGE_KEY) : false;
+            if (alreadyVoted) return;
+
+            try {
+                if (window.localStorage) {
+                    localStorage.setItem(VOTE_STORAGE_KEY, 'true');
+                }
+            } catch (e) {}
+
+            checkUserVoteStatus();
+            playTihSound();
+            playCinemaTone('impact');
+            updateAuraUI(globalAuraCount + 1);
+        });
+
+        // Start in default Tech mode
+        switchMode('tech');
+    </script>
+</body>
+</html>
