@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thalapathy Corner | Cinematic Edits & Mass Arena</title>
+    <meta name="description" content="Official Thalapathy Vijay mass arena by Techie Sagnik — cinematic edits, soundboard triggers, and global fan aura boost.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Thalapathy Vijay Cinema Hub",
+      "author": {
+        "@type": "Person",
+        "name": "Techie Sagnik",
+        "url": "https://techiesagnik.me/about.html"
+      },
+      "url": "https://techiesagnik.me/thalapathycorner"
+    }
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="portal-container">
+        <header class="top-navbar">
+            <div class="brand-cluster">
+                <a href="../index.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+                    <img class="brand-avatar" src="../logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                    <div class="brand-meta">
+                        <h2>Techie Sagnik</h2>
+                        <span style="color: var(--accent-red);">🔥 Thalapathy Arena</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <a href="../about.html" class="sfx-toggle" style="text-decoration: none; display: inline-flex; align-items: center;">About</a>
+                <button class="sfx-toggle" id="sfx-btn">SFX: ON</button>
+                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
+                    Subscribe ➔
+                </a>
+            </div>
+        </header>
+
+        <nav class="mode-switcher">
+            <a href="/tech" class="mode-btn">⚡ Cyber &amp; Tech Lab</a>
+            <a href="/thalapathycorner" class="mode-btn active thalapathy">🔥 Thalapathy Arena</a>
+            <a href="/techquizzes" class="mode-btn">📚 Learn Lab</a>
+        </nav>
+
+        <section class="hero-section">
+            <h1 style="color: #fff;">
+                Celebrate <span class="interactive-token" style="color:var(--accent-red); border-bottom-color: var(--accent-red);">Thalapathy</span> in High-Energy 
+                <span class="interactive-token" style="color:var(--accent-gold); border-bottom-color: var(--accent-gold);">Mass Aura</span> Edits.
+            </h1>
+            <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;">
+                Boost the global aura meter and hit instant cinema SFX beats below!
+            </p>
+        </section>
+
+        <section class="aura-boost-card">
+            <span class="badge-tag" style="background: rgba(255, 30, 86, 0.2); color: var(--accent-red); border: 1px solid rgba(255, 30, 86, 0.4);">
+                🔥 GLOBAL THALAPATHY MASS METER
+            </span>
+            <div class="aura-counter-display" id="aura-count">0</div>
+            <button class="btn-aura-boost" id="btn-boost-aura">⚡ Boost Thalapathy Aura (+1)</button>
+            <div class="boost-subtext" id="boost-status">1 Boost per day per fan. Starts at 0 and adds up globally!</div>
+        </section>
+
+        <section class="interactive-panel">
+            <div class="panel-header">
+                <span class="panel-title" style="color: var(--accent-gold);">🔊 Cinema SFX Soundboard</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Instant Audio Triggers</span>
+            </div>
+
+            <div class="soundboard-grid">
+                <button class="sfx-chip" onclick="playCinemaBeat('bass')">🔥 Sub-Bass Drop</button>
+                <button class="sfx-chip" onclick="playCinemaBeat('impact')">⚔️ Action Impact</button>
+                <button class="sfx-chip" onclick="playCinemaBeat('stutter')">⚡ Anirudh Stutter</button>
+                <button class="sfx-chip" onclick="playCinemaBeat('glitch')">🎬 Trailer Glitch</button>
+            </div>
+        </section>
+
+        <main class="video-grid">
+            <article class="video-card">
+                <div class="card-top">
+                    <span class="badge-tag badge-popular">🚀 NEW CLASH SHORT</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 VERTICAL</span>
+                </div>
+                <div class="iframe-container short">
+                    <iframe src="https://www.youtube-nocookie.com/embed/683RsckWKG4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="JD vs Leo Das"></iframe>
+                </div>
+                <h2 class="video-title">JD vs Leo Das: The Ultimate Clash ⚔️ Comment Your Fav!</h2>
+            </article>
+
+            <article class="video-card">
+                <div class="card-top">
+                    <span class="badge-tag badge-popular">🔥 MOST POPULAR EDIT</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 VERTICAL</span>
+                </div>
+                <div class="iframe-container short">
+                    <iframe src="https://www.youtube-nocookie.com/embed/683RsckWKG4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Leo Das Savage Entry"></iframe>
+                </div>
+                <h2 class="video-title">Can ANY Villain Stop Leo Das? 🔥 #Shorts #Thalapathy</h2>
+            </article>
+        </main>
+
+        <footer>
+            © 2026 TECHIE SAGNIK // THALAPATHY VIJAY CINEMA ARENA
+        </footer>
+    </div>
+
+    <script>
+        let sfxEnabled = true;
+        let audioCtx = null;
+        const sfxBtn = document.getElementById('sfx-btn');
+
+        function ensureAudioContext() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        window.addEventListener('click', ensureAudioContext, { once: true });
+        window.addEventListener('keydown', ensureAudioContext, { once: true });
+
+        sfxBtn.addEventListener('click', () => {
+            sfxEnabled = !sfxEnabled;
+            sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
+            sfxBtn.classList.toggle('off', !sfxEnabled);
+        });
+
+        function playCinemaBeat(type) {
+            if (!sfxEnabled) return;
+            ensureAudioContext();
+            if (!audioCtx) return;
+
+            const t = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            if (type === 'bass') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(140, t);
+                osc.frequency.exponentialRampToValueAtTime(32, t + 0.5);
+                gain.gain.setValueAtTime(0.3, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.5);
+            } else if (type === 'impact') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(220, t);
+                osc.frequency.exponentialRampToValueAtTime(40, t + 0.25);
+                gain.gain.setValueAtTime(0.25, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.25);
+            } else if (type === 'stutter') {
+                for (let i = 0; i < 4; i++) {
+                    const sOsc = audioCtx.createOscillator();
+                    const sGain = audioCtx.createGain();
+                    sOsc.type = 'square';
+                    sOsc.frequency.setValueAtTime(400, t + i * 0.07);
+                    sGain.gain.setValueAtTime(0.06, t + i * 0.07);
+                    sGain.gain.exponentialRampToValueAtTime(0.001, t + (i + 1) * 0.07);
+                    sOsc.connect(sGain);
+                    sGain.connect(audioCtx.destination);
+                    sOsc.start(t + i * 0.07);
+                    sOsc.stop(t + (i + 1) * 0.07);
+                }
+            } else if (type === 'glitch') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(800, t);
+                osc.frequency.linearRampToValueAtTime(140, t + 0.12);
+                gain.gain.setValueAtTime(0.12, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.12);
+            }
+        }
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            const count = Math.floor((window.innerWidth * window.innerHeight) / 13000);
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    size: Math.random() * 2 + 1
+                });
+            }
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+
+        function renderParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff1e56';
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            requestAnimationFrame(renderParticles);
+        }
+        renderParticles();
+
+        const auraCountEl = document.getElementById('aura-count');
+        const boostBtn = document.getElementById('btn-boost-aura');
+        const boostStatusEl = document.getElementById('boost-status');
+
+        function getTodayDateString() {
+            const now = new Date();
+            return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+        }
+
+        function checkTodayVoteStatus() {
+            const today = getTodayDateString();
+            const lastDate = localStorage.getItem('ts_aura_last_date');
+
+            if (lastDate === today) {
+                boostBtn.disabled = true;
+                boostBtn.textContent = "BOOSTED TODAY 🔥";
+                if (boostStatusEl) boostStatusEl.textContent = "You've boosted Thalapathy's aura for today! Resets at midnight.";
+                return true;
+            } else {
+                boostBtn.disabled = false;
+                boostBtn.textContent = "⚡ Boost Thalapathy Aura (+1)";
+                if (boostStatusEl) boostStatusEl.textContent = "1 Boost per day per fan. Starts at 0 and adds up globally!";
+                return false;
+            }
+        }
+
+        let auraDocRef = null;
+        try {
+            if (typeof firebase !== 'undefined') {
+                const firebaseConfig = {
+                    apiKey: "AIzaSyFakeKeyForLocalFallback",
+                    projectId: "techie-sagnik-portal"
+                };
+                if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+                const db = firebase.firestore();
+                auraDocRef = db.doc('artifacts/techie-sagnik-portal/public/data/thalapathy_aura/counter');
+
+                auraDocRef.onSnapshot((doc) => {
+                    if (doc.exists) {
+                        const count = typeof doc.data().count === 'number' ? doc.data().count : 0;
+                        auraCountEl.textContent = count.toLocaleString();
+                    } else {
+                        auraDocRef.set({ count: 0 }, { merge: true });
+                        auraCountEl.textContent = "0";
+                    }
+                }, (err) => {
+                    const count = Number(localStorage.getItem('ts_aura_offline_count') || 0);
+                    auraCountEl.textContent = count.toLocaleString();
+                });
+            }
+        } catch(e) {
+            const count = Number(localStorage.getItem('ts_aura_offline_count') || 0);
+            auraCountEl.textContent = count.toLocaleString();
+        }
+
+        checkTodayVoteStatus();
+
+        boostBtn.addEventListener('click', async () => {
+            const today = getTodayDateString();
+            if (localStorage.getItem('ts_aura_last_date') === today) return;
+
+            localStorage.setItem('ts_aura_last_date', today);
+            checkTodayVoteStatus();
+            playCinemaBeat('impact');
+
+            if (auraDocRef) {
+                try {
+                    await auraDocRef.set({
+                        count: firebase.firestore.FieldValue.increment(1)
+                    }, { merge: true });
+                    return;
+                } catch(e) {}
+            }
+
+            let localCount = Number(localStorage.getItem('ts_aura_offline_count') || 0) + 1;
+            localStorage.setItem('ts_aura_offline_count', localCount);
+            auraCountEl.textContent = localCount.toLocaleString();
+        });
+    </script>
+</body>
+</html>
