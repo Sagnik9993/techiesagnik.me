@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows PC Optimization Lab | Techie Sagnik</title>
+    <meta name="description" content="Master native Windows performance secrets, diagnostic shortcuts, and junk cleaning commands with Techie Sagnik.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Windows PC Optimization & Diagnostic Shortcuts",
+      "author": {
+        "@type": "Person",
+        "name": "Techie Sagnik",
+        "url": "https://techiesagnik.me/about.html"
+      },
+      "url": "https://techiesagnik.me/tech"
+    }
+    </script>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="portal-container">
+        <header class="top-navbar">
+            <div class="brand-cluster">
+                <a href="../index.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+                    <img class="brand-avatar" src="../logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                    <div class="brand-meta">
+                        <h2>Techie Sagnik</h2>
+                        <span>⚡ Cyber &amp; Tech Lab</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <a href="../about.html" class="sfx-toggle" style="text-decoration: none; display: inline-flex; align-items: center;">About</a>
+                <button class="sfx-toggle" id="sfx-btn">SFX: ON</button>
+                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
+                    Subscribe ➔
+                </a>
+            </div>
+        </header>
+
+        <nav class="mode-switcher">
+            <a href="/tech" class="mode-btn active">⚡ Cyber &amp; Tech Lab</a>
+            <a href="/thalapathycorner" class="mode-btn">🔥 Thalapathy Arena</a>
+            <a href="/techquizzes" class="mode-btn">📚 Learn Lab</a>
+        </nav>
+
+        <div class="search-container">
+            <div class="search-box">
+                <span style="font-size: 1rem; color: var(--text-med);">🔍</span>
+                <input type="text" class="search-input" id="search-input" placeholder="Search fixes (e.g. slow, cleanmgr, emoji, junk, disk)...">
+                <div class="search-chips">
+                    <button class="search-chip active" data-filter="all">ALL</button>
+                    <button class="search-chip" data-filter="fix">FIXES</button>
+                    <button class="search-chip" data-filter="cmd">CMDS</button>
+                </div>
+            </div>
+            <div class="search-results-dropdown" id="search-results"></div>
+        </div>
+
+        <section class="hero-section">
+            <div id="interactive-popup-card">
+                <span class="popup-badge" id="popup-badge">FEATURED TIP</span>
+                <h3 class="popup-title" id="popup-title">Tip Title</h3>
+                <p class="popup-desc" id="popup-desc"></p>
+                <button class="popup-btn" id="popup-btn">Watch Video ➔</button>
+            </div>
+
+            <h1>
+                Master 
+                <span class="interactive-token" id="token-high">High</span>-impact
+                Windows secrets &amp; boost your PC's
+                <span class="interactive-token" id="token-velocity">Velocity</span>.
+            </h1>
+            <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;">
+                Hover over the highlighted words or execute commands below to inspect real PC tools!
+            </p>
+        </section>
+
+        <section class="interactive-panel">
+            <div class="panel-header">
+                <span class="panel-title">⚡ Interactive Windows Run Console</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Win + R Emulator</span>
+            </div>
+
+            <div class="run-input-group">
+                <input type="text" class="run-input" id="run-input" placeholder="Type a command (cleanmgr, %temp%, mrt, resmon)...">
+                <button class="run-btn" id="run-btn">Execute</button>
+            </div>
+
+            <div class="command-chips">
+                <span class="chip" data-cmd="cleanmgr">cleanmgr</span>
+                <span class="chip" data-cmd="%temp%">%temp%</span>
+                <span class="chip" data-cmd="mrt">mrt</span>
+                <span class="chip" data-cmd="resmon">resmon</span>
+                <span class="chip" data-cmd="perfmon">perfmon</span>
+                <span class="chip" data-cmd="cmd">cmd</span>
+            </div>
+
+            <div class="terminal-output" id="term-out">
+                Ready. Type or click any command above to inspect its real diagnostic function.
+            </div>
+        </section>
+
+        <section class="interactive-panel">
+            <div class="panel-header">
+                <span class="panel-title">⌨️ Keyboard Shortcut Lab</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Click or press keys</span>
+            </div>
+
+            <div class="keyboard-dock">
+                <div class="key-cap" data-key="Win">⊞ Win</div>
+                <div class="key-cap" data-key=".">. (Period)</div>
+                <div class="key-cap" data-key="R">R</div>
+                <div class="key-cap" data-key="Shift">Shift</div>
+                <div class="key-cap" data-key="S">S</div>
+                <div class="key-cap" data-key="V">V</div>
+                <div class="key-cap" data-key="Esc">Esc</div>
+            </div>
+
+            <div class="key-tip-banner" id="key-tip">
+                Press or click [⊞ Win] + [. (Period)] to test the emoji picker shortcut!
+            </div>
+        </section>
+
+        <main class="video-grid">
+            <article class="video-card" id="card-video-1">
+                <div class="card-top">
+                    <span class="badge-tag badge-new">🚀 NEW UPLOAD</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">HD / SHORTS</span>
+                </div>
+                <div class="iframe-container" id="frame-wrap-1">
+                    <iframe id="iframe-1" src="https://www.youtube-nocookie.com/embed/_-SvBNpiF3E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Cleanmgr Guide"></iframe>
+                </div>
+                <h2 class="video-title" id="title-vid-1">How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀</h2>
+            </article>
+
+            <article class="video-card" id="card-video-2">
+                <div class="card-top">
+                    <span class="badge-tag badge-popular">🔥 MOST POPULAR</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 VERTICAL</span>
+                </div>
+                <div class="iframe-container short" id="frame-wrap-2">
+                    <iframe id="iframe-2" src="https://www.youtube-nocookie.com/embed/DSPExrqZDKo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Emoji Shortcut"></iframe>
+                </div>
+                <h2 class="video-title" id="title-vid-2">Stop copy-pasting emojis on PC, do THIS instead! 😂🔥</h2>
+            </article>
+        </main>
+
+        <footer>
+            © 2026 TECHIE SAGNIK // WINDOWS OPTIMIZATION LAB
+        </footer>
+    </div>
+
+    <script>
+        let sfxEnabled = true;
+        let audioCtx = null;
+        const sfxBtn = document.getElementById('sfx-btn');
+
+        function ensureAudioContext() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        window.addEventListener('click', ensureAudioContext, { once: true });
+        window.addEventListener('keydown', ensureAudioContext, { once: true });
+
+        sfxBtn.addEventListener('click', () => {
+            sfxEnabled = !sfxEnabled;
+            sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
+            sfxBtn.classList.toggle('off', !sfxEnabled);
+            if (sfxEnabled) playTihSound();
+        });
+
+        function playTihSound(freq = 1950) {
+            if (!sfxEnabled) return;
+            ensureAudioContext();
+            if (!audioCtx) return;
+            try {
+                const t = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, t);
+                osc.frequency.exponentialRampToValueAtTime(1100, t + 0.018);
+                gain.gain.setValueAtTime(0.06, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.018);
+            } catch(e) {}
+        }
+
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            const count = Math.floor((window.innerWidth * window.innerHeight) / 13000);
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    size: Math.random() * 2 + 1
+                });
+            }
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+
+        function renderParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00f2fe';
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            requestAnimationFrame(renderParticles);
+        }
+        renderParticles();
+
+        const commands = {
+            'cleanmgr': 'Windows Disk Cleanup. Deletes cached update archives, thumbnails, and temp files.',
+            '%temp%': 'Opens Local User Temp folder (AppData\\Local\\Temp). Safe to empty.',
+            'mrt': 'Microsoft Malicious Software Removal Tool for on-demand deep scans.',
+            'resmon': 'Resource Monitor. Real-time CPU, RAM, Disk, and Network tracking.',
+            'perfmon': 'Performance Monitor for deep diagnostic telemetry graphs.',
+            'cmd': 'Opens Command Prompt interpreter.'
+        };
+
+        const runInput = document.getElementById('run-input');
+        const runBtn = document.getElementById('run-btn');
+        const termOut = document.getElementById('term-out');
+
+        function executeRun(cmd) {
+            const clean = cmd.trim().toLowerCase();
+            playTihSound(1700);
+            if (commands[clean]) {
+                termOut.innerHTML = `<strong>&gt; ${clean}</strong>: ${commands[clean]}`;
+            } else {
+                termOut.innerHTML = `<strong>&gt; ${clean}</strong>: Command recognized in Windows. Try 'cleanmgr' or '%temp%' for instant optimizations.`;
+            }
+        }
+
+        runBtn.addEventListener('click', () => { if (runInput.value) executeRun(runInput.value); });
+        runInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && runInput.value) executeRun(runInput.value); });
+
+        document.querySelectorAll('.chip').forEach(c => {
+            c.addEventListener('click', () => {
+                runInput.value = c.getAttribute('data-cmd');
+                executeRun(c.getAttribute('data-cmd'));
+            });
+        });
+
+        const keyCaps = document.querySelectorAll('.key-cap');
+        const keyTip = document.getElementById('key-tip');
+        const keyCombos = {
+            'Win': 'Windows Key: Combine for quick tools (Win + R, Win + ., Win + Shift + S).',
+            '.': 'Period Key: Combined with Win (Win + .) to open the emoji and symbol board!',
+            'R': 'R Key: Combined with Win (Win + R) to open the Run box.',
+            'Shift': 'Shift Key: Modifies commands and enables selective screen snapping.',
+            'S': 'S Key: Combined with Win + Shift (Win + Shift + S) to open Snipping Tool.',
+            'V': 'V Key: Combined with Win + Shift (Win + V) to open Clipboard History.',
+            'Esc': 'Escape Key: Closes open dialogs, full screens, and overlays.'
+        };
+
+        keyCaps.forEach(cap => {
+            cap.addEventListener('click', () => {
+                playTihSound(2400);
+                cap.classList.add('pressed');
+                setTimeout(() => cap.classList.remove('pressed'), 180);
+                const k = cap.getAttribute('data-key');
+                keyTip.textContent = keyCombos[k] || `Key: ${k}`;
+            });
+        });
+
+        const popupCard = document.getElementById('interactive-popup-card');
+        const popupBadge = document.getElementById('popup-badge');
+        const popupTitle = document.getElementById('popup-title');
+        const popupDesc = document.getElementById('popup-desc');
+        const popupBtn = document.getElementById('popup-btn');
+        let hideTimer;
+
+        function showHoverCard(badge, title, desc, targetId) {
+            clearTimeout(hideTimer);
+            playTihSound(2200);
+            popupBadge.textContent = badge;
+            popupTitle.textContent = title;
+            popupDesc.textContent = desc;
+            popupBtn.onclick = () => document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            popupCard.classList.add('active');
+        }
+
+        function scheduleHide() {
+            hideTimer = setTimeout(() => popupCard.classList.remove('active'), 250);
+        }
+
+        document.getElementById('token-high').addEventListener('mouseenter', () => {
+            showHoverCard("COMMAND: cleanmgr.exe", "Clear Gigabytes of Hidden Junk", "Hit Win + R, type 'cleanmgr' to delete old Windows cache and update logs.", "card-video-1");
+        });
+        document.getElementById('token-high').addEventListener('mouseleave', scheduleHide);
+
+        document.getElementById('token-velocity').addEventListener('mouseenter', () => {
+            showHoverCard("SHORTCUT: Win + .", "Instant Emoji & GIF Board", "Stop browsing emoji copy-paste sites. Use Win + Period anywhere.", "card-video-2");
+        });
+        document.getElementById('token-velocity').addEventListener('mouseleave', scheduleHide);
+
+        popupCard.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+        popupCard.addEventListener('mouseleave', scheduleHide);
+
+        const techCatalog = [
+            { 
+                title: "How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀", 
+                type: "fix",
+                keywords: ["slow", "lag", "junk", "temp", "cleanmgr", "c drive", "storage full", "space"],
+                action: () => {
+                    document.getElementById('iframe-1').src = "https://www.youtube-nocookie.com/embed/_-SvBNpiF3E?autoplay=1";
+                    document.getElementById('card-video-1').scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+            { 
+                title: "Stop copy-pasting emojis on PC, do THIS instead! 😂🔥", 
+                type: "fix",
+                keywords: ["emoji", "emojis", "symbol", "shortcut", "win period", "typing"],
+                action: () => {
+                    document.getElementById('iframe-2').src = "https://www.youtube-nocookie.com/embed/DSPExrqZDKo?autoplay=1";
+                    document.getElementById('card-video-2').scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+            { title: "cleanmgr - Windows Disk Cleanup", type: "cmd", keywords: ["clean", "disk", "cache"], action: () => executeRun('cleanmgr') },
+            { title: "%temp% - Temporary Files Directory", type: "cmd", keywords: ["temp", "cache", "delete"], action: () => executeRun('%temp%') },
+            { title: "mrt - Malicious Software Removal Tool", type: "cmd", keywords: ["virus", "malware", "scan"], action: () => executeRun('mrt') },
+            { title: "resmon - Resource Monitor", type: "cmd", keywords: ["cpu", "ram", "disk 100", "memory"], action: () => executeRun('resmon') }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchDropdown = document.getElementById('search-results');
+        let activeFilter = 'all';
+
+        document.querySelectorAll('.search-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                playTihSound();
+                document.querySelectorAll('.search-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                activeFilter = chip.getAttribute('data-filter');
+                filterSearch();
+            });
+        });
+
+        function filterSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            if (!query) {
+                searchDropdown.style.display = 'none';
+                return;
+            }
+
+            const matches = techCatalog.filter(item => {
+                const titleMatch = item.title.toLowerCase().includes(query);
+                const kwMatch = item.keywords.some(k => k.includes(query) || query.includes(k));
+                const typeMatch = activeFilter === 'all' || item.type === activeFilter;
+                return (titleMatch || kwMatch) && typeMatch;
+            });
+
+            if (!matches.length) {
+                searchDropdown.innerHTML = `<div style="padding:10px; font-size:0.8rem; color:var(--text-med); text-align:center;">No matching tools or fixes found.</div>`;
+                searchDropdown.style.display = 'block';
+                return;
+            }
+
+            searchDropdown.innerHTML = '';
+            matches.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'search-result-item';
+                row.innerHTML = `<span class="result-title">${item.title}</span><span class="result-tag">${item.type.toUpperCase()}</span>`;
+                row.onclick = () => {
+                    item.action();
+                    searchDropdown.style.display = 'none';
+                    searchInput.value = '';
+                };
+                searchDropdown.appendChild(row);
+            });
+
+            searchDropdown.style.display = 'block';
+        }
+
+        searchInput.addEventListener('input', filterSearch);
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) searchDropdown.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
