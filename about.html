@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Techie Sagnik | Creator, Developer & Editor</title>
     <meta name="description" content="Official profile of Techie Sagnik — Content creator, web developer, Windows optimization enthusiast, and video editor.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <script type="application/ld+json">
@@ -24,15 +28,27 @@
     </script>
 
     <style>
+        body {
+            background-color: #060810;
+            color: #f8fafc;
+            min-height: 100vh;
+            padding: 24px 16px 60px;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
         .about-card {
-            background: var(--panel-bg);
-            border: 1px solid var(--panel-border);
+            background: rgba(13, 18, 32, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.2);
             border-radius: 20px;
             padding: 32px 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             display: flex;
             flex-direction: column;
             gap: 24px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .profile-header {
@@ -133,6 +149,7 @@
             font-size: 0.82rem;
             font-weight: 600;
             width: fit-content;
+            margin-bottom: 12px;
         }
 
         .back-nav:hover {
