@@ -1,1 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Techie Sagnik | Creator, Developer & Editor</title>
+    <meta name="description" content="Official profile of Techie Sagnik — Content creator, web developer, Windows optimization enthusiast, and video editor.">
+    <link rel="stylesheet" href="style.css">
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Techie Sagnik",
+      "url": "https://techiesagnik.me/about.html",
+      "mainEntityOfPage": "https://techiesagnik.me",
+      "jobTitle": "Tech Creator & Web Developer",
+      "description": "Tech creator focusing on Windows optimization, interactive web apps, and video editing.",
+      "sameAs": [
+        "https://www.youtube.com/@techiesagnik",
+        "https://github.com/sagnik9993"
+      ]
+    }
+    </script>
+
+    <style>
+        .about-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 32px 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-cyan);
+            object-fit: cover;
+            background: #000;
+        }
+
+        .profile-info h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .profile-info p {
+            color: var(--accent-cyan);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .bio-section {
+            line-height: 1.7;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .skill-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .skill-title {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .skill-desc {
+            font-size: 0.82rem;
+            color: var(--text-med);
+            line-height: 1.4;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid var(--panel-border);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.16);
+            transform: translateY(-2px);
+        }
+
+        .back-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .back-nav:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-card {
+                padding: 24px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portal-container">
+        <a href="index.html" class="back-nav">← Back to Portal</a>
+
+        <div class="about-card">
+            <div class="profile-header">
+                <img class="profile-img" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                <div class="profile-info">
+                    <h1>Techie Sagnik</h1>
+                    <p>Creator &bull; Developer &bull; Editor</p>
+                </div>
+            </div>
+
+            <div class="bio-section">
+                Welcome to my official profile. I create content, interactive applications, and system guides designed to help users get maximum performance out of Windows without bloatware, alongside building engaging media projects and tech quizzes.
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-box">
+                    <div class="skill-title">⚡ PC OPTIMIZATION</div>
+                    <div class="skill-desc">Native diagnostic shortcuts, disk cleanup commands, and registry maintenance without third-party utilities.</div>
+                </div>
+                <div class="skill-box">
+                    <div class="skill-title">💻 WEB DEVELOPMENT</div>
+                    <div class="skill-desc">Crafting lightweight, responsive single-page web applications with real-time cloud data pipelines.</div>
+                </div>
+                <div class="skill-box">
+                    <div class="skill-title">🎬 MEDIA &amp; EDITS</div>
+                    <div class="skill-desc">Dynamic short-form video content, sound design engineering, and cinematic tributes.</div>
+                </div>
+            </div>
+
+            <div class="social-row">
+                <a href="https://www.youtube.com/@techiesagnik" target="_blank" rel="noopener" class="social-link">
+                    ▶ YouTube Channel
+                </a>
+                <a href="https://github.com/sagnik9993" target="_blank" rel="noopener" class="social-link">
+                    ⌘ GitHub Profile
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 TECHIE SAGNIK // OFFICIAL CREATOR PROFILE
+        </footer>
+    </div>
+
+</body>
+</html>
