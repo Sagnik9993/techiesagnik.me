@@ -4,11 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechLearn | Ranked Puzzles, Elo & Interactive Tech Mastery</title>
-    <meta name="description" content="Chess.com-style tech training platform. Solve ranked tech puzzles, calibrate your starting Elo, earn badges, and master Windows diagnostics.">
+    <meta name="description" content="Ranked tech training platform by Techie Sagnik. Solve dynamic tech puzzles, calibrate your starting Elo, earn badges, and master computing.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOccupationalCredential",
+      "name": "TechLearn Ranked Arena",
+      "author": {
+        "@type": "Person",
+        "name": "Techie Sagnik",
+        "alternateName": "Sagnik Dey",
+        "url": "https://techiesagnik.me/about.html"
+      },
+      "url": "https://techiesagnik.me/learntech"
+    }
+    </script>
 
     <style>
         .learn-grid {
@@ -371,9 +386,9 @@
         </header>
 
         <nav class="mode-switcher">
-            <a href="/tech" class="mode-btn">⚡ Cyber &amp; Tech Lab</a>
-            <a href="/thalapathycorner" class="mode-btn">🔥 Thalapathy Arena</a>
-            <a href="/techlearn" class="mode-btn active learn">📚 TechLearn Lab</a>
+            <a href="../tech/" class="mode-btn">⚡ Cyber &amp; Tech Lab</a>
+            <a href="../thalapathycorner/" class="mode-btn">🔥 Thalapathy Arena</a>
+            <a href="../learntech/" class="mode-btn active learn">📚 TechLearn Lab</a>
         </nav>
 
         <div class="learn-grid">
@@ -614,68 +629,93 @@
             if (userState.badges.includes('master')) document.getElementById('badge-master').classList.add('unlocked');
         }
 
-        const puzzles = [
+        const fallbackPuzzles = [
             {
-                rating: 100,
-                prompt: "Your C: drive has 2GB remaining and updates fail to download. Which native tool safely cleans update archives?",
-                options: ["cleanmgr", "taskkill /f", "format C:", "defrag"],
-                correct: 0,
-                explanation: "cleanmgr launches the Windows Disk Cleanup tool."
-            },
-            {
-                rating: 300,
-                prompt: "Which shortcut opens the emoji and kaomoji picker in any Windows text field?",
+                rating: 200,
+                prompt: "Which shortcut opens the emoji and symbol picker in Windows?",
                 options: ["Win + . (Period)", "Ctrl + Alt + E", "Alt + Shift + Enter", "Win + E"],
-                correct: 0,
-                explanation: "Win + . opens the native symbol and emoji flyout."
+                correct: 0
             },
             {
-                rating: 700,
-                prompt: "A background process is reading large files and causing 100% disk usage. Which built-in utility lets you inspect individual queue depths?",
-                options: ["resmon", "notepad", "dxdiag", "regedit"],
-                correct: 0,
-                explanation: "resmon (Resource Monitor) provides detailed disk queue analytics."
+                rating: 800,
+                prompt: "Which native tool safely cleans cached update files and thumbnails?",
+                options: ["cleanmgr", "taskkill", "format C:", "defrag"],
+                correct: 0
             },
             {
-                rating: 900,
-                prompt: "A secondary monitor glitches and displays black during a heavy workflow. Which shortcut safely restarts your graphics driver subsystem?",
-                options: ["Win + Ctrl + Shift + B", "Alt + F4", "Ctrl + Alt + Del", "Win + P"],
-                correct: 0,
-                explanation: "Win + Ctrl + Shift + B signals an immediate WDDM graphics driver restart."
-            },
-            {
-                rating: 1400,
-                prompt: "Windows Update components are corrupted and SFC fails to fix them. Which command pulls component files directly from Windows Update servers?",
-                options: ["dism /online /cleanup-image /restorehealth", "chkdsk /f /r", "sfc /purgecache", "bootrec /fixmbr"],
-                correct: 0,
-                explanation: "DISM with /restorehealth rebuilds the Component-Based Servicing store."
-            },
-            {
-                rating: 1700,
-                prompt: "You need to inspect live active TCP connections and listening ports on Windows. Which command provides this telemetry?",
-                options: ["netstat -ano", "ipconfig /flushdns", "tracert 127.0.0.1", "route print"],
-                correct: 0,
-                explanation: "netstat -ano lists all active sockets and associated Process IDs (PID)."
+                rating: 1500,
+                prompt: "Which command scans and repairs corrupted Windows protected system files?",
+                options: ["sfc /scannow", "chkdsk /c", "dism /clean", "netstat -ano"],
+                correct: 0
             }
         ];
 
         let activePuzzle = null;
 
-        function loadNextPuzzle() {
-            document.getElementById('puzzle-feedback').textContent = '';
-            document.getElementById('puzzle-delta').textContent = 'Rated Session Active';
-            document.getElementById('next-puzzle-btn').style.display = 'none';
+        function decodeHTML(html) {
+            const txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+        }
 
-            let candidatePuzzles = puzzles.filter(p => Math.abs(p.rating - userState.elo) <= 450);
-            if (!candidatePuzzles.length) candidatePuzzles = puzzles;
+        function getDifficultyForElo(elo) {
+            if (elo < 700) return 'easy';
+            if (elo < 1400) return 'medium';
+            return 'hard';
+        }
 
-            activePuzzle = candidatePuzzles[Math.floor(Math.random() * candidatePuzzles.length)];
-
-            document.getElementById('puzzle-rating-tag').textContent = `Puzzle Elo: ${activePuzzle.rating}`;
-            document.getElementById('puzzle-prompt').textContent = activePuzzle.prompt;
-
+        async function loadNextPuzzle() {
+            const feedbackEl = document.getElementById('puzzle-feedback');
+            const deltaEl = document.getElementById('puzzle-delta');
+            const promptEl = document.getElementById('puzzle-prompt');
             const dock = document.getElementById('puzzle-options-dock');
+            const tagEl = document.getElementById('puzzle-rating-tag');
+            const nextBtn = document.getElementById('next-puzzle-btn');
+
+            feedbackEl.textContent = '';
+            deltaEl.textContent = 'Fetching live puzzle...';
+            nextBtn.style.display = 'none';
+            promptEl.textContent = 'Connecting to question database...';
             dock.innerHTML = '';
+
+            const diff = getDifficultyForElo(userState.elo);
+            const url = `https://opentdb.com/api.php?amount=1&category=18&difficulty=${diff}&type=multiple`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.results && data.results.length > 0) {
+                    const item = data.results[0];
+                    const rawPrompt = decodeHTML(item.question);
+                    const correctText = decodeHTML(item.correct_answer);
+                    const wrongChoices = item.incorrect_answers.map(ans => decodeHTML(ans));
+
+                    const allChoices = [...wrongChoices, correctText].sort(() => Math.random() - 0.5);
+                    const correctIndex = allChoices.indexOf(correctText);
+
+                    let assignedRating = 400;
+                    if (diff === 'medium') assignedRating = 1000;
+                    if (diff === 'hard') assignedRating = 1600;
+
+                    activePuzzle = {
+                        rating: assignedRating,
+                        prompt: rawPrompt,
+                        options: allChoices,
+                        correct: correctIndex
+                    };
+                } else {
+                    throw new Error("No online question returned");
+                }
+            } catch (err) {
+                let candidates = fallbackPuzzles.filter(p => Math.abs(p.rating - userState.elo) <= 600);
+                if (!candidates.length) candidates = fallbackPuzzles;
+                activePuzzle = candidates[Math.floor(Math.random() * candidates.length)];
+            }
+
+            tagEl.textContent = `Puzzle Elo: ${activePuzzle.rating} (${diff.toUpperCase()})`;
+            promptEl.textContent = activePuzzle.prompt;
+            deltaEl.textContent = 'Rated Session Active';
 
             activePuzzle.options.forEach((opt, idx) => {
                 const b = document.createElement('button');
