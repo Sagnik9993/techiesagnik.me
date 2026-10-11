@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechLearn | Ranked Puzzles, Elo & Interactive Tech Mastery</title>
-    <meta name="description" content="Ranked tech training platform by Techie Sagnik. Solve dynamic tech puzzles, calibrate your starting Elo, earn badges, and master computing.">
+    <meta name="description" content="Ranked tech arena by Techie Sagnik. Fresh questions fetched directly from live global databases, calibrated Elo, and unlockable badges.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -166,7 +166,7 @@
             border-radius: 10px;
             font-family: var(--font-sans);
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -268,23 +268,6 @@
             display: none;
         }
 
-        .lesson-card {
-            background: var(--panel-bg);
-            border: 1px solid var(--panel-border);
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .lesson-tier {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            color: var(--accent-cyan);
-            font-weight: 700;
-        }
-
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -343,22 +326,22 @@
 
     <div class="modal-overlay" id="calibration-modal" style="display: none;">
         <div class="modal-card">
-            <h2 style="font-size: 1.5rem; color: #fff;">Calibrate Your Starting Rank</h2>
+            <h2 style="font-size: 1.5rem; color: #fff;">Calibrate Starting Rating</h2>
             <p style="color: var(--text-med); font-size: 0.85rem; margin-top: 6px;">
-                Choose your experience level to jump directly to the right difficulty.
+                Select your experience level to jump straight into matching difficulty.
             </p>
             <div class="calibrate-options">
                 <div class="calibrate-btn" onclick="calibrateUser(0, 'Byte Rookie')">
                     <div style="font-weight: 700; color: var(--accent-cyan);">🌱 Beginner (0 Elo)</div>
-                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Learn essentials: basic shortcuts, Run tools, and simple cleanups.</div>
+                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Learn computing basics, common hardware, and standard shortcuts.</div>
                 </div>
                 <div class="calibrate-btn" onclick="calibrateUser(800, 'SysAdmin Aspirant')">
                     <div style="font-weight: 700; color: var(--accent-gold);">⚡ Intermediate (800 Elo)</div>
-                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Task manager triage, process performance, and disk usage troubleshooting.</div>
+                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Networking fundamentals, operating system logic, and system diagnostics.</div>
                 </div>
                 <div class="calibrate-btn" onclick="calibrateUser(1500, 'Kernel Architect')">
-                    <div style="font-weight: 700; color: var(--accent-red);">🔥 Extreme / Expert (1500 Elo)</div>
-                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Skip the basics. Deep registry, command line utilities, and crash telemetry.</div>
+                    <div style="font-weight: 700; color: var(--accent-red);">🔥 Expert (1500 Elo)</div>
+                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Deep architecture, low-level protocols, memory structures, and kernel concepts.</div>
                 </div>
             </div>
         </div>
@@ -396,7 +379,7 @@
                 <div class="profile-box">
                     <div class="elo-badge-display">
                         <div>
-                            <div style="font-size: 0.72rem; color: var(--text-med); font-family: var(--font-mono);">CURRENT RATING</div>
+                            <div style="font-size: 0.72rem; color: var(--text-med); font-family: var(--font-mono);">RATING (ELO)</div>
                             <div class="elo-number" id="profile-elo">0</div>
                         </div>
                         <div class="tier-tag" id="profile-tier">Byte Rookie</div>
@@ -404,29 +387,36 @@
 
                     <div class="stats-row">
                         <div class="stat-card">
-                            <div class="stat-card-title">PUZZLES SOLVED</div>
+                            <div class="stat-card-title">SOLVED</div>
                             <div class="stat-card-val" id="profile-solved">0</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-card-title">CURRENT STREAK</div>
+                            <div class="stat-card-title">DAILY STREAK</div>
                             <div class="stat-card-val" id="profile-streak">0 🔥</div>
                         </div>
                     </div>
 
-                    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan); font-weight: 700; margin-top: 4px;">ACHIEVEMENT BADGES</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan); font-weight: 700; margin-top: 4px;">ACHIEVEMENTS</div>
                     <div class="badges-list">
                         <div class="badge-item" id="badge-first">
                             <div class="badge-icon">🥉</div>
                             <div class="badge-meta">
-                                <h4>First Boot</h4>
-                                <p>Solve your first puzzle</p>
+                                <h4>First Solve</h4>
+                                <p>Complete your first live puzzle</p>
+                            </div>
+                        </div>
+                        <div class="badge-item" id="badge-daily">
+                            <div class="badge-icon">🗓️</div>
+                            <div class="badge-meta">
+                                <h4>Daily Consistent</h4>
+                                <p>Solve 3 daily special puzzles</p>
                             </div>
                         </div>
                         <div class="badge-item" id="badge-streak">
                             <div class="badge-icon">🔥</div>
                             <div class="badge-meta">
                                 <h4>On Fire</h4>
-                                <p>Reach a 5-puzzle streak</p>
+                                <p>5 consecutive correct moves</p>
                             </div>
                         </div>
                         <div class="badge-item" id="badge-master">
@@ -442,49 +432,24 @@
 
             <main class="main-arena">
                 <div class="tab-controls">
-                    <button class="tab-btn active" id="tab-puzzles" onclick="switchView('puzzles')">🎯 Ranked Puzzles</button>
-                    <button class="tab-btn" id="tab-lessons" onclick="switchView('lessons')">📖 Knowledge Modules</button>
+                    <button class="tab-btn active" id="tab-puzzles" onclick="setMode('puzzles')">🎯 Ranked Puzzles</button>
+                    <button class="tab-btn" id="tab-quizzes" onclick="setMode('quizzes')">⚡ Speed Quiz</button>
+                    <button class="tab-btn" id="tab-daily" onclick="setMode('daily')">🗓️ Daily Special</button>
                 </div>
 
-                <div id="view-puzzles" class="puzzle-box">
+                <div class="puzzle-box">
                     <div class="puzzle-header">
-                        <span class="puzzle-difficulty" id="puzzle-rating-tag">Puzzle Elo: 200</span>
-                        <span id="puzzle-feedback" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;"></span>
+                        <span class="puzzle-difficulty" id="challenge-tag">Connecting to database...</span>
+                        <span id="challenge-status" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;"></span>
                     </div>
 
-                    <div class="puzzle-title" id="puzzle-prompt">Loading puzzle scenario...</div>
+                    <div class="puzzle-title" id="challenge-prompt">Contacting live API...</div>
 
-                    <div class="puzzle-options" id="puzzle-options-dock"></div>
+                    <div class="puzzle-options" id="challenge-options"></div>
 
                     <div class="puzzle-footer">
-                        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-med);" id="puzzle-delta">Rated Session Active</span>
-                        <button class="next-btn" id="next-puzzle-btn" onclick="loadNextPuzzle()">Next Puzzle ➔</button>
-                    </div>
-                </div>
-
-                <div id="view-lessons" style="display: none; flex-direction: column; gap: 14px;">
-                    <div class="lesson-card">
-                        <span class="lesson-tier">BEGINNER TIER</span>
-                        <h3 style="color: #fff; font-size: 1.05rem;">Native Windows Maintenance Without Bloatware</h3>
-                        <p style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.6;">
-                            Third-party "PC Booster" utilities often bundle registry cleaners that cause stability issues. Windows has native alternatives built in: <code>cleanmgr</code> for clean temporary storage management, and <code>%temp%</code> for clearing local user junk.
-                        </p>
-                    </div>
-
-                    <div class="lesson-card">
-                        <span class="lesson-tier">INTERMEDIATE TIER</span>
-                        <h3 style="color: #fff; font-size: 1.05rem;">Triage 100% Disk &amp; CPU Freezes</h3>
-                        <p style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.6;">
-                            Instead of relying only on Task Manager, open <code>resmon</code> (Resource Monitor) to inspect individual file queue lengths and per-process disk read/write bandwidth.
-                        </p>
-                    </div>
-
-                    <div class="lesson-card">
-                        <span class="lesson-tier">EXPERT TIER</span>
-                        <h3 style="color: #fff; font-size: 1.05rem;">Driver Recovery &amp; System Integrity Verification</h3>
-                        <p style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.6;">
-                            When display drivers freeze, use <code>Win + Ctrl + Shift + B</code> to trigger a graphics subsystem refresh. For corrupted system components, use <code>dism /online /cleanup-image /restorehealth</code> followed by <code>sfc /scannow</code>.
-                        </p>
+                        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-med);" id="challenge-meta">Live Database Active</span>
+                        <button class="next-btn" id="next-btn" onclick="fetchNextLiveQuestion()">Next ➔</button>
                     </div>
                 </div>
             </main>
@@ -496,9 +461,21 @@
     </div>
 
     <script>
+        let currentMode = 'puzzles';
         let sfxEnabled = true;
         let audioCtx = null;
-        const sfxBtn = document.getElementById('sfx-btn');
+        let activeChallenge = null;
+
+        let userState = {
+            elo: 0,
+            tier: 'Byte Rookie',
+            solved: 0,
+            streak: 0,
+            dailyCount: 0,
+            lastDailyDate: null,
+            badges: [],
+            calibrated: false
+        };
 
         function ensureAudioContext() {
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -506,6 +483,8 @@
         }
 
         window.addEventListener('click', ensureAudioContext, { once: true });
+
+        const sfxBtn = document.getElementById('sfx-btn');
         sfxBtn.addEventListener('click', () => {
             sfxEnabled = !sfxEnabled;
             sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
@@ -541,30 +520,8 @@
                 gain.connect(audioCtx.destination);
                 osc.start(t);
                 osc.stop(t + 0.2);
-            } else if (type === 'fanfare') {
-                [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
-                    const o = audioCtx.createOscillator();
-                    const g = audioCtx.createGain();
-                    o.type = 'sine';
-                    o.frequency.setValueAtTime(freq, t + idx * 0.08);
-                    g.gain.setValueAtTime(0.1, t + idx * 0.08);
-                    g.gain.exponentialRampToValueAtTime(0.001, t + idx * 0.08 + 0.3);
-                    o.connect(g);
-                    g.connect(audioCtx.destination);
-                    o.start(t + idx * 0.08);
-                    o.stop(t + idx * 0.08 + 0.3);
-                });
             }
         }
-
-        let userState = {
-            elo: 0,
-            tier: 'Byte Rookie',
-            solved: 0,
-            streak: 0,
-            badges: [],
-            calibrated: false
-        };
 
         function loadUserState() {
             const raw = localStorage.getItem('techlearn_user_profile');
@@ -587,8 +544,7 @@
             userState.calibrated = true;
             document.getElementById('calibration-modal').style.display = 'none';
             saveUserState();
-            playSound('fanfare');
-            loadNextPuzzle();
+            fetchNextLiveQuestion();
         }
 
         function updateTier() {
@@ -599,20 +555,10 @@
         }
 
         function checkBadges() {
-            let awarded = false;
-            if (userState.solved >= 1 && !userState.badges.includes('first')) {
-                userState.badges.push('first');
-                awarded = true;
-            }
-            if (userState.streak >= 5 && !userState.badges.includes('streak')) {
-                userState.badges.push('streak');
-                awarded = true;
-            }
-            if (userState.elo >= 1500 && !userState.badges.includes('master')) {
-                userState.badges.push('master');
-                awarded = true;
-            }
-            if (awarded) playSound('fanfare');
+            if (userState.solved >= 1 && !userState.badges.includes('first')) userState.badges.push('first');
+            if (userState.dailyCount >= 3 && !userState.badges.includes('daily')) userState.badges.push('daily');
+            if (userState.streak >= 5 && !userState.badges.includes('streak')) userState.badges.push('streak');
+            if (userState.elo >= 1500 && !userState.badges.includes('master')) userState.badges.push('master');
         }
 
         function updateProfileUI() {
@@ -624,38 +570,24 @@
             document.getElementById('profile-solved').textContent = userState.solved;
             document.getElementById('profile-streak').textContent = `${userState.streak} 🔥`;
 
-            if (userState.badges.includes('first')) document.getElementById('badge-first').classList.add('unlocked');
-            if (userState.badges.includes('streak')) document.getElementById('badge-streak').classList.add('unlocked');
-            if (userState.badges.includes('master')) document.getElementById('badge-master').classList.add('unlocked');
+            ['first', 'daily', 'streak', 'master'].forEach(badgeId => {
+                const el = document.getElementById(`badge-${badgeId}`);
+                if (el) el.classList.toggle('unlocked', userState.badges.includes(badgeId));
+            });
         }
-
-        const fallbackPuzzles = [
-            {
-                rating: 200,
-                prompt: "Which shortcut opens the emoji and symbol picker in Windows?",
-                options: ["Win + . (Period)", "Ctrl + Alt + E", "Alt + Shift + Enter", "Win + E"],
-                correct: 0
-            },
-            {
-                rating: 800,
-                prompt: "Which native tool safely cleans cached update files and thumbnails?",
-                options: ["cleanmgr", "taskkill", "format C:", "defrag"],
-                correct: 0
-            },
-            {
-                rating: 1500,
-                prompt: "Which command scans and repairs corrupted Windows protected system files?",
-                options: ["sfc /scannow", "chkdsk /c", "dism /clean", "netstat -ano"],
-                correct: 0
-            }
-        ];
-
-        let activePuzzle = null;
 
         function decodeHTML(html) {
             const txt = document.createElement("textarea");
             txt.innerHTML = html;
             return txt.value;
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            ['puzzles', 'quizzes', 'daily'].forEach(m => {
+                document.getElementById(`tab-${m}`).classList.toggle('active', m === mode);
+            });
+            fetchNextLiveQuestion();
         }
 
         function getDifficultyForElo(elo) {
@@ -664,113 +596,123 @@
             return 'hard';
         }
 
-        async function loadNextPuzzle() {
-            const feedbackEl = document.getElementById('puzzle-feedback');
-            const deltaEl = document.getElementById('puzzle-delta');
-            const promptEl = document.getElementById('puzzle-prompt');
-            const dock = document.getElementById('puzzle-options-dock');
-            const tagEl = document.getElementById('puzzle-rating-tag');
-            const nextBtn = document.getElementById('next-puzzle-btn');
+        async function fetchNextLiveQuestion() {
+            const feedbackEl = document.getElementById('challenge-status');
+            const metaEl = document.getElementById('challenge-meta');
+            const promptEl = document.getElementById('challenge-prompt');
+            const dock = document.getElementById('challenge-options');
+            const tagEl = document.getElementById('challenge-tag');
+            const nextBtn = document.getElementById('next-btn');
 
             feedbackEl.textContent = '';
-            deltaEl.textContent = 'Fetching live puzzle...';
+            metaEl.textContent = 'Connecting to external trivia database...';
             nextBtn.style.display = 'none';
-            promptEl.textContent = 'Connecting to question database...';
+            promptEl.textContent = 'Fetching fresh challenge...';
             dock.innerHTML = '';
 
-            const diff = getDifficultyForElo(userState.elo);
-            const url = `https://opentdb.com/api.php?amount=1&category=18&difficulty=${diff}&type=multiple`;
+            const today = new Date().toISOString().slice(0, 10);
+
+            if (currentMode === 'daily' && userState.lastDailyDate === today) {
+                tagEl.textContent = `DAILY PUZZLE (${today})`;
+                promptEl.textContent = "You have already completed today's special challenge! Return tomorrow for the next one.";
+                metaEl.textContent = "1 Solve Per Day Active";
+                return;
+            }
+
+            let difficulty = getDifficultyForElo(userState.elo);
+            if (currentMode === 'daily') difficulty = 'medium';
+
+            const url = `https://opentdb.com/api.php?amount=1&category=18&difficulty=${difficulty}&type=multiple`;
 
             try {
-                const response = await fetch(url);
-                const data = await response.json();
+                const res = await fetch(url);
+                const data = await res.json();
 
                 if (data.results && data.results.length > 0) {
                     const item = data.results[0];
-                    const rawPrompt = decodeHTML(item.question);
-                    const correctText = decodeHTML(item.correct_answer);
-                    const wrongChoices = item.incorrect_answers.map(ans => decodeHTML(ans));
+                    const question = decodeHTML(item.question);
+                    const correctAns = decodeHTML(item.correct_answer);
+                    const options = item.incorrect_answers.map(decodeHTML).concat(correctAns).sort(() => Math.random() - 0.5);
 
-                    const allChoices = [...wrongChoices, correctText].sort(() => Math.random() - 0.5);
-                    const correctIndex = allChoices.indexOf(correctText);
-
-                    let assignedRating = 400;
-                    if (diff === 'medium') assignedRating = 1000;
-                    if (diff === 'hard') assignedRating = 1600;
-
-                    activePuzzle = {
-                        rating: assignedRating,
-                        prompt: rawPrompt,
-                        options: allChoices,
-                        correct: correctIndex
+                    activeChallenge = {
+                        prompt: question,
+                        options: options,
+                        correct: options.indexOf(correctAns),
+                        difficulty: difficulty,
+                        rating: difficulty === 'easy' ? 450 : difficulty === 'medium' ? 1000 : 1600
                     };
+
+                    tagEl.textContent = currentMode === 'daily' 
+                        ? `DAILY SPECIAL (${today})` 
+                        : (currentMode === 'puzzles' ? `RANKED PUZZLE: ${activeChallenge.rating} ELO` : `SPEED QUIZ (${difficulty.toUpperCase()})`);
+
+                    promptEl.textContent = activeChallenge.prompt;
+                    metaEl.textContent = `External Database (OpenTDB) • ${difficulty.toUpperCase()}`;
+
+                    options.forEach((opt, idx) => {
+                        const b = document.createElement('button');
+                        b.className = 'option-choice-btn';
+                        b.textContent = opt;
+                        b.onclick = () => solveQuestion(idx, b);
+                        dock.appendChild(b);
+                    });
                 } else {
-                    throw new Error("No online question returned");
+                    throw new Error("No questions returned");
                 }
             } catch (err) {
-                let candidates = fallbackPuzzles.filter(p => Math.abs(p.rating - userState.elo) <= 600);
-                if (!candidates.length) candidates = fallbackPuzzles;
-                activePuzzle = candidates[Math.floor(Math.random() * candidates.length)];
+                promptEl.textContent = "Unable to reach database. Check network connection.";
+                metaEl.textContent = "Network Error";
             }
-
-            tagEl.textContent = `Puzzle Elo: ${activePuzzle.rating} (${diff.toUpperCase()})`;
-            promptEl.textContent = activePuzzle.prompt;
-            deltaEl.textContent = 'Rated Session Active';
-
-            activePuzzle.options.forEach((opt, idx) => {
-                const b = document.createElement('button');
-                b.className = 'option-choice-btn';
-                b.textContent = opt;
-                b.onclick = () => solvePuzzle(idx, b);
-                dock.appendChild(b);
-            });
         }
 
-        function solvePuzzle(selectedIdx, btnEl) {
+        function solveQuestion(selectedIdx, btnEl) {
             const allBtns = document.querySelectorAll('.option-choice-btn');
             allBtns.forEach(b => b.disabled = true);
 
-            const isCorrect = selectedIdx === activePuzzle.correct;
-            const feedbackEl = document.getElementById('puzzle-feedback');
-            const deltaEl = document.getElementById('puzzle-delta');
+            const isCorrect = selectedIdx === activeChallenge.correct;
+            const feedbackEl = document.getElementById('challenge-status');
+            const metaEl = document.getElementById('challenge-meta');
+            const today = new Date().toISOString().slice(0, 10);
 
             if (isCorrect) {
                 btnEl.classList.add('correct');
                 playSound('correct');
                 feedbackEl.style.color = 'var(--accent-green)';
-                feedbackEl.textContent = '✓ Correct Move!';
+                feedbackEl.textContent = '✓ Correct Answer!';
 
-                const eloGain = Math.max(12, Math.round(24 + (activePuzzle.rating - userState.elo) * 0.05));
+                const eloGain = Math.max(12, Math.round(24 + (activeChallenge.rating - userState.elo) * 0.05));
                 userState.elo += eloGain;
                 userState.solved++;
                 userState.streak++;
-                deltaEl.textContent = `Elo Rating: +${eloGain}`;
+
+                if (currentMode === 'daily') {
+                    userState.dailyCount++;
+                    userState.lastDailyDate = today;
+                }
+
+                metaEl.textContent = `Elo Rating: +${eloGain}`;
             } else {
                 btnEl.classList.add('wrong');
-                allBtns[activePuzzle.correct].classList.add('correct');
+                allBtns[activeChallenge.correct].classList.add('correct');
                 playSound('wrong');
                 feedbackEl.style.color = 'var(--accent-red)';
                 feedbackEl.textContent = '✗ Incorrect';
 
-                const eloLoss = Math.max(8, Math.round(18 - (activePuzzle.rating - userState.elo) * 0.03));
+                const eloLoss = Math.max(8, Math.round(18 - (activeChallenge.rating - userState.elo) * 0.03));
                 userState.elo = Math.max(0, userState.elo - eloLoss);
                 userState.streak = 0;
-                deltaEl.textContent = `Elo Rating: -${eloLoss}`;
+                metaEl.textContent = `Elo Rating: -${eloLoss}`;
             }
 
             saveUserState();
-            document.getElementById('next-puzzle-btn').style.display = 'inline-block';
-        }
 
-        function switchView(view) {
-            document.getElementById('tab-puzzles').classList.toggle('active', view === 'puzzles');
-            document.getElementById('tab-lessons').classList.toggle('active', view === 'lessons');
-            document.getElementById('view-puzzles').style.display = view === 'puzzles' ? 'flex' : 'none';
-            document.getElementById('view-lessons').style.display = view === 'lessons' ? 'flex' : 'none';
+            if (currentMode !== 'daily' || !isCorrect) {
+                document.getElementById('next-btn').style.display = 'inline-block';
+            }
         }
 
         loadUserState();
-        if (userState.calibrated) loadNextPuzzle();
+        if (userState.calibrated) fetchNextLiveQuestion();
     </script>
 </body>
 </html>
