@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Techie Sagnik | Creator, Developer & Editor</title>
+    <title>About Techie Sagnik | Creator, Developer &amp; Editor</title>
     <meta name="description" content="Official profile of Techie Sagnik — Content creator, web developer, Windows optimization enthusiast, and video editor.">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,6 +15,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Techie Sagnik",
+      "alternateName": "Sagnik Nandi",
       "url": "https://techiesagnik.me/about.html",
       "mainEntityOfPage": "https://techiesagnik.me",
       "jobTitle": "Tech Creator & Web Developer",
@@ -38,78 +38,244 @@
             overflow-x: hidden;
         }
 
+        .back-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            width: fit-content;
+            margin-bottom: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .back-nav:hover {
+            transform: translateX(-4px);
+        }
+
         .about-card {
             background: rgba(13, 18, 32, 0.85);
-            border: 1px solid rgba(0, 242, 254, 0.2);
+            border: 1px solid rgba(0, 242, 254, 0.25);
             border-radius: 20px;
-            padding: 32px 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 32px 28px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 26px;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
 
-        .profile-header {
+        .profile-row {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .profile-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .profile-avatar-box {
+            position: relative;
+            cursor: pointer;
         }
 
         .profile-img {
-            width: 80px;
-            height: 80px;
+            width: 84px;
+            height: 84px;
             border-radius: 50%;
             border: 2px solid var(--accent-cyan);
             object-fit: cover;
             background: #000;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
+        }
+
+        .profile-avatar-box:hover .profile-img {
+            transform: scale(1.08) rotate(4deg);
+            border-color: var(--accent-purple);
+        }
+
+        .live-status-dot {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 14px;
+            height: 14px;
+            background: #10b981;
+            border: 2px solid #060810;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10b981;
         }
 
         .profile-info h1 {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: #fff;
+            letter-spacing: -0.5px;
         }
 
         .profile-info p {
             color: var(--accent-cyan);
             font-family: var(--font-mono);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             margin-top: 4px;
         }
 
-        .bio-section {
-            line-height: 1.7;
-            color: #cbd5e1;
-            font-size: 0.95rem;
+        .stat-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 14px;
+        .badge-counter {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 14px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 90px;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .skill-box {
-            background: rgba(255, 255, 255, 0.03);
+        .badge-counter:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            background: rgba(0, 242, 254, 0.08);
+        }
+
+        .badge-val {
+            font-family: var(--font-mono);
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .badge-lbl {
+            font-size: 0.68rem;
+            color: var(--text-med);
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+        }
+
+        .interactive-skills {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .skill-tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-med);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .skill-tab-btn.active {
+            background: rgba(0, 242, 254, 0.15);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .skill-detail-display {
+            background: #040711;
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 14px;
+            padding: 18px 20px;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            min-height: 75px;
+            transition: all 0.25s ease;
+        }
+
+        .terminal-panel {
+            background: #040711;
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            border-radius: 14px;
             padding: 16px;
-        }
-
-        .skill-title {
             font-family: var(--font-mono);
-            font-size: 0.82rem;
-            color: var(--accent-cyan);
-            font-weight: 700;
-            margin-bottom: 6px;
         }
 
-        .skill-desc {
-            font-size: 0.82rem;
-            color: var(--text-med);
-            line-height: 1.4;
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .terminal-dot-cluster {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-body {
+            font-size: 0.84rem;
+            color: #38bdf8;
+            line-height: 1.6;
+            min-height: 90px;
+        }
+
+        .terminal-cmd-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .term-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .term-btn {
+            background: var(--accent-cyan);
+            color: #030712;
+            border: none;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
         }
 
         .social-row {
@@ -125,44 +291,31 @@
             background: rgba(0, 242, 254, 0.08);
             border: 1px solid var(--panel-border);
             color: #fff;
-            padding: 10px 18px;
+            padding: 12px 20px;
             border-radius: 12px;
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.86rem;
+            font-weight: 700;
             transition: all 0.2s ease;
         }
 
         .social-link:hover {
             border-color: var(--accent-cyan);
-            background: rgba(0, 242, 254, 0.16);
+            background: rgba(0, 242, 254, 0.2);
             transform: translateY(-2px);
         }
 
-        .back-nav {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent-cyan);
-            text-decoration: none;
-            font-family: var(--font-mono);
-            font-size: 0.82rem;
-            font-weight: 600;
-            width: fit-content;
-            margin-bottom: 12px;
-        }
-
-        .back-nav:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 600px) {
-            .profile-header {
+        @media (max-width: 650px) {
+            .profile-row {
                 flex-direction: column;
-                text-align: center;
+                align-items: flex-start;
             }
-            .about-card {
-                padding: 24px 16px;
+            .stat-badges {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .badge-counter {
+                flex: 1;
             }
         }
     </style>
@@ -173,30 +326,58 @@
         <a href="index.html" class="back-nav">← Back to Portal</a>
 
         <div class="about-card">
-            <div class="profile-header">
-                <img class="profile-img" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
-                <div class="profile-info">
-                    <h1>Techie Sagnik</h1>
-                    <p>Creator &bull; Developer &bull; Editor</p>
+            <div class="profile-row">
+                <div class="profile-left">
+                    <div class="profile-avatar-box" id="avatar-trigger">
+                        <img class="profile-img" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                        <div class="live-status-dot"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h1>Techie Sagnik</h1>
+                        <p>Developer &bull; Creator &bull; System Enthusiast</p>
+                    </div>
+                </div>
+
+                <div class="stat-badges">
+                    <div class="badge-counter" onclick="triggerEasterEgg('specs')">
+                        <div class="badge-val">WIN 11</div>
+                        <div class="badge-lbl">Optimized</div>
+                    </div>
+                    <div class="badge-counter" onclick="triggerEasterEgg('streak')">
+                        <div class="badge-val" id="click-counter">0</div>
+                        <div class="badge-lbl">Pings</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="bio-section">
-                Welcome to my official profile. I create content, interactive applications, and system guides designed to help users get maximum performance out of Windows without bloatware, alongside building engaging media projects and tech quizzes.
+            <div class="interactive-skills">
+                <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--accent-cyan); font-weight: 700;">EXPLORE DOMAINS &amp; FOCUS</span>
+                <div class="skill-tabs">
+                    <button class="skill-tab-btn active" data-skill="os">⚡ OS Optimization</button>
+                    <button class="skill-tab-btn" data-skill="web">💻 Modern Web Tech</button>
+                    <button class="skill-tab-btn" data-skill="video">🎬 Cinema &amp; Editing</button>
+                    <button class="skill-tab-btn" data-skill="hardware">🛠️ PC Diagnostics</button>
+                </div>
+                <div class="skill-detail-display" id="skill-content">
+                    Developing clean, native batch tweaks, built-in disk purgers, and registry configurations to reduce background telemetry and maximize CPU performance without third-party tools.
+                </div>
             </div>
 
-            <div class="skills-grid">
-                <div class="skill-box">
-                    <div class="skill-title">⚡ PC OPTIMIZATION</div>
-                    <div class="skill-desc">Native diagnostic shortcuts, disk cleanup commands, and registry maintenance without third-party utilities.</div>
+            <div class="terminal-panel">
+                <div class="terminal-header">
+                    <div class="terminal-dot-cluster">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span style="font-size: 0.72rem; color: var(--text-med);">sagnik@terminal:~</span>
                 </div>
-                <div class="skill-box">
-                    <div class="skill-title">💻 WEB DEVELOPMENT</div>
-                    <div class="skill-desc">Crafting lightweight, responsive single-page web applications with real-time cloud data pipelines.</div>
+                <div class="terminal-body" id="term-view">
+                    Type 'help', 'skills', 'setup', or 'clear' to query creator logs.
                 </div>
-                <div class="skill-box">
-                    <div class="skill-title">🎬 MEDIA &amp; EDITS</div>
-                    <div class="skill-desc">Dynamic short-form video content, sound design engineering, and cinematic tributes.</div>
+                <div class="terminal-cmd-bar">
+                    <input type="text" class="term-input" id="term-cmd" placeholder="Try typing 'help' or 'setup'...">
+                    <button class="term-btn" id="term-exec">Run</button>
                 </div>
             </div>
 
@@ -207,13 +388,95 @@
                 <a href="https://github.com/sagnik9993" target="_blank" rel="noopener" class="social-link">
                     ⌘ GitHub Profile
                 </a>
+                <a href="index.html" class="social-link" style="border-color: rgba(255, 183, 3, 0.4); color: var(--accent-gold);">
+                    ⚡ Open Hub Console
+                </a>
             </div>
         </div>
 
         <footer>
-            &copy; 2026 TECHIE SAGNIK // OFFICIAL CREATOR PROFILE
+            &copy; 2026 TECHIE SAGNIK // CREATOR PORTFOLIO &amp; ENTITY HOME
         </footer>
     </div>
 
+    <script>
+        let clicks = 0;
+        const counterEl = document.getElementById('click-counter');
+        const avatarTrigger = document.getElementById('avatar-trigger');
+
+        avatarTrigger.addEventListener('click', () => {
+            clicks++;
+            counterEl.textContent = clicks;
+            terminalPrint(`[PING] Interaction received. Heartbeat #${clicks} verified.`);
+        });
+
+        const skillData = {
+            os: "Developing clean, native batch tweaks, built-in disk purgers, and registry configurations to reduce background telemetry and maximize CPU performance without third-party tools.",
+            web: "Building zero-bloat vanilla frontends, responsive mobile layouts, real-time Firebase syncing, and structured Schema data for maximum search engine performance.",
+            video: "High-cadence cinematic transitions, precise multi-track Anirudh mass cuts, audio sub-bass ducking, and color grading tuned for YouTube Shorts and vertical formats.",
+            hardware: "Deep system telemetry profiling, hardware bottleneck diagnostics, memory leak analysis with perfmon, and resource allocation debugging."
+        };
+
+        const skillBtns = document.querySelectorAll('.skill-tab-btn');
+        const skillDisplay = document.getElementById('skill-content');
+
+        skillBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                skillBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const key = btn.getAttribute('data-skill');
+                skillDisplay.style.opacity = '0';
+                setTimeout(() => {
+                    skillDisplay.textContent = skillData[key];
+                    skillDisplay.style.opacity = '1';
+                }, 150);
+            });
+        });
+
+        const termView = document.getElementById('term-view');
+        const termCmd = document.getElementById('term-cmd');
+        const termExec = document.getElementById('term-exec');
+
+        const consoleCommands = {
+            help: "Commands available: 'skills', 'setup', 'social', 'clear', 'ping'",
+            skills: "• Windows System Hacks\n• Responsive Front-End Apps\n• Thalapathy Cinema Edits\n• Performance Tuning",
+            setup: "OS: Windows 11 Pro\nStack: Vanilla HTML5 / Modern CSS / JavaScript\nHosting: GitHub Pages + Custom Domain\nDatabase: Google Firestore",
+            social: "YouTube: @techiesagnik | GitHub: sagnik9993 | Portal: techiesagnik.me",
+            ping: "pong! 1ms latency to techiesagnik.me"
+        };
+
+        function terminalPrint(text) {
+            termView.innerHTML = text.replace(/\n/g, '<br>');
+        }
+
+        function runTerminal() {
+            const val = termCmd.value.trim().toLowerCase();
+            if (!val) return;
+
+            if (val === 'clear') {
+                termView.innerHTML = "Ready for input. Type 'help' for instructions.";
+            } else if (consoleCommands[val]) {
+                terminalPrint(`> ${val}\n${consoleCommands[val]}`);
+            } else {
+                terminalPrint(`> ${val}: Command not recognized. Type 'help' for a full list.`);
+            }
+            termCmd.value = '';
+        }
+
+        termExec.addEventListener('click', runTerminal);
+        termCmd.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') runTerminal();
+        });
+
+        function triggerEasterEgg(type) {
+            if (type === 'specs') {
+                terminalPrint("> winver\nMicrosoft Windows [Version 10.0.22631]\nTechie Sagnik Optimization Profile: Active");
+            } else if (type === 'streak') {
+                clicks += 5;
+                counterEl.textContent = clicks;
+                terminalPrint(`> boost\nPing count accelerated to ${clicks}!`);
+            }
+        }
+    </script>
 </body>
 </html>
