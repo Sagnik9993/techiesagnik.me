@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechLearn | Ranked Puzzles, Elo & Interactive Tech Mastery</title>
-    <meta name="description" content="Ranked tech arena by Techie Sagnik. Fresh questions fetched directly from live global databases, calibrated Elo, and unlockable badges.">
+    <title>TechLearn Arena | 1,000 Ranked Achievements, Elo & Interactive Tech Mastery</title>
+    <meta name="description" content="Technical mastery platform by Techie Sagnik (Sagnik Dey). 1,000 progressive achievements, live Elo ranking, Google Account cloud save, 2-heart daily challenges, and speed quizzes.">
+    <meta name="author" content="Sagnik Dey">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,8 +14,9 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "EducationalOccupationalCredential",
+      "@type": "WebApplication",
       "name": "TechLearn Ranked Arena",
+      "applicationCategory": "EducationalApplication",
       "author": {
         "@type": "Person",
         "name": "Techie Sagnik",
@@ -25,133 +27,653 @@
     }
     </script>
 
+    <!-- Firebase Compat SDKs for Google Cloud Sync -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <style>
-        .learn-grid {
-            display: grid;
-            grid-template-columns: 320px 1fr;
+        :root {
+            --bg-dark: #030712;
+            --panel-bg: rgba(11, 15, 25, 0.88);
+            --panel-border: rgba(0, 242, 254, 0.16);
+            --accent-cyan: #00f2fe;
+            --accent-red: #ff1e56;
+            --accent-gold: #ffb703;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-med: #94a3b8;
+            --font-mono: 'Fira Code', monospace;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .portal-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 20px 20px 60px;
+            display: flex;
+            flex-direction: column;
             gap: 20px;
         }
 
-        .profile-side {
+        /* Top Bar */
+        .top-navbar {
             display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .profile-box {
+            justify-content: space-between;
+            align-items: center;
             background: var(--panel-bg);
             border: 1px solid var(--panel-border);
+            padding: 14px 22px;
             border-radius: 20px;
-            padding: 22px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
             backdrop-filter: blur(20px);
         }
 
-        .elo-badge-display {
+        .brand-cluster {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 2px solid var(--accent-cyan);
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            user-select: none;
+        }
+
+        .brand-avatar:active {
+            transform: scale(0.9);
+        }
+
+        .brand-meta h2 {
+            font-size: 1.15rem;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-meta span {
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            color: var(--accent-gold);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-action, .sfx-toggle, .btn-drawer-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-action:hover, .sfx-toggle:hover, .btn-drawer-toggle:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.1);
+        }
+
+        .btn-drawer-toggle {
+            background: rgba(255, 183, 3, 0.1);
+            border-color: rgba(255, 183, 3, 0.35);
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .btn-drawer-toggle:hover {
+            background: rgba(255, 183, 3, 0.2);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 14px rgba(255, 183, 3, 0.25);
+        }
+
+        .badge-counter-pill {
+            background: var(--accent-gold);
+            color: #000;
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 800;
+        }
+
+        .sfx-toggle.off {
+            opacity: 0.5;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-subscribe {
+            background: linear-gradient(135deg, var(--accent-red), #e11d48);
+            border: none;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(255, 30, 86, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-subscribe:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(255, 30, 86, 0.5);
+        }
+
+        /* Navigation Mode Switcher */
+        .mode-switcher {
+            display: flex;
+            gap: 10px;
+            background: rgba(8, 12, 22, 0.75);
+            padding: 6px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .mode-btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-med);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .mode-btn.active.learn {
+            background: var(--panel-bg);
+            color: var(--accent-gold);
+            border: 1px solid rgba(255, 183, 3, 0.4);
+            box-shadow: 0 0 16px rgba(255, 183, 3, 0.18);
+        }
+
+        /* Hero Status Strip */
+        .status-hero-strip {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-bottom: 12px;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+            padding: 14px 20px;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-stat-val {
+            font-size: 1.25rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            color: #fff;
+        }
+
+        .hero-stat-label {
+            font-size: 0.68rem;
+            color: var(--text-med);
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        /* Slide-out Collapsible Sidepanel / Drawer */
+        .drawer-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 17, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .drawer-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sidepanel-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 480px;
+            max-width: 92vw;
+            height: 100vh;
+            background: #090d18;
+            border-left: 1px solid var(--panel-border);
+            box-shadow: -15px 0 50px rgba(0, 0, 0, 0.85);
+            z-index: 999;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidepanel-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 22px;
+            background: rgba(13, 18, 32, 0.95);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .elo-number {
+        .drawer-header h3 {
+            font-size: 1.1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-close-drawer {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-close-drawer:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .drawer-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .drawer-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .drawer-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+        }
+
+        .drawer-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Google Cloud Sync Bar */
+        .auth-sync-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .auth-user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .auth-user-photo {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-gold);
+            object-fit: cover;
+        }
+
+        .auth-user-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 170px;
+        }
+
+        .auth-user-status {
+            font-size: 0.68rem;
+            color: var(--accent-green);
+            font-family: var(--font-mono);
+        }
+
+        .btn-google-auth {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #fff;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-google-auth:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #fff;
+        }
+
+        .btn-signout {
+            background: transparent;
+            border: none;
+            color: var(--accent-red);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        /* Elo Card inside Drawer */
+        .elo-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .elo-large-val {
             font-size: 2.2rem;
             font-weight: 800;
             font-family: var(--font-mono);
             color: var(--accent-gold);
-            text-shadow: 0 0 16px rgba(255, 183, 3, 0.3);
+            text-shadow: 0 0 16px rgba(255, 183, 3, 0.35);
         }
 
         .tier-tag {
             font-family: var(--font-mono);
             font-size: 0.72rem;
             font-weight: 700;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 8px;
             background: rgba(255, 183, 3, 0.15);
             color: var(--accent-gold);
             border: 1px solid rgba(255, 183, 3, 0.3);
         }
 
-        .stats-row {
+        .stats-matrix {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
         }
 
-        .stat-card {
+        .stat-item {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 10px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 8px 10px;
+            text-align: center;
         }
 
-        .stat-card-title {
-            font-size: 0.68rem;
+        .stat-item-lbl {
+            font-size: 0.62rem;
             color: var(--text-med);
             font-family: var(--font-mono);
         }
 
-        .stat-card-val {
-            font-size: 1.1rem;
-            font-weight: 700;
+        .stat-item-val {
+            font-size: 1.05rem;
+            font-weight: 800;
             color: #fff;
             margin-top: 2px;
         }
 
-        .badges-list {
+        /* 1,000 Achievements Engine inside Drawer */
+        .achievements-hub-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 8px;
+        }
+
+        .ach-search-input {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-family: var(--font-sans);
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .ach-search-input:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        .achievement-filter-chips {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .ach-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-med);
+            padding: 4px 9px;
+            border-radius: 6px;
+            font-size: 0.68rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+        }
+
+        .ach-chip.active {
+            background: rgba(0, 242, 254, 0.14);
+            border-color: var(--accent-cyan);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .achievements-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .achievements-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .achievements-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 4px;
+        }
+
+        .badge-slot {
             display: flex;
             flex-direction: column;
             gap: 8px;
-        }
-
-        .badge-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            padding: 8px 12px;
-            opacity: 0.45;
+            border-radius: 12px;
+            padding: 12px;
             transition: all 0.25s ease;
         }
 
-        .badge-item.unlocked {
-            opacity: 1;
-            background: rgba(0, 242, 254, 0.08);
-            border-color: rgba(0, 242, 254, 0.3);
+        .badge-slot.unlocked {
+            background: rgba(0, 242, 254, 0.06);
+            border-color: rgba(0, 242, 254, 0.35);
+            box-shadow: 0 0 16px rgba(0, 242, 254, 0.08);
+        }
+
+        .badge-slot.secret-slot.unlocked {
+            background: rgba(255, 30, 86, 0.08);
+            border-color: rgba(255, 30, 86, 0.4);
+            box-shadow: 0 0 16px rgba(255, 30, 86, 0.12);
+        }
+
+        .badge-slot.locked {
+            opacity: 0.55;
+        }
+
+        .badge-main-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .badge-icon {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+            min-width: 32px;
+            text-align: center;
         }
 
-        .badge-meta h4 {
-            font-size: 0.8rem;
+        .badge-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .badge-info h4 {
+            font-size: 0.82rem;
             color: #fff;
-            margin: 0;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .badge-meta p {
-            font-size: 0.68rem;
+        .badge-info p {
+            font-size: 0.7rem;
             color: var(--text-med);
-            margin: 0;
+            line-height: 1.3;
         }
 
+        .prog-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .prog-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-gold));
+            transition: width 0.3s ease;
+        }
+
+        .prog-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.62rem;
+            font-family: var(--font-mono);
+            color: var(--text-med);
+        }
+
+        .pagination-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .page-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Main Arena Area */
         .main-arena {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
         }
 
         .tab-controls {
             display: flex;
-            gap: 10px;
-            background: rgba(8, 12, 22, 0.6);
+            gap: 8px;
+            background: rgba(8, 12, 22, 0.7);
             padding: 6px;
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -162,118 +684,279 @@
             background: transparent;
             border: none;
             color: var(--text-med);
-            padding: 10px 14px;
+            padding: 11px 14px;
             border-radius: 10px;
             font-family: var(--font-sans);
             font-weight: 700;
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             cursor: pointer;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .tab-btn.active {
             background: var(--panel-bg);
             color: #fff;
             border: 1px solid var(--panel-border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .puzzle-box {
+        .arena-card {
             background: var(--panel-bg);
-            border: 1px solid rgba(0, 242, 254, 0.25);
+            border: 1px solid var(--panel-border);
             border-radius: 20px;
-            padding: 26px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 20px;
             backdrop-filter: blur(20px);
+            position: relative;
+            min-height: 440px;
         }
 
-        .puzzle-header {
+        .speed-timer-bar-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.06);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .speed-timer-bar-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-gold), var(--accent-red));
+            transition: width 0.1s linear;
+        }
+
+        .challenge-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        .puzzle-difficulty {
+        .challenge-mode-badge {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
-            padding: 4px 10px;
+            font-size: 0.72rem;
+            padding: 4px 12px;
             border-radius: 8px;
             background: rgba(0, 242, 254, 0.12);
             color: var(--accent-cyan);
             border: 1px solid rgba(0, 242, 254, 0.3);
         }
 
-        .puzzle-title {
-            font-size: 1.15rem;
+        .speed-clock-pill {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            background: rgba(255, 183, 3, 0.15);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 183, 3, 0.3);
+            display: none;
+        }
+
+        /* Daily Hearts Bar */
+        .daily-hearts-pill {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 30, 86, 0.14);
+            border: 1px solid rgba(255, 30, 86, 0.35);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #fff;
+        }
+
+        .heart-icon {
+            font-size: 1.1rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .heart-lost {
+            opacity: 0.3;
+            filter: grayscale(1);
+        }
+
+        .challenge-title {
+            font-size: 1.25rem;
             font-weight: 700;
             color: #fff;
             line-height: 1.5;
         }
 
-        .puzzle-options {
+        .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 10px;
+            gap: 12px;
         }
 
         .option-choice-btn {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: #e2e8f0;
-            padding: 14px 18px;
+            padding: 16px 20px;
             border-radius: 12px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             text-align: left;
             cursor: pointer;
             transition: all 0.18s ease;
+            position: relative;
+            line-height: 1.4;
         }
 
         .option-choice-btn:hover:not(:disabled) {
-            background: rgba(0, 242, 254, 0.1);
+            background: rgba(0, 242, 254, 0.08);
             border-color: var(--accent-cyan);
             transform: translateX(4px);
         }
 
         .option-choice-btn.correct {
-            background: rgba(16, 185, 129, 0.25) !important;
+            background: rgba(16, 185, 129, 0.22) !important;
             border-color: var(--accent-green) !important;
             color: #fff !important;
         }
 
         .option-choice-btn.wrong {
-            background: rgba(255, 30, 86, 0.25) !important;
+            background: rgba(255, 30, 86, 0.22) !important;
             border-color: var(--accent-red) !important;
             color: #fff !important;
         }
 
-        .puzzle-footer {
+        /* Daily Lockout View */
+        .daily-lockout-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 16px;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+        }
+
+        .daily-lockout-icon {
+            font-size: 3rem;
+        }
+
+        .daily-countdown-timer {
+            font-family: var(--font-mono);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            text-shadow: 0 0 15px rgba(255, 183, 3, 0.35);
+            letter-spacing: 2px;
+        }
+
+        .arena-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 14px;
+            padding-top: 16px;
+            margin-top: auto;
+        }
+
+        .status-msg {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .next-btn {
             background: var(--accent-cyan);
             color: #030712;
             border: none;
-            padding: 8px 18px;
+            padding: 10px 22px;
             border-radius: 10px;
             font-weight: 700;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             cursor: pointer;
             display: none;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
+        .next-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Toast Container */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .achievement-toast {
+            background: #0d1424;
+            border: 1.5px solid var(--accent-gold);
+            border-radius: 16px;
+            padding: 14px 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 183, 3, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            pointer-events: auto;
+            animation: toastSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 380px;
+        }
+
+        @keyframes toastSlideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast-icon {
+            font-size: 2rem;
+        }
+
+        .toast-body h5 {
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            color: var(--accent-gold);
+            letter-spacing: 0.05em;
+        }
+
+        .toast-body h4 {
+            font-size: 0.92rem;
+            color: #fff;
+            margin: 2px 0;
+        }
+
+        .toast-body p {
+            font-size: 0.74rem;
+            color: var(--text-med);
+        }
+
+        /* Starting Calibration Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(4, 7, 16, 0.88);
-            backdrop-filter: blur(12px);
-            z-index: 999;
+            background: rgba(4, 7, 16, 0.92);
+            backdrop-filter: blur(14px);
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -287,7 +970,7 @@
             max-width: 520px;
             width: 100%;
             padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
             text-align: center;
         }
 
@@ -314,53 +997,135 @@
             background: rgba(0, 242, 254, 0.08);
             transform: scale(1.02);
         }
-
-        @media (max-width: 768px) {
-            .learn-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
+    <canvas id="bg-canvas"></canvas>
+    <div class="toast-container" id="toast-dock"></div>
 
     <div class="modal-overlay" id="calibration-modal" style="display: none;">
         <div class="modal-card">
-            <h2 style="font-size: 1.5rem; color: #fff;">Calibrate Starting Rating</h2>
+            <h2 style="font-size: 1.55rem; color: #fff;">Calibrate Your Starting Rank</h2>
             <p style="color: var(--text-med); font-size: 0.85rem; margin-top: 6px;">
-                Select your experience level to jump straight into matching difficulty.
+                Choose your background to set your initial baseline rating:
             </p>
             <div class="calibrate-options">
                 <div class="calibrate-btn" onclick="calibrateUser(0, 'Byte Rookie')">
                     <div style="font-weight: 700; color: var(--accent-cyan);">🌱 Beginner (0 Elo)</div>
-                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Learn computing basics, common hardware, and standard shortcuts.</div>
+                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Learn computing fundamentals, essential shortcuts, and native maintenance.</div>
                 </div>
                 <div class="calibrate-btn" onclick="calibrateUser(800, 'SysAdmin Aspirant')">
                     <div style="font-weight: 700; color: var(--accent-gold);">⚡ Intermediate (800 Elo)</div>
-                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Networking fundamentals, operating system logic, and system diagnostics.</div>
+                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Operating systems internals, network socket routing, and triage.</div>
                 </div>
                 <div class="calibrate-btn" onclick="calibrateUser(1500, 'Kernel Architect')">
-                    <div style="font-weight: 700; color: var(--accent-red);">🔥 Expert (1500 Elo)</div>
-                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Deep architecture, low-level protocols, memory structures, and kernel concepts.</div>
+                    <div style="font-weight: 700; color: var(--accent-red);">🔥 Expert / Extreme (1500 Elo)</div>
+                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Low-level architecture, deep registers, kernel concepts, and memory structures.</div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="drawer-backdrop" id="drawer-backdrop" onclick="toggleSidepanel(false)"></div>
+    <aside class="sidepanel-drawer" id="sidepanel-drawer" aria-label="Profile and Achievements Drawer">
+        <div class="drawer-header">
+            <h3><span>🏆</span> Profile &amp; Achievements</h3>
+            <button class="btn-close-drawer" onclick="toggleSidepanel(false)" title="Close Panel">✕</button>
+        </div>
+
+        <div class="drawer-content">
+            <!-- Google Account Cloud Sync Card -->
+            <div class="drawer-card">
+                <div class="auth-sync-row">
+                    <div id="auth-signed-in" style="display: none;" class="auth-user-info">
+                        <img id="user-avatar" class="auth-user-photo" src="" alt="User">
+                        <div>
+                            <div id="user-display-name" class="auth-user-name">Engineer</div>
+                            <div class="auth-user-status">● Cloud Synced ✅</div>
+                        </div>
+                    </div>
+                    <div id="auth-signed-out">
+                        <button class="btn-google-auth" id="btn-login-google">
+                            <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/><path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
+                            Sync with Google
+                        </button>
+                    </div>
+                    <button id="btn-logout" class="btn-signout" style="display: none;">Sign Out</button>
+                </div>
+            </div>
+
+            <!-- Elo & Tier Card -->
+            <div class="drawer-card">
+                <div class="elo-row">
+                    <div>
+                        <div style="font-size: 0.68rem; color: var(--text-med); font-family: var(--font-mono);">RATING (ELO)</div>
+                        <div class="elo-large-val" id="profile-elo">0</div>
+                    </div>
+                    <div class="tier-tag" id="profile-tier">Byte Rookie</div>
+                </div>
+
+                <div class="stats-matrix">
+                    <div class="stat-item">
+                        <div class="stat-item-lbl">SOLVED</div>
+                        <div class="stat-item-val" id="profile-solved">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-lbl">STREAK</div>
+                        <div class="stat-item-val" id="profile-streak">0 🔥</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-lbl">DAILY</div>
+                        <div class="stat-item-val" id="profile-daily">0 📅</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1,000 Achievements Engine Hub -->
+            <div class="drawer-card">
+                <div class="achievements-hub-top">
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan); font-weight: 700;">ACHIEVEMENTS (1,000 TOTAL)</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-med);" id="achievement-ratio">0 / 1000</span>
+                </div>
+
+                <input type="text" class="ach-search-input" id="ach-search" placeholder="Search achievements by name or keywords...">
+
+                <div class="achievement-filter-chips">
+                    <button class="ach-chip active" data-filter="all">All (1,000)</button>
+                    <button class="ach-chip" data-filter="progress">In Progress</button>
+                    <button class="ach-chip" data-filter="unlocked">Completed</button>
+                    <button class="ach-chip" data-filter="secret">Secret (50)</button>
+                </div>
+
+                <div class="achievements-scroll" id="achievements-list">
+                    <!-- Populated dynamically by paginated rendering -->
+                </div>
+
+                <div class="pagination-row">
+                    <button class="page-btn" id="prev-page-btn" onclick="changeAchPage(-1)">◀ Prev</button>
+                    <span style="font-size: 0.68rem; font-family: var(--font-mono); color: var(--text-med);" id="page-indicator">Page 1 / 100</span>
+                    <button class="page-btn" id="next-page-btn" onclick="changeAchPage(1)">Next ▶</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
     <div class="portal-container">
-        <header class="top-navbar">
+        <header class="top-navbar" id="top-navbar-root">
             <div class="brand-cluster">
                 <a href="../index.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
-                    <img class="brand-avatar" src="../logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                    <img class="brand-avatar" id="avatar-trigger" src="../logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
                     <div class="brand-meta">
                         <h2>Techie Sagnik</h2>
-                        <span style="color: var(--accent-gold);">📚 TechLearn Lab</span>
+                        <span>📚 TechLearn Lab</span>
                     </div>
                 </a>
             </div>
 
             <div class="nav-actions">
-                <a href="../about.html" class="sfx-toggle" style="text-decoration: none; display: inline-flex; align-items: center;">About</a>
+                <button class="btn-drawer-toggle" onclick="toggleSidepanel(true)" title="Open Achievements & Profile">
+                    🏆 Achievements <span class="badge-counter-pill" id="header-ach-pill">0</span> ☰
+                </button>
+                <a href="../about.html" class="btn-action">About</a>
                 <button class="sfx-toggle" id="sfx-btn">SFX: ON</button>
                 <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
                     Subscribe ➔
@@ -374,126 +1139,109 @@
             <a href="../learntech/" class="mode-btn active learn">📚 TechLearn Lab</a>
         </nav>
 
-        <div class="learn-grid">
-            <aside class="profile-side">
-                <div class="profile-box">
-                    <div class="elo-badge-display">
-                        <div>
-                            <div style="font-size: 0.72rem; color: var(--text-med); font-family: var(--font-mono);">RATING (ELO)</div>
-                            <div class="elo-number" id="profile-elo">0</div>
-                        </div>
-                        <div class="tier-tag" id="profile-tier">Byte Rookie</div>
-                    </div>
-
-                    <div class="stats-row">
-                        <div class="stat-card">
-                            <div class="stat-card-title">SOLVED</div>
-                            <div class="stat-card-val" id="profile-solved">0</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-title">DAILY STREAK</div>
-                            <div class="stat-card-val" id="profile-streak">0 🔥</div>
-                        </div>
-                    </div>
-
-                    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan); font-weight: 700; margin-top: 4px;">ACHIEVEMENTS</div>
-                    <div class="badges-list">
-                        <div class="badge-item" id="badge-first">
-                            <div class="badge-icon">🥉</div>
-                            <div class="badge-meta">
-                                <h4>First Solve</h4>
-                                <p>Complete your first live puzzle</p>
-                            </div>
-                        </div>
-                        <div class="badge-item" id="badge-daily">
-                            <div class="badge-icon">🗓️</div>
-                            <div class="badge-meta">
-                                <h4>Daily Consistent</h4>
-                                <p>Solve 3 daily special puzzles</p>
-                            </div>
-                        </div>
-                        <div class="badge-item" id="badge-streak">
-                            <div class="badge-icon">🔥</div>
-                            <div class="badge-meta">
-                                <h4>On Fire</h4>
-                                <p>5 consecutive correct moves</p>
-                            </div>
-                        </div>
-                        <div class="badge-item" id="badge-master">
-                            <div class="badge-icon">🧠</div>
-                            <div class="badge-meta">
-                                <h4>Grandmaster</h4>
-                                <p>Attain 1500+ Elo rating</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Hero Strip: Instant Quick Status Banner -->
+        <section class="status-hero-strip">
+            <div class="hero-stat-cell">
+                <span style="font-size: 1.5rem;">⭐</span>
+                <div>
+                    <div class="hero-stat-val" id="strip-elo">0</div>
+                    <div class="hero-stat-label">Current Elo</div>
                 </div>
-            </aside>
+            </div>
+            <div class="hero-stat-cell">
+                <span style="font-size: 1.5rem;">🔥</span>
+                <div>
+                    <div class="hero-stat-val" id="strip-streak">0</div>
+                    <div class="hero-stat-label">Live Streak</div>
+                </div>
+            </div>
+            <div class="hero-stat-cell">
+                <span style="font-size: 1.5rem;">🎯</span>
+                <div>
+                    <div class="hero-stat-val" id="strip-solved">0</div>
+                    <div class="hero-stat-label">Puzzles Solved</div>
+                </div>
+            </div>
+            <div class="hero-stat-cell">
+                <button class="btn-action" style="background: rgba(0, 242, 254, 0.1); border-color: var(--accent-cyan); color: var(--accent-cyan);" onclick="toggleSidepanel(true)">
+                    View Full Drawer &amp; Sync ➔
+                </button>
+            </div>
+        </section>
 
-            <main class="main-arena">
-                <div class="tab-controls">
-                    <button class="tab-btn active" id="tab-puzzles" onclick="setMode('puzzles')">🎯 Ranked Puzzles</button>
-                    <button class="tab-btn" id="tab-quizzes" onclick="setMode('quizzes')">⚡ Speed Quiz</button>
-                    <button class="tab-btn" id="tab-daily" onclick="setMode('daily')">🗓️ Daily Special</button>
+        <main class="main-arena">
+            <div class="tab-controls">
+                <button class="tab-btn active" id="tab-puzzles" onclick="switchMode('puzzles')">🎯 Ranked Puzzles</button>
+                <button class="tab-btn" id="tab-speed" onclick="switchMode('speed')">⚡ Speed Quiz (15s)</button>
+                <button class="tab-btn" id="tab-daily" onclick="switchMode('daily')">🗓️ Daily Special (❤️❤️)</button>
+            </div>
+
+            <div class="arena-card" id="arena-card-element">
+                <!-- 15s Countdown Bar for Speed Quiz -->
+                <div class="speed-timer-bar-wrap" id="speed-bar-wrap">
+                    <div class="speed-timer-bar-fill" id="speed-bar-fill"></div>
                 </div>
 
-                <div class="puzzle-box">
-                    <div class="puzzle-header">
-                        <span class="puzzle-difficulty" id="challenge-tag">Connecting to database...</span>
-                        <span id="challenge-status" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;"></span>
+                <div class="challenge-top">
+                    <span class="challenge-mode-badge" id="challenge-badge">Connecting to database...</span>
+                    <span class="speed-clock-pill" id="speed-clock">⏱️ 15.0s</span>
+                    <div class="daily-hearts-pill" id="daily-hearts-bar">
+                        <span>LIVES:</span>
+                        <span id="heart-1" class="heart-icon">❤️</span>
+                        <span id="heart-2" class="heart-icon">❤️</span>
                     </div>
-
-                    <div class="puzzle-title" id="challenge-prompt">Contacting live API...</div>
-
-                    <div class="puzzle-options" id="challenge-options"></div>
-
-                    <div class="puzzle-footer">
-                        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-med);" id="challenge-meta">Live Database Active</span>
-                        <button class="next-btn" id="next-btn" onclick="fetchNextLiveQuestion()">Next ➔</button>
-                    </div>
+                    <span class="status-msg" id="challenge-status"></span>
                 </div>
-            </main>
-        </div>
+
+                <div class="challenge-title" id="challenge-prompt">Initializing question buffer...</div>
+
+                <!-- Interactive Options Dock or Lockout Card -->
+                <div class="options-grid" id="options-dock"></div>
+
+                <div class="arena-footer">
+                    <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-med);" id="challenge-meta">Multi-source failover active</span>
+                    <button class="next-btn" id="next-btn" onclick="nextChallenge()">Next Challenge ➔</button>
+                </div>
+            </div>
+        </main>
 
         <footer>
-            © 2026 TECHIE SAGNIK // RANKED LEARNING LAB
+            © 2026 TECHIE SAGNIK // RANKED LEARNING LAB // 1,000 ACHIEVEMENTS ENGINE
         </footer>
     </div>
 
     <script>
-        let currentMode = 'puzzles';
         let sfxEnabled = true;
         let audioCtx = null;
-        let activeChallenge = null;
+        const sfxBtn = document.getElementById('sfx-btn');
 
-        let userState = {
-            elo: 0,
-            tier: 'Byte Rookie',
-            solved: 0,
-            streak: 0,
-            dailyCount: 0,
-            lastDailyDate: null,
-            badges: [],
-            calibrated: false
-        };
-
-        function ensureAudioContext() {
+        function initAudio() {
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             if (audioCtx.state === 'suspended') audioCtx.resume();
         }
 
-        window.addEventListener('click', ensureAudioContext, { once: true });
+        window.addEventListener('click', initAudio, { once: true });
+        window.addEventListener('keydown', initAudio, { once: true });
 
-        const sfxBtn = document.getElementById('sfx-btn');
+        let sfxToggleSpam = 0;
+        let sfxToggleTimer = null;
+
         sfxBtn.addEventListener('click', () => {
             sfxEnabled = !sfxEnabled;
             sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
             sfxBtn.classList.toggle('off', !sfxEnabled);
+            if (sfxEnabled) playTone('click');
+
+            // Secret Overlooked Achievement: Audio Synthesizer Spammer
+            sfxToggleSpam++;
+            clearTimeout(sfxToggleTimer);
+            sfxToggleTimer = setTimeout(() => { sfxToggleSpam = 0; }, 3000);
+            if (sfxToggleSpam >= 15) triggerSecretAchievement('sec_audio_spammer');
         });
 
-        function playSound(type) {
+        function playTone(type) {
             if (!sfxEnabled) return;
-            ensureAudioContext();
+            initAudio();
             if (!audioCtx) return;
 
             const t = audioCtx.currentTime;
@@ -502,40 +1250,452 @@
 
             if (type === 'correct') {
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(587.33, t);
-                osc.frequency.exponentialRampToValueAtTime(880, t + 0.15);
+                osc.frequency.setValueAtTime(523.25, t);
+                osc.frequency.exponentialRampToValueAtTime(880, t + 0.14);
                 gain.gain.setValueAtTime(0.12, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.start(t);
-                osc.stop(t + 0.35);
+                osc.stop(t + 0.28);
             } else if (type === 'wrong') {
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(196, t);
-                osc.frequency.exponentialRampToValueAtTime(130, t + 0.2);
+                osc.frequency.setValueAtTime(190, t);
+                osc.frequency.exponentialRampToValueAtTime(105, t + 0.22);
+                gain.gain.setValueAtTime(0.18, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.22);
+            } else if (type === 'fanfare') {
+                [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.type = 'sine';
+                    o.frequency.setValueAtTime(freq, t + idx * 0.08);
+                    g.gain.setValueAtTime(0.1, t + idx * 0.08);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + idx * 0.08 + 0.26);
+                    o.connect(g);
+                    g.connect(audioCtx.destination);
+                    o.start(t + idx * 0.08);
+                    o.stop(t + idx * 0.08 + 0.26);
+                });
+            } else if (type === 'heart_lost') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(320, t);
+                osc.frequency.exponentialRampToValueAtTime(140, t + 0.2);
                 gain.gain.setValueAtTime(0.15, t);
                 gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.start(t);
                 osc.stop(t + 0.2);
+            } else if (type === 'drawer') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(420, t);
+                osc.frequency.exponentialRampToValueAtTime(840, t + 0.08);
+                gain.gain.setValueAtTime(0.06, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.08);
+            } else if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1800, t);
+                gain.gain.setValueAtTime(0.04, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.02);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.02);
             }
+        }
+
+        // Drawer open / hide controls
+        function toggleSidepanel(shouldOpen) {
+            const drawer = document.getElementById('sidepanel-drawer');
+            const backdrop = document.getElementById('drawer-backdrop');
+            const isOpen = drawer.classList.contains('open');
+            const targetState = typeof shouldOpen === 'boolean' ? shouldOpen : !isOpen;
+
+            if (targetState) {
+                drawer.classList.add('open');
+                backdrop.classList.add('active');
+                playTone('drawer');
+            } else {
+                drawer.classList.remove('open');
+                backdrop.classList.remove('active');
+                playTone('drawer');
+            }
+        }
+
+        const ACHIEVEMENTS_REGISTRY = [];
+
+        // Track 1: Total Solves Grind (50 tiers, up to 10,000 solves)
+        const solveMilestones = [
+            1, 2, 3, 5, 8, 10, 15, 20, 25, 30, 40, 50, 60, 75, 90, 100, 125, 150, 175, 200,
+            250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000, 1024, 1200, 1400, 1600,
+            1800, 2000, 2048, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9000, 9999, 10000
+        ];
+        solveMilestones.forEach((target, i) => {
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_solves_${target}`,
+                title: target === 1 ? 'First Boot' : (target === 1024 ? '1 Kilobyte of Solutions' : (target === 2048 ? 'Double Buffer Master' : `Solve Grind Level ${i + 1}`)),
+                desc: `Diagnose and solve ${target.toLocaleString()} total technical challenges.`,
+                icon: target >= 5000 ? '👑' : (target >= 1000 ? '💎' : (target >= 100 ? '⚡' : '🥉')),
+                category: 'progress',
+                track: 'solves',
+                secret: false,
+                target: target,
+                getCurrent: (s) => s.solved || 0
+            });
+        });
+
+        // Track 2: Elo Rating Ladder (50 tiers, up to 3,500 Elo)
+        for (let i = 1; i <= 50; i++) {
+            const targetElo = 50 + (i * 70);
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_elo_${targetElo}`,
+                title: targetElo >= 3000 ? `Singularity Legend (${targetElo})` : (targetElo >= 1500 ? `Kernel Architect (${targetElo})` : `SysAdmin Tier (${targetElo})`),
+                desc: `Ascend your rated Elo score to ${targetElo} points.`,
+                icon: targetElo >= 2500 ? '🌌' : (targetElo >= 1500 ? '🧠' : '📈'),
+                category: 'progress',
+                track: 'elo',
+                secret: false,
+                target: targetElo,
+                getCurrent: (s) => s.elo || 0
+            });
+        }
+
+        // Track 3: Flawless Consecutive Streaks (40 tiers, up to 100 streak)
+        const streakMilestones = [
+            2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22,
+            25, 28, 30, 32, 35, 38, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 99, 100
+        ];
+        streakMilestones.forEach((target, i) => {
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_streak_${target}`,
+                title: target >= 50 ? `Flawless Precision (${target})` : `Hot Streak Level ${i + 1}`,
+                desc: `Solve ${target} technical questions consecutively without an error.`,
+                icon: target >= 50 ? '💥' : '🔥',
+                category: 'progress',
+                track: 'streak',
+                secret: false,
+                target: target,
+                getCurrent: (s) => s.streak || 0
+            });
+        });
+
+        // Track 4: Daily Dedication Streak (50 tiers, up to 365 days)
+        const dailyMilestones = [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 22, 25, 28, 30, 35,
+            40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180,
+            200, 220, 240, 260, 280, 300, 320, 340, 360, 365
+        ];
+        dailyMilestones.forEach((target, i) => {
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_daily_${target}`,
+                title: target === 365 ? 'Orbital Orbit (1 Year)' : (target >= 30 ? `Monthly Discipline (${target}d)` : `Daily Ritual Level ${i + 1}`),
+                desc: `Complete the Daily Special scenario across ${target} unique days.`,
+                icon: '🗓️',
+                category: 'progress',
+                track: 'daily',
+                secret: false,
+                target: target,
+                getCurrent: (s) => s.dailyCount || 0
+            });
+        });
+
+        // Track 5: Speed Demon Solves (40 tiers, answers under 3.0s)
+        for (let i = 1; i <= 40; i++) {
+            const target = i * 5;
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_speed_fast_${target}`,
+                title: `Reflex Specialist (${target})`,
+                desc: `Correctly diagnose ${target} challenges in under 3.0 seconds.`,
+                icon: '⚡',
+                category: 'progress',
+                track: 'speed_fast',
+                secret: false,
+                target: target,
+                getCurrent: (s) => s.fastAnswers || 0
+            });
+        }
+
+        // Track 6: Speed Quiz Rounds (40 tiers)
+        for (let i = 1; i <= 40; i++) {
+            const target = i * 5;
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_speed_mode_${target}`,
+                title: `Timer Survivor (${target})`,
+                desc: `Solve ${target} questions inside the Speed Quiz 15s arena.`,
+                icon: '⏱️',
+                category: 'progress',
+                track: 'speed_mode',
+                secret: false,
+                target: target,
+                getCurrent: (s) => s.speedSolved || 0
+            });
+        }
+
+        // Track 7: Hardware & Component Diagnostics (185 tiers)
+        for (let i = 1; i <= 185; i++) {
+            const target = i * 2;
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_hw_${target}`,
+                title: `Silicon Technician Level ${i}`,
+                desc: `Solve ${target} questions relating to CPUs, motherboards, RAM & buses.`,
+                icon: '💻',
+                category: 'progress',
+                track: 'hardware',
+                secret: false,
+                target: target,
+                getCurrent: (s) => s.catHardware || 0
+            });
+        }
+
+        // Track 8: Operating Systems & Kernel Internals (185 tiers)
+        for (let i = 1; i <= 185; i++) {
+            const target = i * 2;
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_os_${target}`,
+                title: `Kernel Wrangler Level ${i}`,
+                desc: `Resolve ${target} challenges involving Windows, Linux & OS architecture.`,
+                icon: '⚙️',
+                category: 'progress',
+                track: 'os',
+                secret: false,
+                target: target,
+                getCurrent: (s) => s.catOS || 0
+            });
+        }
+
+        // Track 9: Networking & Sockets (185 tiers)
+        for (let i = 1; i <= 185; i++) {
+            const target = i * 2;
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_net_${target}`,
+                title: `Packet Router Level ${i}`,
+                desc: `Solve ${target} networking, TCP/IP, DNS, and protocol challenges.`,
+                icon: '🌐',
+                category: 'progress',
+                track: 'networking',
+                secret: false,
+                target: target,
+                getCurrent: (s) => s.catNetworking || 0
+            });
+        }
+
+        // Track 10: Software & Terminal Utilities (175 tiers)
+        for (let i = 1; i <= 175; i++) {
+            const target = i * 2;
+            ACHIEVEMENTS_REGISTRY.push({
+                id: `trk_soft_${target}`,
+                title: `CLI Operator Level ${i}`,
+                desc: `Execute ${target} command-line and software maintenance diagnosis tasks.`,
+                icon: '⌨️',
+                category: 'progress',
+                track: 'software',
+                secret: false,
+                target: target,
+                getCurrent: (s) => s.catSoftware || 0
+            });
+        }
+
+        // 50 Secret, Overlooked & Easter Egg Badges
+        const SECRET_OVERLOOKED_EGGS = [
+            { id: 'sec_midnight_owl', title: 'Midnight SysAdmin', desc: 'Solved a puzzle during the late hours (1:00 AM - 4:00 AM).', icon: '🦉' },
+            { id: 'sec_early_bird', title: 'Dawn Patrol', desc: 'Diagnosed a system problem between 4:00 AM and 6:00 AM.', icon: '🌅' },
+            { id: 'sec_konami_code', title: 'The Ancient Arcade', desc: 'Executed the Konami Code on your physical keyboard.', icon: '🕹️' },
+            { id: 'sec_audio_spammer', title: 'Audio Synthesizer Tester', desc: 'Toggled the audio SFX switch 15 times within 3 seconds.', icon: '🎛️' },
+            { id: 'sec_devtools_inspector', title: 'DOM Inspector', desc: 'Pressed F12 or shortcut keys to inspect web telemetry.', icon: '🔍' },
+            { id: 'sec_copy_paste_text', title: 'Snippet Collector', desc: 'Highlighted and copied question text to your clipboard.', icon: '📋' },
+            { id: 'sec_right_click_context', title: 'Contextual Probe', desc: 'Right-clicked an interactive option button to examine it.', icon: '🖱️' },
+            { id: 'sec_zen_master', title: 'Deep Contemplation', desc: 'Contemplated a single problem for over 60 seconds and answered correctly.', icon: '🧘' },
+            { id: 'sec_avatar_seven', title: 'Thalapathy Leo Aura', desc: 'Tapped Techie Sagnik’s badge 7 times in 3 seconds.', icon: '🔥' },
+            { id: 'sec_daily_two_hearts_perfect', title: 'Immaculate Heart', desc: 'Completed the Daily Special with both hearts (❤️❤️) untouched!', icon: '💖' },
+            { id: 'sec_daily_one_heart_clutch', title: 'Clutch Survivor', desc: 'Lost 1 heart on Daily Special, but diagnosed correctly on your last life (❤️🖤)!', icon: '🩹' },
+            { id: 'sec_daily_heartbroken', title: 'Heartbroken Failure', desc: 'Depleted both hearts on the Daily Special challenge (🖤🖤). Try again tomorrow!', icon: '💔' },
+            { id: 'sec_hover_fifteen', title: 'Deep Inspector', desc: 'Hovered over a single option for 15 seconds without clicking.', icon: '⏱️' },
+            { id: 'sec_binary_256', title: 'Byte Foundation (256)', desc: 'Held an Elo rating of exactly 256.', icon: '💾' },
+            { id: 'sec_binary_512', title: 'Half Kilobyte (512)', desc: 'Held an Elo rating of exactly 512.', icon: '💾' },
+            { id: 'sec_binary_1024', title: 'Even Kilobyte (1024)', desc: 'Held an Elo rating of exactly 1024.', icon: '💾' },
+            { id: 'sec_binary_2048', title: 'Double Buffer (2048)', desc: 'Held an Elo rating of exactly 2048.', icon: '💾' },
+            { id: 'sec_speed_sub15', title: 'Twitch Reflex', desc: 'Answered correctly in less than 1.5 seconds flat.', icon: '⚡' },
+            { id: 'sec_speed_sub20', title: 'Sub-Two Second Speed', desc: 'Answered correctly in under 2.0 seconds.', icon: '⚡' },
+            { id: 'sec_tab_hopper', title: 'Multitasker', desc: 'Switched between Ranked, Speed, and Daily tabs 10 times.', icon: '🔀' },
+            { id: 'sec_header_dblclick', title: 'Secret Header Tap', desc: 'Double-clicked the navigation header bar.', icon: '✨' },
+            { id: 'sec_sunday_hacker', title: 'Sunday Maintenance', desc: 'Solved challenges on a peaceful Sunday afternoon.', icon: '☕' },
+            { id: 'sec_first_defeat', title: 'Kernel Panic Bug', desc: 'Faced your first incorrect diagnosis. Every architect learns!', icon: '🐞' },
+            { id: 'sec_comeback_kid', title: 'Resilience Protocol', desc: 'Rebounded and recovered 100+ Elo points after a defeat.', icon: '🛡️' },
+            { id: 'sec_clutch_buzzer', title: 'Buzzer Beater', desc: 'Submitted the winning Speed Quiz answer with under 1.2s remaining.', icon: '⏱️' },
+            { id: 'sec_all_round_trio', title: 'Triathlon Finisher', desc: 'Solved at least 1 challenge across Ranked, Speed, and Daily in a single session.', icon: '🧩' },
+            { id: 'sec_five_minute_focus', title: 'Hyperfocus', desc: 'Spent 5 uninterrupted minutes on the TechLearn arena.', icon: '🎯' },
+            { id: 'sec_hundred_club', title: 'Triple Digit Elo', desc: 'Ascended past 100 Elo points.', icon: '🏅' },
+            { id: 'sec_grand_kilo', title: 'Four-Digit Club', desc: 'Crossed the 1,000 Elo milestone.', icon: '🏆' },
+            { id: 'sec_scroll_explorer', title: 'Catalog Diver', desc: 'Scrolled all the way through the achievement list.', icon: '📜' },
+            { id: 'sec_filter_toggled', title: 'Inspector of Records', desc: 'Checked every achievement filter category in the drawer.', icon: '🗂️' },
+            { id: 'sec_cleanmgr_pro', title: 'Native Purge Master', desc: 'Answered a disk cleanup question correctly on the first attempt.', icon: '🧹' },
+            { id: 'sec_emoji_pro', title: 'Symbol Typist', desc: 'Answered the Windows emoji keyboard shortcut question correctly.', icon: '😀' },
+            { id: 'sec_resmon_guru', title: 'Queue Length Detective', desc: 'Identified Resource Monitor for 100% disk usage triage.', icon: '📊' },
+            { id: 'sec_dism_restorer', title: 'Component Rebuilder', desc: 'Identified the DISM repair command on high difficulty.', icon: '🛠️' },
+            { id: 'sec_netstat_audit', title: 'Port Inspector', desc: 'Recognized netstat -ano for socket port inspection.', icon: '📡' },
+            { id: 'sec_reboot_fix', title: 'The IT Classic', desc: 'Selected a restart/reboot solution correctly.', icon: '🔄' },
+            { id: 'sec_speed_ten_streak', title: 'Rapid Fire Decathlete', desc: 'Hit a 10 streak purely inside Speed Quiz mode.', icon: '🔥' },
+            { id: 'sec_flawless_twenty', title: 'Pure Accuracy', desc: 'Reached 20 correct answers with 0 mistakes.', icon: '💎' },
+            { id: 'sec_midnight_streak', title: 'Nocturnal Flow', desc: 'Maintained a 5+ streak during nighttime hours.', icon: '🌙' },
+            { id: 'sec_offline_buffer', title: 'Resilient Cache', desc: 'Solved a challenge seamlessly loaded from failover cache.', icon: '📦' },
+            { id: 'sec_volume_twentyfive', title: 'Quarter Century', desc: 'Solved 25 challenges in a single session.', icon: '🎖️' },
+            { id: 'sec_volume_fifty', title: 'Half Century', desc: 'Solved 50 challenges in a single session.', icon: '🎖️' },
+            { id: 'sec_volume_century', title: 'Centurion Session', desc: 'Solved 100 challenges in a single session.', icon: '🎖️' },
+            { id: 'sec_tier_architect', title: 'Rank Ascension: Architect', desc: 'Reached the Kernel Architect rank tier.', icon: '🚀' },
+            { id: 'sec_tier_singularity', title: 'Rank Ascension: Singularity', desc: 'Reached the Singularity Master rank tier.', icon: '🌌' },
+            { id: 'sec_calibrated_veteran', title: 'Calibrated Veteran', desc: 'Completed initial skill calibration onboarding.', icon: '📐' },
+            { id: 'sec_google_synced', title: 'Cloud Bound', desc: 'Signed in and synced your engineering profile with Google.', icon: '☁️' },
+            { id: 'sec_spacebar_next', title: 'Keyboard Navigator', desc: 'Pressed the Spacebar to advance to the next challenge.', icon: '␣' },
+            { id: 'sec_thousandth_total', title: 'The Grand Millenium', desc: 'Unlocked 1,000 distinct achievements in the TechLearn arena!', icon: '👑' }
+        ];
+
+        SECRET_OVERLOOKED_EGGS.forEach(egg => {
+            ACHIEVEMENTS_REGISTRY.push({
+                ...egg,
+                category: 'secret',
+                track: 'secret_easter_egg',
+                secret: true,
+                target: 1,
+                getCurrent: (s) => (s.unlockedSecrets && s.unlockedSecrets.includes(egg.id)) ? 1 : 0
+            });
+        });
+
+        let userState = {
+            elo: 0,
+            tier: 'Byte Rookie',
+            solved: 0,
+            streak: 0,
+            fastAnswers: 0,
+            speedSolved: 0,
+            dailyCount: 0,
+            lastDailyDate: null,
+            dailyOutcome: null,
+            dailyHeartsRemaining: 2,
+            catHardware: 0,
+            catOS: 0,
+            catNetworking: 0,
+            catSoftware: 0,
+            unlockedAchievements: [],
+            unlockedSecrets: [],
+            sessionSolved: 0,
+            modesUsed: [],
+            calibrated: false
+        };
+
+        let currentUser = null;
+        let db = null;
+        let auth = null;
+
+        // Firebase Google Sync Initialization
+        try {
+            const firebaseConfig = {
+                apiKey: "AIzaSyFakeKeyForLocalFallback",
+                authDomain: "techiesagnik-portal.firebaseapp.com",
+                projectId: "techiesagnik-portal"
+            };
+            if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+                auth = firebase.auth();
+                db = firebase.firestore();
+
+                auth.onAuthStateChanged(async (user) => {
+                    if (user) {
+                        currentUser = user;
+                        document.getElementById('auth-signed-in').style.display = 'flex';
+                        document.getElementById('auth-signed-out').style.display = 'none';
+                        document.getElementById('btn-logout').style.display = 'inline-block';
+                        document.getElementById('user-avatar').src = user.photoURL || 'https://ui-avatars.com/api/?name=User';
+                        document.getElementById('user-display-name').textContent = user.displayName || 'Engineer';
+
+                        triggerSecretAchievement('sec_google_synced');
+                        await pullCloudUserData(user.uid);
+                    } else {
+                        currentUser = null;
+                        document.getElementById('auth-signed-in').style.display = 'none';
+                        document.getElementById('auth-signed-out').style.display = 'block';
+                        document.getElementById('btn-logout').style.display = 'none';
+                    }
+                });
+            }
+        } catch(e) {
+            console.warn("Cloud auth running in localStorage fallback mode.");
+        }
+
+        document.getElementById('btn-login-google').addEventListener('click', async () => {
+            if (!auth) return;
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await auth.signInWithPopup(provider);
+            } catch(e) {
+                console.warn("Sign-in cancelled or popup closed.");
+            }
+        });
+
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            if (auth) auth.signOut();
+        });
+
+        async function pullCloudUserData(uid) {
+            if (!db) return;
+            try {
+                const doc = await db.collection('artifacts').doc('techie-sagnik-portal').collection('users').doc(uid).get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    userState.elo = Math.max(userState.elo, data.elo || 0);
+                    userState.solved = Math.max(userState.solved, data.solved || 0);
+                    userState.streak = Math.max(userState.streak, data.streak || 0);
+                    userState.dailyCount = Math.max(userState.dailyCount || 0, data.dailyCount || 0);
+                    userState.fastAnswers = Math.max(userState.fastAnswers || 0, data.fastAnswers || 0);
+                    userState.speedSolved = Math.max(userState.speedSolved || 0, data.speedSolved || 0);
+                    userState.catHardware = Math.max(userState.catHardware || 0, data.catHardware || 0);
+                    userState.catOS = Math.max(userState.catOS || 0, data.catOS || 0);
+                    userState.catNetworking = Math.max(userState.catNetworking || 0, data.catNetworking || 0);
+                    userState.catSoftware = Math.max(userState.catSoftware || 0, data.catSoftware || 0);
+                    if (data.lastDailyDate) userState.lastDailyDate = data.lastDailyDate;
+                    if (data.dailyOutcome) userState.dailyOutcome = data.dailyOutcome;
+                    userState.unlockedAchievements = Array.from(new Set([...userState.unlockedAchievements, ...(data.unlockedAchievements || [])]));
+                    userState.unlockedSecrets = Array.from(new Set([...userState.unlockedSecrets, ...(data.unlockedSecrets || [])]));
+                    userState.calibrated = userState.calibrated || data.calibrated || false;
+                    saveUserState(false);
+                } else {
+                    syncToCloud();
+                }
+            } catch(e) {}
+            updateUI();
+        }
+
+        async function syncToCloud() {
+            if (!currentUser || !db) return;
+            try {
+                await db.collection('artifacts').doc('techie-sagnik-portal').collection('users').doc(currentUser.uid).set(userState, { merge: true });
+            } catch(e) {}
         }
 
         function loadUserState() {
-            const raw = localStorage.getItem('techlearn_user_profile');
+            const raw = localStorage.getItem('techlearn_profile_data_1000');
             if (raw) {
                 userState = JSON.parse(raw);
+                if (!userState.unlockedAchievements) userState.unlockedAchievements = [];
+                if (!userState.unlockedSecrets) userState.unlockedSecrets = [];
             } else {
                 document.getElementById('calibration-modal').style.display = 'flex';
             }
-            updateProfileUI();
+            updateUI();
         }
 
-        function saveUserState() {
-            localStorage.setItem('techlearn_user_profile', JSON.stringify(userState));
-            updateProfileUI();
+        function saveUserState(pushToCloud = true) {
+            localStorage.setItem('techlearn_profile_data_1000', JSON.stringify(userState));
+            updateUI();
+            if (pushToCloud) syncToCloud();
         }
 
         function calibrateUser(startElo, tier) {
@@ -543,38 +1703,299 @@
             userState.tier = tier;
             userState.calibrated = true;
             document.getElementById('calibration-modal').style.display = 'none';
+            triggerSecretAchievement('sec_calibrated_veteran');
+            playTone('fanfare');
             saveUserState();
-            fetchNextLiveQuestion();
+            nextChallenge();
         }
 
         function updateTier() {
             if (userState.elo < 600) userState.tier = 'Byte Rookie';
             else if (userState.elo < 1200) userState.tier = 'SysAdmin Aspirant';
-            else if (userState.elo < 1700) userState.tier = 'Kernel Architect';
-            else userState.tier = 'Tech Grandmaster';
+            else if (userState.elo < 1800) {
+                userState.tier = 'Kernel Architect';
+                triggerSecretAchievement('sec_tier_architect');
+            } else {
+                userState.tier = 'Singularity Master';
+                triggerSecretAchievement('sec_tier_singularity');
+            }
         }
 
-        function checkBadges() {
-            if (userState.solved >= 1 && !userState.badges.includes('first')) userState.badges.push('first');
-            if (userState.dailyCount >= 3 && !userState.badges.includes('daily')) userState.badges.push('daily');
-            if (userState.streak >= 5 && !userState.badges.includes('streak')) userState.badges.push('streak');
-            if (userState.elo >= 1500 && !userState.badges.includes('master')) userState.badges.push('master');
+        function checkAllAchievements() {
+            let newlyUnlocked = false;
+
+            ACHIEVEMENTS_REGISTRY.forEach(ach => {
+                if (!userState.unlockedAchievements.includes(ach.id)) {
+                    const currentVal = ach.getCurrent(userState);
+                    if (currentVal >= ach.target) {
+                        userState.unlockedAchievements.push(ach.id);
+                        showAchievementToast(ach);
+                        newlyUnlocked = true;
+                    }
+                }
+            });
+
+            if (userState.unlockedAchievements.length >= 1000) {
+                triggerSecretAchievement('sec_thousandth_total');
+            }
+
+            if (newlyUnlocked) {
+                playTone('fanfare');
+                saveUserState();
+            }
         }
 
-        function updateProfileUI() {
-            updateTier();
-            checkBadges();
+        function triggerSecretAchievement(secretId) {
+            if (!userState.unlockedSecrets.includes(secretId)) {
+                userState.unlockedSecrets.push(secretId);
+                const ach = ACHIEVEMENTS_REGISTRY.find(a => a.id === secretId);
+                if (ach && !userState.unlockedAchievements.includes(ach.id)) {
+                    userState.unlockedAchievements.push(ach.id);
+                    showAchievementToast(ach);
+                    playTone('fanfare');
+                }
+                saveUserState();
+            }
+        }
 
-            document.getElementById('profile-elo').textContent = userState.elo;
-            document.getElementById('profile-tier').textContent = userState.tier;
-            document.getElementById('profile-solved').textContent = userState.solved;
-            document.getElementById('profile-streak').textContent = `${userState.streak} 🔥`;
+        function showAchievementToast(ach) {
+            const dock = document.getElementById('toast-dock');
+            const toast = document.createElement('div');
+            toast.className = 'achievement-toast';
+            toast.innerHTML = `
+                <div class="toast-icon">${ach.icon}</div>
+                <div class="toast-body">
+                    <h5>${ach.category === 'secret' ? 'SECRET UNLOCKED' : 'ACHIEVEMENT UNLOCKED'}</h5>
+                    <h4>${ach.title}</h4>
+                    <p>${ach.desc}</p>
+                </div>
+            `;
+            dock.appendChild(toast);
+            setTimeout(() => {
+                toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(15px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 4500);
+        }
 
-            ['first', 'daily', 'streak', 'master'].forEach(badgeId => {
-                const el = document.getElementById(`badge-${badgeId}`);
-                if (el) el.classList.toggle('unlocked', userState.badges.includes(badgeId));
+        let currentAchFilter = 'all';
+        let currentAchPage = 1;
+        let searchQuery = '';
+        const ACHIEVEMENTS_PER_PAGE = 8;
+
+        document.getElementById('ach-search').addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            currentAchPage = 1;
+            renderPaginatedAchievements();
+        });
+
+        document.querySelectorAll('.ach-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.ach-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentAchFilter = chip.getAttribute('data-filter');
+                currentAchPage = 1;
+                renderPaginatedAchievements();
+                triggerSecretAchievement('sec_filter_toggled');
+            });
+        });
+
+        function changeAchPage(delta) {
+            currentAchPage += delta;
+            renderPaginatedAchievements();
+        }
+
+        function getFilteredAchievements() {
+            return ACHIEVEMENTS_REGISTRY.filter(a => {
+                const isUnlocked = userState.unlockedAchievements.includes(a.id);
+
+                // Category filter
+                let matchesCategory = true;
+                if (currentAchFilter === 'progress') {
+                    matchesCategory = !isUnlocked && a.category === 'progress';
+                } else if (currentAchFilter === 'unlocked') {
+                    matchesCategory = isUnlocked;
+                } else if (currentAchFilter === 'secret') {
+                    matchesCategory = a.category === 'secret';
+                }
+
+                // Search query filter
+                let matchesSearch = true;
+                if (searchQuery) {
+                    if (a.secret && !isUnlocked) {
+                        matchesSearch = false; // keep mystery hidden from search until unlocked
+                    } else {
+                        matchesSearch = a.title.toLowerCase().includes(searchQuery) || a.desc.toLowerCase().includes(searchQuery);
+                    }
+                }
+
+                return matchesCategory && matchesSearch;
             });
         }
+
+        function renderPaginatedAchievements() {
+            const list = document.getElementById('achievements-list');
+            const filtered = getFilteredAchievements();
+            const totalPages = Math.max(1, Math.ceil(filtered.length / ACHIEVEMENTS_PER_PAGE));
+
+            currentAchPage = Math.min(Math.max(1, currentAchPage), totalPages);
+
+            document.getElementById('prev-page-btn').disabled = currentAchPage === 1;
+            document.getElementById('next-page-btn').disabled = currentAchPage === totalPages;
+            document.getElementById('page-indicator').textContent = `Page ${currentAchPage} / ${totalPages}`;
+
+            const startIdx = (currentAchPage - 1) * ACHIEVEMENTS_PER_PAGE;
+            const pageSlice = filtered.slice(startIdx, startIdx + ACHIEVEMENTS_PER_PAGE);
+
+            list.innerHTML = '';
+
+            if (pageSlice.length === 0) {
+                list.innerHTML = `<div style="text-align:center; padding:20px; font-size:0.75rem; color:var(--text-med); font-family:var(--font-mono);">No matching achievements found in this view.</div>`;
+                return;
+            }
+
+            pageSlice.forEach(ach => {
+                const isUnlocked = userState.unlockedAchievements.includes(ach.id);
+                const currentVal = Math.min(ach.target, ach.getCurrent(userState));
+                const pct = Math.min(100, Math.round((currentVal / ach.target) * 100));
+
+                const slot = document.createElement('div');
+                slot.className = `badge-slot ${isUnlocked ? 'unlocked' : 'locked'} ${ach.secret ? 'secret-slot' : ''}`;
+
+                if (ach.secret && !isUnlocked) {
+                    slot.innerHTML = `
+                        <div class="badge-main-row">
+                            <div class="badge-icon">🔒</div>
+                            <div class="badge-info">
+                                <h4>??? Locked Mystery <span style="font-size:0.68rem; color:var(--accent-gold); font-family:var(--font-mono);">0%</span></h4>
+                                <p>Undiscovered or overlooked secret trigger.</p>
+                            </div>
+                        </div>
+                        <div class="prog-container"><div class="prog-bar" style="width: 0%"></div></div>
+                    `;
+                } else {
+                    slot.innerHTML = `
+                        <div class="badge-main-row">
+                            <div class="badge-icon">${ach.icon}</div>
+                            <div class="badge-info">
+                                <h4>${ach.title} <span style="font-size:0.68rem; color:${isUnlocked ? 'var(--accent-green)' : 'var(--accent-cyan)'}; font-family:var(--font-mono);">${pct}%</span></h4>
+                                <p>${ach.desc}</p>
+                            </div>
+                        </div>
+                        <div class="prog-container"><div class="prog-bar" style="width: ${pct}%"></div></div>
+                        <div class="prog-label">
+                            <span>${currentVal.toLocaleString()} / ${ach.target.toLocaleString()}</span>
+                            <span>${isUnlocked ? 'COMPLETED' : 'IN PROGRESS'}</span>
+                        </div>
+                    `;
+                }
+
+                list.appendChild(slot);
+            });
+
+            const unlockedCount = userState.unlockedAchievements.length;
+            document.getElementById('achievement-ratio').textContent = `${unlockedCount} / ${ACHIEVEMENTS_REGISTRY.length}`;
+            document.getElementById('header-ach-pill').textContent = unlockedCount;
+        }
+
+        function updateUI() {
+            updateTier();
+            checkAllAchievements();
+
+            document.getElementById('profile-elo').textContent = userState.elo;
+            document.getElementById('strip-elo').textContent = userState.elo;
+            document.getElementById('profile-tier').textContent = userState.tier;
+
+            document.getElementById('profile-solved').textContent = userState.solved;
+            document.getElementById('strip-solved').textContent = userState.solved;
+
+            document.getElementById('profile-streak').textContent = `${userState.streak} 🔥`;
+            document.getElementById('strip-streak').textContent = `${userState.streak} 🔥`;
+
+            document.getElementById('profile-daily').textContent = `${userState.dailyCount || 0} 📅`;
+
+            renderPaginatedAchievements();
+        }
+
+        let currentMode = 'puzzles';
+        let activeChallenge = null;
+        let questionStartTime = 0;
+        let currentDailyHearts = 2;
+
+        const FAILOVER_QUESTION_BANK = [
+            {
+                prompt: "Your C: drive has 2GB remaining and updates fail to download. Which native tool safely purges cached update archives?",
+                options: ["cleanmgr", "taskkill /f", "format C:", "defrag /all"],
+                correct: 0,
+                difficulty: "easy",
+                category: "software",
+                rating: 300
+            },
+            {
+                prompt: "Which shortcut opens the native Windows symbol, emoji, and kaomoji picker in any input field?",
+                options: ["Win + . (Period)", "Ctrl + Alt + E", "Alt + Shift + Enter", "Win + E"],
+                correct: 0,
+                difficulty: "easy",
+                category: "software",
+                rating: 250
+            },
+            {
+                prompt: "A background process is reading files at high rates, causing 100% disk usage. Which utility lets you inspect individual queue depths per process?",
+                options: ["resmon", "notepad", "dxdiag", "regedit"],
+                correct: 0,
+                difficulty: "medium",
+                category: "os",
+                rating: 850
+            },
+            {
+                prompt: "A secondary monitor freezes on black during heavy workflows. Which key combination signals an immediate graphics subsystem restart?",
+                options: ["Win + Ctrl + Shift + B", "Alt + F4", "Ctrl + Alt + Del", "Win + P"],
+                correct: 0,
+                difficulty: "medium",
+                category: "hardware",
+                rating: 900
+            },
+            {
+                prompt: "Windows component store files are damaged and SFC fails. Which command pulls replacements directly from Windows Update servers?",
+                options: ["dism /online /cleanup-image /restorehealth", "chkdsk /f /r", "sfc /purgecache", "bootrec /fixmbr"],
+                correct: 0,
+                difficulty: "hard",
+                category: "os",
+                rating: 1550
+            },
+            {
+                prompt: "You need to inspect live active TCP connections and their corresponding Process IDs (PIDs). Which command provides this telemetry?",
+                options: ["netstat -ano", "ipconfig /flushdns", "tracert 127.0.0.1", "route print"],
+                correct: 0,
+                difficulty: "hard",
+                category: "networking",
+                rating: 1650
+            },
+            {
+                prompt: "Which port does HTTPS securely listen on by default across standard web servers?",
+                options: ["443", "80", "22", "8080"],
+                correct: 0,
+                difficulty: "easy",
+                category: "networking",
+                rating: 350
+            },
+            {
+                prompt: "Which physical bus architecture replaced classic PCI for ultra-fast GPU and NVMe data transmission?",
+                options: ["PCI Express (PCIe)", "AGP", "ISA", "SATA III"],
+                correct: 0,
+                difficulty: "easy",
+                category: "hardware",
+                rating: 400
+            }
+        ];
+
+        const QUESTION_BUFFER = {
+            easy: [],
+            medium: [],
+            hard: []
+        };
+        let isFetchingBuffer = false;
 
         function decodeHTML(html) {
             const txt = document.createElement("textarea");
@@ -582,137 +2003,556 @@
             return txt.value;
         }
 
-        function setMode(mode) {
-            currentMode = mode;
-            ['puzzles', 'quizzes', 'daily'].forEach(m => {
-                document.getElementById(`tab-${m}`).classList.toggle('active', m === mode);
-            });
-            fetchNextLiveQuestion();
-        }
+        async function replenishBuffer(diff) {
+            if (isFetchingBuffer || QUESTION_BUFFER[diff].length >= 4) return;
+            isFetchingBuffer = true;
 
-        function getDifficultyForElo(elo) {
-            if (elo < 700) return 'easy';
-            if (elo < 1400) return 'medium';
-            return 'hard';
-        }
-
-        async function fetchNextLiveQuestion() {
-            const feedbackEl = document.getElementById('challenge-status');
-            const metaEl = document.getElementById('challenge-meta');
-            const promptEl = document.getElementById('challenge-prompt');
-            const dock = document.getElementById('challenge-options');
-            const tagEl = document.getElementById('challenge-tag');
-            const nextBtn = document.getElementById('next-btn');
-
-            feedbackEl.textContent = '';
-            metaEl.textContent = 'Connecting to external trivia database...';
-            nextBtn.style.display = 'none';
-            promptEl.textContent = 'Fetching fresh challenge...';
-            dock.innerHTML = '';
-
-            const today = new Date().toISOString().slice(0, 10);
-
-            if (currentMode === 'daily' && userState.lastDailyDate === today) {
-                tagEl.textContent = `DAILY PUZZLE (${today})`;
-                promptEl.textContent = "You have already completed today's special challenge! Return tomorrow for the next one.";
-                metaEl.textContent = "1 Solve Per Day Active";
-                return;
-            }
-
-            let difficulty = getDifficultyForElo(userState.elo);
-            if (currentMode === 'daily') difficulty = 'medium';
-
-            const url = `https://opentdb.com/api.php?amount=1&category=18&difficulty=${difficulty}&type=multiple`;
+            const categories = [18, 19, 30]; // 18 = Computers, 19 = Science & Math, 30 = Gadgets
+            const cat = categories[Math.floor(Math.random() * categories.length)];
+            const url = `https://opentdb.com/api.php?amount=5&category=${cat}&difficulty=${diff}&type=multiple`;
 
             try {
                 const res = await fetch(url);
                 const data = await res.json();
-
                 if (data.results && data.results.length > 0) {
-                    const item = data.results[0];
-                    const question = decodeHTML(item.question);
-                    const correctAns = decodeHTML(item.correct_answer);
-                    const options = item.incorrect_answers.map(decodeHTML).concat(correctAns).sort(() => Math.random() - 0.5);
+                    data.results.forEach(item => {
+                        const correct = decodeHTML(item.correct_answer);
+                        const options = item.incorrect_answers.map(decodeHTML).concat(correct).sort(() => Math.random() - 0.5);
 
-                    activeChallenge = {
-                        prompt: question,
-                        options: options,
-                        correct: options.indexOf(correctAns),
-                        difficulty: difficulty,
-                        rating: difficulty === 'easy' ? 450 : difficulty === 'medium' ? 1000 : 1600
-                    };
+                        let determinedCat = 'software';
+                        const qLower = item.question.toLowerCase();
+                        if (qLower.includes('hardware') || qLower.includes('cpu') || qLower.includes('ram') || qLower.includes('chip')) determinedCat = 'hardware';
+                        else if (qLower.includes('windows') || qLower.includes('linux') || qLower.includes('kernel') || qLower.includes('operating')) determinedCat = 'os';
+                        else if (qLower.includes('network') || qLower.includes('ip') || qLower.includes('port') || qLower.includes('protocol')) determinedCat = 'networking';
 
-                    tagEl.textContent = currentMode === 'daily' 
-                        ? `DAILY SPECIAL (${today})` 
-                        : (currentMode === 'puzzles' ? `RANKED PUZZLE: ${activeChallenge.rating} ELO` : `SPEED QUIZ (${difficulty.toUpperCase()})`);
-
-                    promptEl.textContent = activeChallenge.prompt;
-                    metaEl.textContent = `External Database (OpenTDB) • ${difficulty.toUpperCase()}`;
-
-                    options.forEach((opt, idx) => {
-                        const b = document.createElement('button');
-                        b.className = 'option-choice-btn';
-                        b.textContent = opt;
-                        b.onclick = () => solveQuestion(idx, b);
-                        dock.appendChild(b);
+                        QUESTION_BUFFER[diff].push({
+                            prompt: decodeHTML(item.question),
+                            options: options,
+                            correct: options.indexOf(correct),
+                            difficulty: diff,
+                            category: determinedCat,
+                            rating: diff === 'easy' ? 450 : (diff === 'medium' ? 1000 : 1600)
+                        });
                     });
-                } else {
-                    throw new Error("No questions returned");
                 }
-            } catch (err) {
-                promptEl.textContent = "Unable to reach database. Check network connection.";
-                metaEl.textContent = "Network Error";
+            } catch(e) {
+                // Failover silent catch
+            } finally {
+                isFetchingBuffer = false;
             }
+        }
+
+        function getTargetDifficulty() {
+            if (userState.elo < 700) return 'easy';
+            if (userState.elo < 1400) return 'medium';
+            return 'hard';
+        }
+
+        async function fetchQuestion(difficulty) {
+            replenishBuffer(difficulty);
+
+            if (QUESTION_BUFFER[difficulty].length > 0) {
+                return QUESTION_BUFFER[difficulty].shift();
+            }
+
+            triggerSecretAchievement('sec_offline_buffer');
+            const pool = FAILOVER_QUESTION_BANK.filter(q => q.difficulty === difficulty);
+            const candidate = pool.length ? pool : FAILOVER_QUESTION_BANK;
+            return candidate[Math.floor(Math.random() * candidate.length)];
+        }
+
+        let speedTimerInterval = null;
+        let speedSecondsRemaining = 15.0;
+        let tabSwitchCounter = 0;
+        let midnightTimerInterval = null;
+
+        function getTodayDateString() {
+            const now = new Date();
+            return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            stopSpeedTimer();
+            stopMidnightCountdown();
+
+            if (!userState.modesUsed.includes(mode)) userState.modesUsed.push(mode);
+            if (userState.modesUsed.length >= 3) triggerSecretAchievement('sec_all_round_trio');
+
+            tabSwitchCounter++;
+            if (tabSwitchCounter >= 10) triggerSecretAchievement('sec_tab_hopper');
+
+            ['puzzles', 'speed', 'daily'].forEach(m => {
+                document.getElementById(`tab-${m}`).classList.toggle('active', m === mode);
+            });
+
+            const barWrap = document.getElementById('speed-bar-wrap');
+            const clock = document.getElementById('speed-clock');
+            const heartsBar = document.getElementById('daily-hearts-bar');
+
+            if (mode === 'speed') {
+                barWrap.style.display = 'block';
+                clock.style.display = 'inline-block';
+                heartsBar.style.display = 'none';
+            } else if (mode === 'daily') {
+                barWrap.style.display = 'none';
+                clock.style.display = 'none';
+                heartsBar.style.display = 'flex';
+            } else {
+                barWrap.style.display = 'none';
+                clock.style.display = 'none';
+                heartsBar.style.display = 'none';
+            }
+
+            nextChallenge();
+        }
+
+        function startSpeedTimer() {
+            stopSpeedTimer();
+            speedSecondsRemaining = 15.0;
+            const barFill = document.getElementById('speed-bar-fill');
+            const clock = document.getElementById('speed-clock');
+
+            barFill.style.width = '100%';
+            clock.textContent = `⏱️ 15.0s`;
+
+            const startTime = Date.now();
+            speedTimerInterval = setInterval(() => {
+                const elapsed = (Date.now() - startTime) / 1000;
+                speedSecondsRemaining = Math.max(0, 15.0 - elapsed);
+                const percent = (speedSecondsRemaining / 15.0) * 100;
+                barFill.style.width = `${percent}%`;
+                clock.textContent = `⏱️ ${speedSecondsRemaining.toFixed(1)}s`;
+
+                if (speedSecondsRemaining <= 0) {
+                    stopSpeedTimer();
+                    handleSpeedTimeout();
+                }
+            }, 80);
+        }
+
+        function stopSpeedTimer() {
+            if (speedTimerInterval) {
+                clearInterval(speedTimerInterval);
+                speedTimerInterval = null;
+            }
+        }
+
+        function handleSpeedTimeout() {
+            const allBtns = document.querySelectorAll('.option-choice-btn');
+            allBtns.forEach(b => b.disabled = true);
+            if (activeChallenge && allBtns[activeChallenge.correct]) {
+                allBtns[activeChallenge.correct].classList.add('correct');
+            }
+            playTone('wrong');
+            document.getElementById('challenge-status').style.color = 'var(--accent-red)';
+            document.getElementById('challenge-status').textContent = '⏱️ Time Expired!';
+            userState.streak = 0;
+            userState.elo = Math.max(0, userState.elo - 8);
+            saveUserState();
+            document.getElementById('next-btn').style.display = 'inline-block';
+        }
+
+        function updateDailyHeartsUI() {
+            const h1 = document.getElementById('heart-1');
+            const h2 = document.getElementById('heart-2');
+
+            if (currentDailyHearts === 2) {
+                h1.className = 'heart-icon';
+                h2.className = 'heart-icon';
+            } else if (currentDailyHearts === 1) {
+                h1.className = 'heart-icon';
+                h2.className = 'heart-icon heart-lost';
+            } else {
+                h1.className = 'heart-icon heart-lost';
+                h2.className = 'heart-icon heart-lost';
+            }
+        }
+
+        function stopMidnightCountdown() {
+            if (midnightTimerInterval) {
+                clearInterval(midnightTimerInterval);
+                midnightTimerInterval = null;
+            }
+        }
+
+        function startMidnightCountdown() {
+            stopMidnightCountdown();
+            const timerEl = document.getElementById('daily-countdown-time');
+            if (!timerEl) return;
+
+            function tick() {
+                const now = new Date();
+                const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+                const diff = midnight - now;
+
+                if (diff <= 0) {
+                    stopMidnightCountdown();
+                    nextChallenge();
+                    return;
+                }
+
+                const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+                const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+                const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+
+                timerEl.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+
+            tick();
+            midnightTimerInterval = setInterval(tick, 1000);
+        }
+
+        async function nextChallenge() {
+            const badgeEl = document.getElementById('challenge-badge');
+            const statusEl = document.getElementById('challenge-status');
+            const promptEl = document.getElementById('challenge-prompt');
+            const dock = document.getElementById('options-dock');
+            const metaEl = document.getElementById('challenge-meta');
+            const nextBtn = document.getElementById('next-btn');
+
+            statusEl.textContent = '';
+            nextBtn.style.display = 'none';
+            dock.innerHTML = '';
+            promptEl.textContent = 'Formulating technical scenario...';
+
+            const today = getTodayDateString();
+
+            // Daily Challenge Lockout Check
+            if (currentMode === 'daily') {
+                if (userState.lastDailyDate === today) {
+                    badgeEl.textContent = `DAILY CHALLENGE • ${today}`;
+                    const isSolved = userState.dailyOutcome === 'solved';
+
+                    promptEl.innerHTML = `
+                        <div class="daily-lockout-box">
+                            <div class="daily-lockout-icon">${isSolved ? '🏆' : '💔'}</div>
+                            <h3 style="color:#fff; font-size:1.3rem;">
+                                ${isSolved ? 'Daily Challenge Completed!' : 'Daily Challenge Attempt Concluded'}
+                            </h3>
+                            <p style="color:var(--text-med); font-size:0.88rem; max-width:480px;">
+                                ${isSolved 
+                                    ? `Excellent job! You diagnosed today's special case successfully. Current streak: ${userState.dailyCount} days.` 
+                                    : 'You exhausted both hearts on today\'s case. Review your system telemetry and come back tomorrow to rebuild your streak!'}
+                            </p>
+                            <div style="font-size:0.75rem; color:var(--text-med); font-family:var(--font-mono);">
+                                RESETS AT MIDNIGHT IN:
+                            </div>
+                            <div class="daily-countdown-timer" id="daily-countdown-time">--:--:--</div>
+                        </div>
+                    `;
+
+                    metaEl.textContent = `1 Challenge Per Calendar Day • Locked until midnight`;
+                    startMidnightCountdown();
+                    return;
+                }
+
+                currentDailyHearts = 2;
+                updateDailyHeartsUI();
+            }
+
+            const diff = currentMode === 'daily' ? 'medium' : getTargetDifficulty();
+            activeChallenge = await fetchQuestion(diff);
+
+            if (currentMode === 'puzzles') {
+                badgeEl.textContent = `RANKED PUZZLE: ${activeChallenge.rating} ELO`;
+                metaEl.textContent = `Category: ${activeChallenge.category.toUpperCase()} • Rated Match`;
+            } else if (currentMode === 'speed') {
+                badgeEl.textContent = `SPEED QUIZ • 15S ROUND`;
+                metaEl.textContent = `Rapid Reflex Buffer Active`;
+                startSpeedTimer();
+            } else if (currentMode === 'daily') {
+                badgeEl.textContent = `DAILY SPECIAL • ${today} (2 LIVES)`;
+                metaEl.textContent = `Global Streak Active • 2 Hearts Remaining`;
+            }
+
+            promptEl.textContent = activeChallenge.prompt;
+            questionStartTime = Date.now();
+
+            activeChallenge.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-choice-btn';
+                btn.textContent = opt;
+
+                // Overlooked Hover Trigger (15s Hover)
+                let hoverTimeout;
+                btn.addEventListener('mouseenter', () => {
+                    hoverTimeout = setTimeout(() => {
+                        triggerSecretAchievement('sec_hover_fifteen');
+                    }, 15000);
+                });
+                btn.addEventListener('mouseleave', () => clearTimeout(hoverTimeout));
+
+                // Overlooked Right-Click Context Menu Trigger
+                btn.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    triggerSecretAchievement('sec_right_click_context');
+                });
+
+                btn.onclick = () => solveQuestion(idx, btn);
+                dock.appendChild(btn);
+            });
         }
 
         function solveQuestion(selectedIdx, btnEl) {
             const allBtns = document.querySelectorAll('.option-choice-btn');
+            const statusEl = document.getElementById('challenge-status');
+            const metaEl = document.getElementById('challenge-meta');
+            const duration = (Date.now() - questionStartTime) / 1000;
+            const today = getTodayDateString();
+            const isCorrect = selectedIdx === activeChallenge.correct;
+
+            // Daily 2-Hearts Handling
+            if (currentMode === 'daily') {
+                if (!isCorrect) {
+                    currentDailyHearts--;
+                    updateDailyHeartsUI();
+                    btnEl.classList.add('wrong');
+                    btnEl.disabled = true;
+
+                    if (currentDailyHearts === 1) {
+                        playTone('heart_lost');
+                        statusEl.style.color = 'var(--accent-red)';
+                        statusEl.textContent = '💔 Lost 1 Heart! 1 Life Remaining';
+                        metaEl.textContent = 'Carefully select your final choice...';
+                        return;
+                    } else {
+                        // Depleted both hearts (0 hearts) -> Daily Failed
+                        allBtns.forEach(b => b.disabled = true);
+                        if (allBtns[activeChallenge.correct]) allBtns[activeChallenge.correct].classList.add('correct');
+                        playTone('wrong');
+                        statusEl.style.color = 'var(--accent-red)';
+                        statusEl.textContent = '🖤🖤 Out of Hearts! Daily Failed.';
+
+                        userState.lastDailyDate = today;
+                        userState.dailyOutcome = 'failed';
+                        userState.streak = 0;
+                        userState.elo = Math.max(0, userState.elo - 15);
+                        triggerSecretAchievement('sec_daily_heartbroken');
+                        saveUserState();
+
+                        setTimeout(() => { nextChallenge(); }, 2200);
+                        return;
+                    }
+                } else {
+                    // Correct on daily
+                    allBtns.forEach(b => b.disabled = true);
+                    btnEl.classList.add('correct');
+                    playTone('correct');
+                    statusEl.style.color = 'var(--accent-green)';
+                    statusEl.textContent = '✓ Daily Challenge Mastered!';
+
+                    userState.lastDailyDate = today;
+                    userState.dailyOutcome = 'solved';
+                    userState.dailyCount = (userState.dailyCount || 0) + 1;
+                    userState.solved++;
+                    userState.streak++;
+                    userState.elo += 25;
+
+                    if (currentDailyHearts === 2) triggerSecretAchievement('sec_daily_two_hearts_perfect');
+                    if (currentDailyHearts === 1) triggerSecretAchievement('sec_daily_one_heart_clutch');
+
+                    saveUserState();
+                    setTimeout(() => { nextChallenge(); }, 2200);
+                    return;
+                }
+            }
+
+            // Normal Ranked and Speed Quiz Processing
+            stopSpeedTimer();
             allBtns.forEach(b => b.disabled = true);
 
-            const isCorrect = selectedIdx === activeChallenge.correct;
-            const feedbackEl = document.getElementById('challenge-status');
-            const metaEl = document.getElementById('challenge-meta');
-            const today = new Date().toISOString().slice(0, 10);
+            // Secret Timing Checks
+            if (isCorrect && duration < 3.0) userState.fastAnswers = (userState.fastAnswers || 0) + 1;
+            if (isCorrect && duration < 2.0) triggerSecretAchievement('sec_speed_sub20');
+            if (isCorrect && duration < 1.5) triggerSecretAchievement('sec_speed_sub15');
+            if (isCorrect && duration > 60.0) triggerSecretAchievement('sec_zen_master');
+            if (currentMode === 'speed' && isCorrect && speedSecondsRemaining < 1.2) triggerSecretAchievement('sec_clutch_buzzer');
+
+            // Secret Day & Hour Checks
+            if (new Date().getDay() === 0) triggerSecretAchievement('sec_sunday_hacker');
+            const curHour = new Date().getHours();
+            if (curHour >= 1 && curHour <= 4) triggerSecretAchievement('sec_midnight_owl');
+            if (curHour >= 4 && curHour <= 6) triggerSecretAchievement('sec_early_bird');
 
             if (isCorrect) {
                 btnEl.classList.add('correct');
-                playSound('correct');
-                feedbackEl.style.color = 'var(--accent-green)';
-                feedbackEl.textContent = '✓ Correct Answer!';
+                playTone('correct');
+                statusEl.style.color = 'var(--accent-green)';
+                statusEl.textContent = '✓ Correct Diagnosis!';
 
                 const eloGain = Math.max(12, Math.round(24 + (activeChallenge.rating - userState.elo) * 0.05));
                 userState.elo += eloGain;
                 userState.solved++;
                 userState.streak++;
+                userState.sessionSolved = (userState.sessionSolved || 0) + 1;
 
-                if (currentMode === 'daily') {
-                    userState.dailyCount++;
-                    userState.lastDailyDate = today;
-                }
+                // Category Progress Tracks
+                if (activeChallenge.category === 'hardware') userState.catHardware = (userState.catHardware || 0) + 1;
+                else if (activeChallenge.category === 'os') userState.catOS = (userState.catOS || 0) + 1;
+                else if (activeChallenge.category === 'networking') userState.catNetworking = (userState.catNetworking || 0) + 1;
+                else userState.catSoftware = (userState.catSoftware || 0) + 1;
 
-                metaEl.textContent = `Elo Rating: +${eloGain}`;
+                if (currentMode === 'speed') userState.speedSolved = (userState.speedSolved || 0) + 1;
+
+                // Question Specific Secret Achievements
+                const pText = activeChallenge.prompt.toLowerCase();
+                if (pText.includes('cleanmgr')) triggerSecretAchievement('sec_cleanmgr_pro');
+                if (pText.includes('emoji')) triggerSecretAchievement('sec_emoji_pro');
+                if (pText.includes('resmon')) triggerSecretAchievement('sec_resmon_guru');
+                if (pText.includes('dism')) triggerSecretAchievement('sec_dism_restorer');
+                if (pText.includes('netstat')) triggerSecretAchievement('sec_netstat_audit');
+
+                // Session Count Milestones
+                if (userState.sessionSolved >= 25) triggerSecretAchievement('sec_volume_twentyfive');
+                if (userState.sessionSolved >= 50) triggerSecretAchievement('sec_volume_fifty');
+                if (userState.sessionSolved >= 100) triggerSecretAchievement('sec_volume_century');
+
+                // Binary Elo Checks
+                if (userState.elo === 256) triggerSecretAchievement('sec_binary_256');
+                if (userState.elo === 512) triggerSecretAchievement('sec_binary_512');
+                if (userState.elo === 1024) triggerSecretAchievement('sec_binary_1024');
+                if (userState.elo === 2048) triggerSecretAchievement('sec_binary_2048');
+
+                if (userState.elo >= 100) triggerSecretAchievement('sec_hundred_club');
+                if (userState.elo >= 1000) triggerSecretAchievement('sec_grand_kilo');
+                if (userState.streak >= 20) triggerSecretAchievement('sec_flawless_twenty');
+
+                metaEl.textContent = `Elo: +${eloGain} • Answered in ${duration.toFixed(1)}s`;
             } else {
                 btnEl.classList.add('wrong');
-                allBtns[activeChallenge.correct].classList.add('correct');
-                playSound('wrong');
-                feedbackEl.style.color = 'var(--accent-red)';
-                feedbackEl.textContent = '✗ Incorrect';
+                if (allBtns[activeChallenge.correct]) allBtns[activeChallenge.correct].classList.add('correct');
+                playTone('wrong');
+                statusEl.style.color = 'var(--accent-red)';
+                statusEl.textContent = '✗ Incorrect Action';
+
+                triggerSecretAchievement('sec_first_defeat');
 
                 const eloLoss = Math.max(8, Math.round(18 - (activeChallenge.rating - userState.elo) * 0.03));
                 userState.elo = Math.max(0, userState.elo - eloLoss);
                 userState.streak = 0;
-                metaEl.textContent = `Elo Rating: -${eloLoss}`;
+                metaEl.textContent = `Elo: -${eloLoss}`;
             }
 
             saveUserState();
-
-            if (currentMode !== 'daily' || !isCorrect) {
-                document.getElementById('next-btn').style.display = 'inline-block';
-            }
+            document.getElementById('next-btn').style.display = 'inline-block';
         }
 
+        // Konami Code: Up Up Down Down Left Right Left Right B A
+        const konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+        let konamiIndex = 0;
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === konamiSequence[konamiIndex].toLowerCase()) {
+                konamiIndex++;
+                if (konamiIndex === konamiSequence.length) {
+                    triggerSecretAchievement('sec_konami_code');
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+
+            // Devtools / Source Inspection Keys
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'j'))) {
+                triggerSecretAchievement('sec_devtools_inspector');
+            }
+
+            // Spacebar shortcut to advance to next challenge
+            if (e.code === 'Space' && document.getElementById('next-btn').style.display === 'inline-block') {
+                e.preventDefault();
+                triggerSecretAchievement('sec_spacebar_next');
+                nextChallenge();
+            }
+
+            // Escape key closes sidepanel drawer
+            if (e.key === 'Escape') {
+                toggleSidepanel(false);
+            }
+        });
+
+        // Copy-Paste Text Trigger
+        document.addEventListener('copy', () => {
+            triggerSecretAchievement('sec_copy_paste_text');
+        });
+
+        // Thalapathy Leo Avatar Tap (7 clicks in 3 seconds)
+        let avatarClicks = 0;
+        let avatarTimer = null;
+        document.getElementById('avatar-trigger').addEventListener('click', () => {
+            avatarClicks++;
+            clearTimeout(avatarTimer);
+            avatarTimer = setTimeout(() => { avatarClicks = 0; }, 3000);
+            if (avatarClicks >= 7) {
+                triggerSecretAchievement('sec_avatar_seven');
+                avatarClicks = 0;
+            }
+        });
+
+        // Double Click Header
+        document.getElementById('top-navbar-root').addEventListener('dblclick', () => {
+            triggerSecretAchievement('sec_header_dblclick');
+        });
+
+        // Scroll Catalog to Bottom
+        const achListEl = document.getElementById('achievements-list');
+        achListEl.addEventListener('scroll', () => {
+            if (achListEl.scrollTop + achListEl.clientHeight >= achListEl.scrollHeight - 10) {
+                triggerSecretAchievement('sec_scroll_explorer');
+            }
+        });
+
+        // 5 Minutes on Site Timer
+        setTimeout(() => {
+            triggerSecretAchievement('sec_five_minute_focus');
+        }, 300000);
+
+        // Ambient Particles
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            const count = Math.floor((canvas.width * canvas.height) / 14000);
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: (Math.random() - 0.5) * 0.35,
+                    radius: Math.random() * 1.8 + 0.8,
+                    gold: Math.random() > 0.8
+                });
+            }
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function renderParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.gold ? 'rgba(255, 183, 3, 0.45)' : 'rgba(0, 242, 254, 0.35)';
+                ctx.fill();
+            });
+            requestAnimationFrame(renderParticles);
+        }
+        renderParticles();
+
         loadUserState();
-        if (userState.calibrated) fetchNextLiveQuestion();
+        replenishBuffer('easy');
+        replenishBuffer('medium');
+        replenishBuffer('hard');
+        if (userState.calibrated) nextChallenge();
     </script>
 </body>
 </html>
