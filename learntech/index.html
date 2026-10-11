@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechLearn | Ranked Puzzles, Elo & Interactive Tech Mastery</title>
+    <meta name="description" content="Chess.com-style tech training platform. Solve ranked tech puzzles, calibrate your starting Elo, earn badges, and master Windows diagnostics.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        .learn-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 20px;
+        }
+
+        .profile-side {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .profile-box {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            backdrop-filter: blur(20px);
+        }
+
+        .elo-badge-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .elo-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            color: var(--accent-gold);
+            text-shadow: 0 0 16px rgba(255, 183, 3, 0.3);
+        }
+
+        .tier-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 8px;
+            background: rgba(255, 183, 3, 0.15);
+            color: var(--accent-gold);
+            border: 1px solid rgba(255, 183, 3, 0.3);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 10px 12px;
+        }
+
+        .stat-card-title {
+            font-size: 0.68rem;
+            color: var(--text-med);
+            font-family: var(--font-mono);
+        }
+
+        .stat-card-val {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 2px;
+        }
+
+        .badges-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 8px 12px;
+            opacity: 0.45;
+            transition: all 0.25s ease;
+        }
+
+        .badge-item.unlocked {
+            opacity: 1;
+            background: rgba(0, 242, 254, 0.08);
+            border-color: rgba(0, 242, 254, 0.3);
+        }
+
+        .badge-icon {
+            font-size: 1.3rem;
+        }
+
+        .badge-meta h4 {
+            font-size: 0.8rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .badge-meta p {
+            font-size: 0.68rem;
+            color: var(--text-med);
+            margin: 0;
+        }
+
+        .main-arena {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .tab-controls {
+            display: flex;
+            gap: 10px;
+            background: rgba(8, 12, 22, 0.6);
+            padding: 6px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-med);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--panel-bg);
+            color: #fff;
+            border: 1px solid var(--panel-border);
+        }
+
+        .puzzle-box {
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            border-radius: 20px;
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            backdrop-filter: blur(20px);
+        }
+
+        .puzzle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .puzzle-difficulty {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: rgba(0, 242, 254, 0.12);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+        }
+
+        .puzzle-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.5;
+        }
+
+        .puzzle-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .option-choice-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .option-choice-btn:hover:not(:disabled) {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: var(--accent-cyan);
+            transform: translateX(4px);
+        }
+
+        .option-choice-btn.correct {
+            background: rgba(16, 185, 129, 0.25) !important;
+            border-color: var(--accent-green) !important;
+            color: #fff !important;
+        }
+
+        .option-choice-btn.wrong {
+            background: rgba(255, 30, 86, 0.25) !important;
+            border-color: var(--accent-red) !important;
+            color: #fff !important;
+        }
+
+        .puzzle-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 14px;
+        }
+
+        .next-btn {
+            background: var(--accent-cyan);
+            color: #030712;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .lesson-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .lesson-tier {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 7, 16, 0.88);
+            backdrop-filter: blur(12px);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: #0d1220;
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            max-width: 520px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+
+        .calibrate-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 22px 0 10px;
+        }
+
+        .calibrate-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 16px;
+            color: #fff;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calibrate-btn:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.08);
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            .learn-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay" id="calibration-modal" style="display: none;">
+        <div class="modal-card">
+            <h2 style="font-size: 1.5rem; color: #fff;">Calibrate Your Starting Rank</h2>
+            <p style="color: var(--text-med); font-size: 0.85rem; margin-top: 6px;">
+                Choose your experience level to jump directly to the right difficulty.
+            </p>
+            <div class="calibrate-options">
+                <div class="calibrate-btn" onclick="calibrateUser(0, 'Byte Rookie')">
+                    <div style="font-weight: 700; color: var(--accent-cyan);">🌱 Beginner (0 Elo)</div>
+                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Learn essentials: basic shortcuts, Run tools, and simple cleanups.</div>
+                </div>
+                <div class="calibrate-btn" onclick="calibrateUser(800, 'SysAdmin Aspirant')">
+                    <div style="font-weight: 700; color: var(--accent-gold);">⚡ Intermediate (800 Elo)</div>
+                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Task manager triage, process performance, and disk usage troubleshooting.</div>
+                </div>
+                <div class="calibrate-btn" onclick="calibrateUser(1500, 'Kernel Architect')">
+                    <div style="font-weight: 700; color: var(--accent-red);">🔥 Extreme / Expert (1500 Elo)</div>
+                    <div style="font-size: 0.78rem; color: var(--text-med); margin-top: 4px;">Skip the basics. Deep registry, command line utilities, and crash telemetry.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="portal-container">
+        <header class="top-navbar">
+            <div class="brand-cluster">
+                <a href="../index.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+                    <img class="brand-avatar" src="../logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                    <div class="brand-meta">
+                        <h2>Techie Sagnik</h2>
+                        <span style="color: var(--accent-gold);">📚 TechLearn Lab</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <a href="../about.html" class="sfx-toggle" style="text-decoration: none; display: inline-flex; align-items: center;">About</a>
+                <button class="sfx-toggle" id="sfx-btn">SFX: ON</button>
+                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
+                    Subscribe ➔
+                </a>
+            </div>
+        </header>
+
+        <nav class="mode-switcher">
+            <a href="/tech" class="mode-btn">⚡ Cyber &amp; Tech Lab</a>
+            <a href="/thalapathycorner" class="mode-btn">🔥 Thalapathy Arena</a>
+            <a href="/techlearn" class="mode-btn active learn">📚 TechLearn Lab</a>
+        </nav>
+
+        <div class="learn-grid">
+            <aside class="profile-side">
+                <div class="profile-box">
+                    <div class="elo-badge-display">
+                        <div>
+                            <div style="font-size: 0.72rem; color: var(--text-med); font-family: var(--font-mono);">CURRENT RATING</div>
+                            <div class="elo-number" id="profile-elo">0</div>
+                        </div>
+                        <div class="tier-tag" id="profile-tier">Byte Rookie</div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-card-title">PUZZLES SOLVED</div>
+                            <div class="stat-card-val" id="profile-solved">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-title">CURRENT STREAK</div>
+                            <div class="stat-card-val" id="profile-streak">0 🔥</div>
+                        </div>
+                    </div>
+
+                    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan); font-weight: 700; margin-top: 4px;">ACHIEVEMENT BADGES</div>
+                    <div class="badges-list">
+                        <div class="badge-item" id="badge-first">
+                            <div class="badge-icon">🥉</div>
+                            <div class="badge-meta">
+                                <h4>First Boot</h4>
+                                <p>Solve your first puzzle</p>
+                            </div>
+                        </div>
+                        <div class="badge-item" id="badge-streak">
+                            <div class="badge-icon">🔥</div>
+                            <div class="badge-meta">
+                                <h4>On Fire</h4>
+                                <p>Reach a 5-puzzle streak</p>
+                            </div>
+                        </div>
+                        <div class="badge-item" id="badge-master">
+                            <div class="badge-icon">🧠</div>
+                            <div class="badge-meta">
+                                <h4>Grandmaster</h4>
+                                <p>Attain 1500+ Elo rating</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="main-arena">
+                <div class="tab-controls">
+                    <button class="tab-btn active" id="tab-puzzles" onclick="switchView('puzzles')">🎯 Ranked Puzzles</button>
+                    <button class="tab-btn" id="tab-lessons" onclick="switchView('lessons')">📖 Knowledge Modules</button>
+                </div>
+
+                <div id="view-puzzles" class="puzzle-box">
+                    <div class="puzzle-header">
+                        <span class="puzzle-difficulty" id="puzzle-rating-tag">Puzzle Elo: 200</span>
+                        <span id="puzzle-feedback" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;"></span>
+                    </div>
+
+                    <div class="puzzle-title" id="puzzle-prompt">Loading puzzle scenario...</div>
+
+                    <div class="puzzle-options" id="puzzle-options-dock"></div>
+
+                    <div class="puzzle-footer">
+                        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-med);" id="puzzle-delta">Rated Session Active</span>
+                        <button class="next-btn" id="next-puzzle-btn" onclick="loadNextPuzzle()">Next Puzzle ➔</button>
+                    </div>
+                </div>
+
+                <div id="view-lessons" style="display: none; flex-direction: column; gap: 14px;">
+                    <div class="lesson-card">
+                        <span class="lesson-tier">BEGINNER TIER</span>
+                        <h3 style="color: #fff; font-size: 1.05rem;">Native Windows Maintenance Without Bloatware</h3>
+                        <p style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.6;">
+                            Third-party "PC Booster" utilities often bundle registry cleaners that cause stability issues. Windows has native alternatives built in: <code>cleanmgr</code> for clean temporary storage management, and <code>%temp%</code> for clearing local user junk.
+                        </p>
+                    </div>
+
+                    <div class="lesson-card">
+                        <span class="lesson-tier">INTERMEDIATE TIER</span>
+                        <h3 style="color: #fff; font-size: 1.05rem;">Triage 100% Disk &amp; CPU Freezes</h3>
+                        <p style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.6;">
+                            Instead of relying only on Task Manager, open <code>resmon</code> (Resource Monitor) to inspect individual file queue lengths and per-process disk read/write bandwidth.
+                        </p>
+                    </div>
+
+                    <div class="lesson-card">
+                        <span class="lesson-tier">EXPERT TIER</span>
+                        <h3 style="color: #fff; font-size: 1.05rem;">Driver Recovery &amp; System Integrity Verification</h3>
+                        <p style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.6;">
+                            When display drivers freeze, use <code>Win + Ctrl + Shift + B</code> to trigger a graphics subsystem refresh. For corrupted system components, use <code>dism /online /cleanup-image /restorehealth</code> followed by <code>sfc /scannow</code>.
+                        </p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer>
+            © 2026 TECHIE SAGNIK // RANKED LEARNING LAB
+        </footer>
+    </div>
+
+    <script>
+        let sfxEnabled = true;
+        let audioCtx = null;
+        const sfxBtn = document.getElementById('sfx-btn');
+
+        function ensureAudioContext() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        window.addEventListener('click', ensureAudioContext, { once: true });
+        sfxBtn.addEventListener('click', () => {
+            sfxEnabled = !sfxEnabled;
+            sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
+            sfxBtn.classList.toggle('off', !sfxEnabled);
+        });
+
+        function playSound(type) {
+            if (!sfxEnabled) return;
+            ensureAudioContext();
+            if (!audioCtx) return;
+
+            const t = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(587.33, t);
+                osc.frequency.exponentialRampToValueAtTime(880, t + 0.15);
+                gain.gain.setValueAtTime(0.12, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.35);
+            } else if (type === 'wrong') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(196, t);
+                osc.frequency.exponentialRampToValueAtTime(130, t + 0.2);
+                gain.gain.setValueAtTime(0.15, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.2);
+            } else if (type === 'fanfare') {
+                [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.type = 'sine';
+                    o.frequency.setValueAtTime(freq, t + idx * 0.08);
+                    g.gain.setValueAtTime(0.1, t + idx * 0.08);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + idx * 0.08 + 0.3);
+                    o.connect(g);
+                    g.connect(audioCtx.destination);
+                    o.start(t + idx * 0.08);
+                    o.stop(t + idx * 0.08 + 0.3);
+                });
+            }
+        }
+
+        let userState = {
+            elo: 0,
+            tier: 'Byte Rookie',
+            solved: 0,
+            streak: 0,
+            badges: [],
+            calibrated: false
+        };
+
+        function loadUserState() {
+            const raw = localStorage.getItem('techlearn_user_profile');
+            if (raw) {
+                userState = JSON.parse(raw);
+            } else {
+                document.getElementById('calibration-modal').style.display = 'flex';
+            }
+            updateProfileUI();
+        }
+
+        function saveUserState() {
+            localStorage.setItem('techlearn_user_profile', JSON.stringify(userState));
+            updateProfileUI();
+        }
+
+        function calibrateUser(startElo, tier) {
+            userState.elo = startElo;
+            userState.tier = tier;
+            userState.calibrated = true;
+            document.getElementById('calibration-modal').style.display = 'none';
+            saveUserState();
+            playSound('fanfare');
+            loadNextPuzzle();
+        }
+
+        function updateTier() {
+            if (userState.elo < 600) userState.tier = 'Byte Rookie';
+            else if (userState.elo < 1200) userState.tier = 'SysAdmin Aspirant';
+            else if (userState.elo < 1700) userState.tier = 'Kernel Architect';
+            else userState.tier = 'Tech Grandmaster';
+        }
+
+        function checkBadges() {
+            let awarded = false;
+            if (userState.solved >= 1 && !userState.badges.includes('first')) {
+                userState.badges.push('first');
+                awarded = true;
+            }
+            if (userState.streak >= 5 && !userState.badges.includes('streak')) {
+                userState.badges.push('streak');
+                awarded = true;
+            }
+            if (userState.elo >= 1500 && !userState.badges.includes('master')) {
+                userState.badges.push('master');
+                awarded = true;
+            }
+            if (awarded) playSound('fanfare');
+        }
+
+        function updateProfileUI() {
+            updateTier();
+            checkBadges();
+
+            document.getElementById('profile-elo').textContent = userState.elo;
+            document.getElementById('profile-tier').textContent = userState.tier;
+            document.getElementById('profile-solved').textContent = userState.solved;
+            document.getElementById('profile-streak').textContent = `${userState.streak} 🔥`;
+
+            if (userState.badges.includes('first')) document.getElementById('badge-first').classList.add('unlocked');
+            if (userState.badges.includes('streak')) document.getElementById('badge-streak').classList.add('unlocked');
+            if (userState.badges.includes('master')) document.getElementById('badge-master').classList.add('unlocked');
+        }
+
+        const puzzles = [
+            {
+                rating: 100,
+                prompt: "Your C: drive has 2GB remaining and updates fail to download. Which native tool safely cleans update archives?",
+                options: ["cleanmgr", "taskkill /f", "format C:", "defrag"],
+                correct: 0,
+                explanation: "cleanmgr launches the Windows Disk Cleanup tool."
+            },
+            {
+                rating: 300,
+                prompt: "Which shortcut opens the emoji and kaomoji picker in any Windows text field?",
+                options: ["Win + . (Period)", "Ctrl + Alt + E", "Alt + Shift + Enter", "Win + E"],
+                correct: 0,
+                explanation: "Win + . opens the native symbol and emoji flyout."
+            },
+            {
+                rating: 700,
+                prompt: "A background process is reading large files and causing 100% disk usage. Which built-in utility lets you inspect individual queue depths?",
+                options: ["resmon", "notepad", "dxdiag", "regedit"],
+                correct: 0,
+                explanation: "resmon (Resource Monitor) provides detailed disk queue analytics."
+            },
+            {
+                rating: 900,
+                prompt: "A secondary monitor glitches and displays black during a heavy workflow. Which shortcut safely restarts your graphics driver subsystem?",
+                options: ["Win + Ctrl + Shift + B", "Alt + F4", "Ctrl + Alt + Del", "Win + P"],
+                correct: 0,
+                explanation: "Win + Ctrl + Shift + B signals an immediate WDDM graphics driver restart."
+            },
+            {
+                rating: 1400,
+                prompt: "Windows Update components are corrupted and SFC fails to fix them. Which command pulls component files directly from Windows Update servers?",
+                options: ["dism /online /cleanup-image /restorehealth", "chkdsk /f /r", "sfc /purgecache", "bootrec /fixmbr"],
+                correct: 0,
+                explanation: "DISM with /restorehealth rebuilds the Component-Based Servicing store."
+            },
+            {
+                rating: 1700,
+                prompt: "You need to inspect live active TCP connections and listening ports on Windows. Which command provides this telemetry?",
+                options: ["netstat -ano", "ipconfig /flushdns", "tracert 127.0.0.1", "route print"],
+                correct: 0,
+                explanation: "netstat -ano lists all active sockets and associated Process IDs (PID)."
+            }
+        ];
+
+        let activePuzzle = null;
+
+        function loadNextPuzzle() {
+            document.getElementById('puzzle-feedback').textContent = '';
+            document.getElementById('puzzle-delta').textContent = 'Rated Session Active';
+            document.getElementById('next-puzzle-btn').style.display = 'none';
+
+            let candidatePuzzles = puzzles.filter(p => Math.abs(p.rating - userState.elo) <= 450);
+            if (!candidatePuzzles.length) candidatePuzzles = puzzles;
+
+            activePuzzle = candidatePuzzles[Math.floor(Math.random() * candidatePuzzles.length)];
+
+            document.getElementById('puzzle-rating-tag').textContent = `Puzzle Elo: ${activePuzzle.rating}`;
+            document.getElementById('puzzle-prompt').textContent = activePuzzle.prompt;
+
+            const dock = document.getElementById('puzzle-options-dock');
+            dock.innerHTML = '';
+
+            activePuzzle.options.forEach((opt, idx) => {
+                const b = document.createElement('button');
+                b.className = 'option-choice-btn';
+                b.textContent = opt;
+                b.onclick = () => solvePuzzle(idx, b);
+                dock.appendChild(b);
+            });
+        }
+
+        function solvePuzzle(selectedIdx, btnEl) {
+            const allBtns = document.querySelectorAll('.option-choice-btn');
+            allBtns.forEach(b => b.disabled = true);
+
+            const isCorrect = selectedIdx === activePuzzle.correct;
+            const feedbackEl = document.getElementById('puzzle-feedback');
+            const deltaEl = document.getElementById('puzzle-delta');
+
+            if (isCorrect) {
+                btnEl.classList.add('correct');
+                playSound('correct');
+                feedbackEl.style.color = 'var(--accent-green)';
+                feedbackEl.textContent = '✓ Correct Move!';
+
+                const eloGain = Math.max(12, Math.round(24 + (activePuzzle.rating - userState.elo) * 0.05));
+                userState.elo += eloGain;
+                userState.solved++;
+                userState.streak++;
+                deltaEl.textContent = `Elo Rating: +${eloGain}`;
+            } else {
+                btnEl.classList.add('wrong');
+                allBtns[activePuzzle.correct].classList.add('correct');
+                playSound('wrong');
+                feedbackEl.style.color = 'var(--accent-red)';
+                feedbackEl.textContent = '✗ Incorrect';
+
+                const eloLoss = Math.max(8, Math.round(18 - (activePuzzle.rating - userState.elo) * 0.03));
+                userState.elo = Math.max(0, userState.elo - eloLoss);
+                userState.streak = 0;
+                deltaEl.textContent = `Elo Rating: -${eloLoss}`;
+            }
+
+            saveUserState();
+            document.getElementById('next-puzzle-btn').style.display = 'inline-block';
+        }
+
+        function switchView(view) {
+            document.getElementById('tab-puzzles').classList.toggle('active', view === 'puzzles');
+            document.getElementById('tab-lessons').classList.toggle('active', view === 'lessons');
+            document.getElementById('view-puzzles').style.display = view === 'puzzles' ? 'flex' : 'none';
+            document.getElementById('view-lessons').style.display = view === 'lessons' ? 'flex' : 'none';
+        }
+
+        loadUserState();
+        if (userState.calibrated) loadNextPuzzle();
+    </script>
+</body>
+</html>
