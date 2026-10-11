@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techie Sagnik | PC Optimization &amp; Thalapathy Cinema Hub</title>
-    <meta name="description" content="Official portal for Techie Sagnik — Windows optimizations, endless tech quizzes, and Thalapathy cinematic edits.">
-    <meta name="keywords" content="Techie Sagnik, Windows optimization, PC speedup, cleanmgr, tech quiz, Thalapathy edits, Leo Das, JD vs Leo">
+    <title>Techie Sagnik | PC Optimization &amp; Cinema Edits Portal</title>
+    <meta name="description" content="Official central hub for Techie Sagnik — Windows optimizations, Thalapathy cinema edits, and ranked tech learning.">
+    <meta name="keywords" content="Techie Sagnik, Windows optimization, PC speedup, cleanmgr, tech puzzle, Thalapathy edits, Leo Das">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,9 +25,6 @@
       ]
     }
     </script>
-
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -36,11 +33,13 @@
     <div class="portal-container">
         <header class="top-navbar">
             <div class="brand-cluster">
-                <img class="brand-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
-                <div class="brand-meta">
-                    <h2>Techie Sagnik</h2>
-                    <span id="brand-subtitle">PC Optimization &amp; Cinema Edits</span>
-                </div>
+                <a href="index.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+                    <img class="brand-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                    <div class="brand-meta">
+                        <h2>Techie Sagnik</h2>
+                        <span id="brand-subtitle">Creator Hub &amp; Knowledge Base</span>
+                    </div>
+                </a>
             </div>
 
             <div class="nav-actions">
@@ -53,20 +52,20 @@
         </header>
 
         <nav class="mode-switcher">
-            <button class="mode-btn active" id="tab-cyber" onclick="switchMode('cyber')">⚡ Cyber &amp; Tech Lab</button>
-            <button class="mode-btn" id="tab-thalapathy" onclick="switchMode('thalapathy')">🔥 Thalapathy Arena</button>
-            <button class="mode-btn" id="tab-learn" onclick="switchMode('learn')">📚 Learn Lab</button>
+            <a href="tech/" class="mode-btn">⚡ Cyber &amp; Tech Lab</a>
+            <a href="thalapathycorner/" class="mode-btn">🔥 Thalapathy Arena</a>
+            <a href="techlearn/" class="mode-btn">📚 TechLearn Lab</a>
         </nav>
 
         <div class="search-container">
             <div class="search-box">
                 <span style="font-size: 1rem; color: var(--text-med);">🔍</span>
-                <input type="text" class="search-input" id="search-input" placeholder="Search videos, shortcuts, commands (e.g. cleanmgr, emoji, leo)...">
+                <input type="text" class="search-input" id="search-input" placeholder="Search fixes, shortcuts, or cinema edits (e.g. slow, cleanmgr, leo)...">
                 <div class="search-chips">
                     <button class="search-chip active" data-filter="all">ALL</button>
+                    <button class="search-chip" data-filter="fix">FIXES</button>
                     <button class="search-chip" data-filter="video">VIDEOS</button>
-                    <button class="search-chip" data-filter="hack">HACKS</button>
-                    <button class="search-chip" data-filter="quiz">QUIZZES</button>
+                    <button class="search-chip" data-filter="learn">LEARN</button>
                 </div>
             </div>
             <div class="search-results-dropdown" id="search-results"></div>
@@ -74,150 +73,83 @@
 
         <section class="hero-section">
             <div id="interactive-popup-card">
-                <span class="popup-badge" id="popup-badge">FEATURED TIP</span>
+                <span class="popup-badge" id="popup-badge">QUICK PREVIEW</span>
                 <h3 class="popup-title" id="popup-title">Tip Title</h3>
                 <p class="popup-desc" id="popup-desc"></p>
-                <button class="popup-btn" id="popup-btn">Watch Video ➔</button>
+                <button class="popup-btn" id="popup-btn">Open Section ➔</button>
             </div>
 
             <h1 id="hero-headline">
-                Master 
-                <span class="interactive-token" id="token-high">High</span>-impact
-                Windows secrets &amp; boost your PC's
-                <span class="interactive-token" id="token-velocity">Velocity</span>.
+                Explore <span class="interactive-token" id="token-tech">PC Optimizations</span>, Experience 
+                <span class="interactive-token" style="color:var(--accent-red); border-bottom-color:var(--accent-red);" id="token-cinema">Mass Cinema</span>, and Master
+                <span class="interactive-token" style="color:var(--accent-gold); border-bottom-color:var(--accent-gold);" id="token-rank">Ranked Tech</span>.
             </h1>
-            <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;" id="hero-subtext">
-                Hover over the highlighted words to preview the actual shortcuts!
+            <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;">
+                Select a dedicated domain below or search the knowledge base for instant fixes!
             </p>
         </section>
 
-        <div class="mode-section" id="section-cyber">
-            <section class="interactive-panel">
-                <div class="panel-header">
-                    <span class="panel-title">⚡ Interactive Windows Run Console</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Win + R Emulator</span>
+        <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+            <a href="tech/" style="text-decoration: none; color: inherit;">
+                <div class="interactive-panel" style="height: 100%; transition: transform 0.2s ease, border-color 0.2s ease;" onmouseenter="this.style.borderColor='var(--accent-cyan)'; this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='var(--panel-border)'; this.style.transform='none'">
+                    <div style="font-size: 1.8rem; margin-bottom: 8px;">⚡</div>
+                    <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">Cyber &amp; Tech Lab</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-med); line-height: 1.5;">
+                        Interactive Windows Run command emulator, keyboard shortcut diagnostics, and disk cleanup guides.
+                    </p>
+                    <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan); font-weight: 700;">ENTER LAB ➔</div>
                 </div>
+            </a>
 
-                <div class="run-input-group">
-                    <input type="text" class="run-input" id="run-input" placeholder="Type a command (cleanmgr, %temp%, mrt, resmon)...">
-                    <button class="run-btn" id="run-btn">Execute</button>
+            <a href="thalapathycorner/" style="text-decoration: none; color: inherit;">
+                <div class="interactive-panel" style="height: 100%; border-color: rgba(255, 30, 86, 0.3); transition: transform 0.2s ease, border-color 0.2s ease;" onmouseenter="this.style.borderColor='var(--accent-red)'; this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(255, 30, 86, 0.3)'; this.style.transform='none'">
+                    <div style="font-size: 1.8rem; margin-bottom: 8px;">🔥</div>
+                    <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">Thalapathy Arena</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-med); line-height: 1.5;">
+                        Global community aura meter, instant cinema beat triggers, and high-energy video tributes.
+                    </p>
+                    <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-red); font-weight: 700;">ENTER ARENA ➔</div>
                 </div>
+            </a>
 
-                <div class="command-chips">
-                    <span class="chip" data-cmd="cleanmgr">cleanmgr</span>
-                    <span class="chip" data-cmd="%temp%">%temp%</span>
-                    <span class="chip" data-cmd="mrt">mrt</span>
-                    <span class="chip" data-cmd="resmon">resmon</span>
-                    <span class="chip" data-cmd="perfmon">perfmon</span>
-                    <span class="chip" data-cmd="cmd">cmd</span>
+            <a href="techlearn/" style="text-decoration: none; color: inherit;">
+                <div class="interactive-panel" style="height: 100%; border-color: rgba(255, 183, 3, 0.3); transition: transform 0.2s ease, border-color 0.2s ease;" onmouseenter="this.style.borderColor='var(--accent-gold)'; this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(255, 183, 3, 0.3)'; this.style.transform='none'">
+                    <div style="font-size: 1.8rem; margin-bottom: 8px;">📚</div>
+                    <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">TechLearn Lab</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-med); line-height: 1.5;">
+                        Chess-style ranked rating system, difficulty calibration, unlockable badges, and structured modules.
+                    </p>
+                    <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-gold); font-weight: 700;">START PUZZLES ➔</div>
                 </div>
+            </a>
+        </section>
 
-                <div class="terminal-output" id="term-out">
-                    Ready. Type or click any command above to inspect its real diagnostic function.
-                </div>
-            </section>
-
-            <section class="interactive-panel">
-                <div class="panel-header">
-                    <span class="panel-title">⌨️ Keyboard Shortcut Lab</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Click or press keys</span>
-                </div>
-
-                <div class="keyboard-dock">
-                    <div class="key-cap" data-key="Win">⊞ Win</div>
-                    <div class="key-cap" data-key=".">. (Period)</div>
-                    <div class="key-cap" data-key="R">R</div>
-                    <div class="key-cap" data-key="Shift">Shift</div>
-                    <div class="key-cap" data-key="S">S</div>
-                    <div class="key-cap" data-key="V">V</div>
-                    <div class="key-cap" data-key="Esc">Esc</div>
-                </div>
-
-                <div class="key-tip-banner" id="key-tip">
-                    Press or click [⊞ Win] + [. (Period)] to test the emoji picker shortcut!
-                </div>
-            </section>
-        </div>
-
-        <div class="mode-section" id="section-thalapathy" style="display: none;">
-            <section class="aura-boost-card">
-                <span class="badge-tag" style="background: rgba(255, 30, 86, 0.2); color: var(--accent-red); border: 1px solid rgba(255, 30, 86, 0.4);">
-                    🔥 GLOBAL THALAPATHY MASS METER
-                </span>
-                <div class="aura-counter-display" id="aura-count">0</div>
-                <button class="btn-aura-boost" id="btn-boost-aura">⚡ Boost Thalapathy Aura (+1)</button>
-                <div class="boost-subtext" id="boost-status">1 Boost per day per fan. Starts at 0 and adds up globally!</div>
-            </section>
-
-            <section class="interactive-panel">
-                <div class="panel-header">
-                    <span class="panel-title" style="color: var(--accent-gold);">🔊 Cinema SFX Soundboard</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Instant Audio Triggers</span>
-                </div>
-
-                <div class="soundboard-grid">
-                    <button class="sfx-chip" onclick="playCinemaBeat('bass')">🔥 Sub-Bass Drop</button>
-                    <button class="sfx-chip" onclick="playCinemaBeat('impact')">⚔️ Action Impact</button>
-                    <button class="sfx-chip" onclick="playCinemaBeat('stutter')">⚡ Anirudh Stutter</button>
-                    <button class="sfx-chip" onclick="playCinemaBeat('glitch')">🎬 Trailer Glitch</button>
-                </div>
-            </section>
-        </div>
-
-        <div class="mode-section" id="section-learn" style="display: none;">
-            <section class="quiz-card">
-                <div class="quiz-topbar">
-                    <div class="quiz-diff-selector">
-                        <button class="diff-btn active" data-diff="all">ALL</button>
-                        <button class="diff-btn" data-diff="easy">EASY</button>
-                        <button class="diff-btn" data-diff="medium">MEDIUM</button>
-                        <button class="diff-btn" data-diff="hard">HARD</button>
-                    </div>
-                    <div class="quiz-stats">
-                        <span>Score: <b id="quiz-score" style="color: #fff;">0</b></span>
-                        <span>Streak: <b id="quiz-streak" style="color: var(--accent-gold);">0</b> 🔥</span>
-                    </div>
-                </div>
-
-                <div class="quiz-question-box" id="quiz-question-text">
-                    Fetching fresh tech questions...
-                </div>
-
-                <div class="quiz-options-grid" id="quiz-options-container"></div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-med);">
-                    <span id="quiz-counter">Loading question...</span>
-                    <span id="quiz-status-tag" style="color: var(--accent-gold);">ENDLESS MODE</span>
-                </div>
-            </section>
-        </div>
-
-        <main class="video-grid">
-            <article class="video-card" id="card-video-1">
+        <main class="video-grid" style="margin-top: 10px;">
+            <article class="video-card">
                 <div class="card-top">
-                    <span class="badge-tag badge-new" id="badge-vid-1">🚀 NEW UPLOAD</span>
+                    <span class="badge-tag badge-new">🚀 FEATURED SYSTEM HACK</span>
                     <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">HD / SHORTS</span>
                 </div>
-                <div class="iframe-container" id="frame-wrap-1">
-                    <iframe id="iframe-1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Video 1"></iframe>
+                <div class="iframe-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/_-SvBNpiF3E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Windows Cleanup Guide"></iframe>
                 </div>
-                <h2 class="video-title" id="title-vid-1">Loading video...</h2>
+                <h2 class="video-title">How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀</h2>
             </article>
 
-            <article class="video-card" id="card-video-2">
+            <article class="video-card">
                 <div class="card-top">
-                    <span class="badge-tag badge-popular" id="badge-vid-2">🔥 MOST POPULAR</span>
+                    <span class="badge-tag badge-popular">🔥 MASS CINEMA EDIT</span>
                     <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 VERTICAL</span>
                 </div>
-                <div class="iframe-container short" id="frame-wrap-2">
-                    <iframe id="iframe-2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Video 2"></iframe>
+                <div class="iframe-container short">
+                    <iframe src="https://www.youtube-nocookie.com/embed/683RsckWKG4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="JD vs Leo Das"></iframe>
                 </div>
-                <h2 class="video-title" id="title-vid-2">Loading video...</h2>
+                <h2 class="video-title">JD vs Leo Das: The Ultimate Clash ⚔️ Comment Your Fav!</h2>
             </article>
         </main>
 
         <footer>
-            © 2026 TECHIE SAGNIK // TECH LAB &amp; THALAPATHY HUB
+            © 2026 TECHIE SAGNIK // OFFICIAL CENTRAL PORTAL
         </footer>
     </div>
 
@@ -227,12 +159,8 @@
         const sfxBtn = document.getElementById('sfx-btn');
 
         function ensureAudioContext() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
         }
 
         window.addEventListener('click', ensureAudioContext, { once: true });
@@ -242,141 +170,27 @@
             sfxEnabled = !sfxEnabled;
             sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
             sfxBtn.classList.toggle('off', !sfxEnabled);
-            if (sfxEnabled) {
-                ensureAudioContext();
-                playTihSound();
-            }
+            if (sfxEnabled) playSound(1800);
         });
 
-        function playTihSound(freq = 1950) {
+        function playSound(freq = 1950) {
             if (!sfxEnabled) return;
             ensureAudioContext();
             if (!audioCtx) return;
-
             try {
                 const t = audioCtx.currentTime;
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
-
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, t);
-                osc.frequency.exponentialRampToValueAtTime(1100, t + 0.018);
-
+                osc.frequency.exponentialRampToValueAtTime(1100, t + 0.02);
                 gain.gain.setValueAtTime(0.06, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
-
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.02);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.start(t);
-                osc.stop(t + 0.018);
+                osc.stop(t + 0.02);
             } catch(e) {}
-        }
-
-        function playKhanCorrect() {
-            if (!sfxEnabled) return;
-            ensureAudioContext();
-            if (!audioCtx) return;
-
-            const notes = [523.25, 659.25, 783.99, 1046.50];
-            const startT = audioCtx.currentTime;
-
-            notes.forEach((freq, i) => {
-                const noteT = startT + (i * 0.07);
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, noteT);
-
-                gain.gain.setValueAtTime(0.12, noteT);
-                gain.gain.exponentialRampToValueAtTime(0.001, noteT + 0.35);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(noteT);
-                osc.stop(noteT + 0.35);
-            });
-        }
-
-        function playKhanWrong() {
-            if (!sfxEnabled) return;
-            ensureAudioContext();
-            if (!audioCtx) return;
-
-            const tones = [165, 140];
-            const startT = audioCtx.currentTime;
-
-            tones.forEach((freq, i) => {
-                const noteT = startT + (i * 0.12);
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(freq, noteT);
-
-                gain.gain.setValueAtTime(0.09, noteT);
-                gain.gain.exponentialRampToValueAtTime(0.001, noteT + 0.14);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(noteT);
-                osc.stop(noteT + 0.14);
-            });
-        }
-
-        function playCinemaBeat(type) {
-            if (!sfxEnabled) return;
-            ensureAudioContext();
-            if (!audioCtx) return;
-
-            const t = audioCtx.currentTime;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            if (type === 'bass') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(140, t);
-                osc.frequency.exponentialRampToValueAtTime(32, t + 0.5);
-                gain.gain.setValueAtTime(0.3, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(t);
-                osc.stop(t + 0.5);
-            } else if (type === 'impact') {
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(220, t);
-                osc.frequency.exponentialRampToValueAtTime(40, t + 0.25);
-                gain.gain.setValueAtTime(0.25, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(t);
-                osc.stop(t + 0.25);
-            } else if (type === 'stutter') {
-                for (let i = 0; i < 4; i++) {
-                    const sOsc = audioCtx.createOscillator();
-                    const sGain = audioCtx.createGain();
-                    sOsc.type = 'square';
-                    sOsc.frequency.setValueAtTime(400, t + i * 0.07);
-                    sGain.gain.setValueAtTime(0.06, t + i * 0.07);
-                    sGain.gain.exponentialRampToValueAtTime(0.001, t + (i + 1) * 0.07);
-                    sOsc.connect(sGain);
-                    sGain.connect(audioCtx.destination);
-                    sOsc.start(t + i * 0.07);
-                    sOsc.stop(t + (i + 1) * 0.07);
-                }
-            } else if (type === 'glitch') {
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(800, t);
-                osc.frequency.linearRampToValueAtTime(140, t + 0.12);
-                gain.gain.setValueAtTime(0.12, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(t);
-                osc.stop(t + 0.12);
-            }
         }
 
         const canvas = document.getElementById('bg-canvas');
@@ -398,7 +212,6 @@
                 });
             }
         }
-
         window.addEventListener('resize', initCanvas);
         initCanvas();
 
@@ -411,7 +224,6 @@
                 p.y += p.vy;
                 if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -420,146 +232,6 @@
         }
         renderParticles();
 
-        const auraCountEl = document.getElementById('aura-count');
-        const boostBtn = document.getElementById('btn-boost-aura');
-        const boostStatusEl = document.getElementById('boost-status');
-
-        function getTodayDateString() {
-            const now = new Date();
-            return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-        }
-
-        function checkTodayVoteStatus() {
-            const today = getTodayDateString();
-            const lastDate = localStorage.getItem('ts_aura_last_date');
-
-            if (lastDate === today) {
-                boostBtn.disabled = true;
-                boostBtn.textContent = "BOOSTED TODAY 🔥";
-                if (boostStatusEl) boostStatusEl.textContent = "You've boosted Thalapathy's aura for today! Resets at midnight.";
-                return true;
-            } else {
-                boostBtn.disabled = false;
-                boostBtn.textContent = "⚡ Boost Thalapathy Aura (+1)";
-                if (boostStatusEl) boostStatusEl.textContent = "1 Boost per day per fan. Starts at 0 and adds up globally!";
-                return false;
-            }
-        }
-
-        let auraDocRef = null;
-        try {
-            if (typeof firebase !== 'undefined') {
-                const firebaseConfig = {
-                    apiKey: "AIzaSyFakeKeyForLocalFallback",
-                    projectId: "techie-sagnik-portal"
-                };
-                if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-                const db = firebase.firestore();
-                auraDocRef = db.doc('artifacts/techie-sagnik-portal/public/data/thalapathy_aura/counter');
-
-                auraDocRef.onSnapshot((doc) => {
-                    if (doc.exists) {
-                        const count = typeof doc.data().count === 'number' ? doc.data().count : 0;
-                        auraCountEl.textContent = count.toLocaleString();
-                    } else {
-                        auraDocRef.set({ count: 0 }, { merge: true });
-                        auraCountEl.textContent = "0";
-                    }
-                }, (err) => {
-                    const count = Number(localStorage.getItem('ts_aura_offline_count') || 0);
-                    auraCountEl.textContent = count.toLocaleString();
-                });
-            }
-        } catch(e) {
-            const count = Number(localStorage.getItem('ts_aura_offline_count') || 0);
-            auraCountEl.textContent = count.toLocaleString();
-        }
-
-        checkTodayVoteStatus();
-
-        boostBtn.addEventListener('click', async () => {
-            const today = getTodayDateString();
-            if (localStorage.getItem('ts_aura_last_date') === today) return;
-
-            localStorage.setItem('ts_aura_last_date', today);
-            checkTodayVoteStatus();
-            playKhanCorrect();
-
-            if (auraDocRef) {
-                try {
-                    await auraDocRef.set({
-                        count: firebase.firestore.FieldValue.increment(1)
-                    }, { merge: true });
-                    return;
-                } catch(e) {}
-            }
-
-            let localCount = Number(localStorage.getItem('ts_aura_offline_count') || 0) + 1;
-            localStorage.setItem('ts_aura_offline_count', localCount);
-            auraCountEl.textContent = localCount.toLocaleString();
-        });
-
-        let currentMode = 'cyber';
-
-        const modes = {
-            cyber: {
-                title: 'Techie Sagnik',
-                subtitle: 'PC Optimization & Cybersecurity',
-                headline: 'Master <span class="interactive-token" id="token-high">High</span>-impact Windows secrets & boost your PC\'s <span class="interactive-token" id="token-velocity">Velocity</span>.',
-                subtext: 'Hover over the highlighted words to preview real PC secrets!',
-                vid1: { id: "_-SvBNpiF3E", title: "How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀", badge: "🚀 NEW UPLOAD", short: false },
-                vid2: { id: "DSPExrqZDKo", title: "Stop copy-pasting emojis on PC, do THIS instead! 😂🔥", badge: "🔥 MOST POPULAR", short: true }
-            },
-            thalapathy: {
-                title: 'Techie Sagnik',
-                subtitle: 'Thalapathy Vijay Cinema Edits',
-                headline: 'Celebrate <span class="interactive-token" style="color:var(--accent-red);" id="token-high">Thalapathy</span> in High-Energy <span class="interactive-token" style="color:var(--accent-gold);" id="token-velocity">Mass Aura</span> Edits.',
-                subtext: 'Hover over the highlighted words to preview mass cinema edits!',
-                vid1: { id: "683RsckWKG4", title: "JD vs Leo Das: The Ultimate Clash ⚔️ Comment Your Fav!", badge: "🚀 NEW CLASH SHORT", short: true },
-                vid2: { id: "683RsckWKG4", title: "Can ANY Villain Stop Leo Das? 🔥 #Shorts #Thalapathy", badge: "🔥 MOST POPULAR EDIT", short: true }
-            },
-            learn: {
-                title: 'Techie Sagnik',
-                subtitle: 'Learn Lab & Endless Tech Quizzes',
-                headline: 'Test your <span class="interactive-token" style="color:var(--accent-gold);" id="token-high">Knowledge</span> & unlock endless <span class="interactive-token" style="color:var(--accent-green);" id="token-velocity">Streaks</span>.',
-                subtext: 'Select your level and conquer endless technology quizzes!',
-                vid1: { id: "_-SvBNpiF3E", title: "Windows Secrets You Must Know! 🚀", badge: "📚 LAB LESSON", short: false },
-                vid2: { id: "DSPExrqZDKo", title: "Essential Daily Productivity Shortcut! 💡", badge: "⚡ SPEED HACK", short: true }
-            }
-        };
-
-        function switchMode(mode) {
-            playTihSound();
-            currentMode = mode;
-
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active', 'thalapathy', 'learn'));
-            const activeTab = document.getElementById(`tab-${mode}`);
-            activeTab.classList.add('active');
-            if (mode === 'thalapathy') activeTab.classList.add('thalapathy');
-            if (mode === 'learn') activeTab.classList.add('learn');
-
-            document.getElementById('section-cyber').style.display = mode === 'cyber' ? 'flex' : 'none';
-            document.getElementById('section-thalapathy').style.display = mode === 'thalapathy' ? 'flex' : 'none';
-            document.getElementById('section-learn').style.display = mode === 'learn' ? 'flex' : 'none';
-
-            const m = modes[mode];
-            document.getElementById('brand-subtitle').textContent = m.subtitle;
-            document.getElementById('hero-headline').innerHTML = m.headline;
-            document.getElementById('hero-subtext').textContent = m.subtext;
-
-            document.getElementById('iframe-1').src = `https://www.youtube-nocookie.com/embed/${m.vid1.id}`;
-            document.getElementById('title-vid-1').textContent = m.vid1.title;
-            document.getElementById('badge-vid-1').textContent = m.vid1.badge;
-            document.getElementById('frame-wrap-1').className = m.vid1.short ? 'iframe-container short' : 'iframe-container';
-
-            document.getElementById('iframe-2').src = `https://www.youtube-nocookie.com/embed/${m.vid2.id}`;
-            document.getElementById('title-vid-2').textContent = m.vid2.title;
-            document.getElementById('badge-vid-2').textContent = m.vid2.badge;
-            document.getElementById('frame-wrap-2').className = m.vid2.short ? 'iframe-container short' : 'iframe-container';
-
-            setupHoverCard();
-        }
-
         const popupCard = document.getElementById('interactive-popup-card');
         const popupBadge = document.getElementById('popup-badge');
         const popupTitle = document.getElementById('popup-title');
@@ -567,17 +239,13 @@
         const popupBtn = document.getElementById('popup-btn');
         let hideTimer;
 
-        function showHoverCard(badge, title, desc, targetId) {
+        function showHoverCard(badge, title, desc, url) {
             clearTimeout(hideTimer);
-            playTihSound(2200);
-
+            playSound(2200);
             popupBadge.textContent = badge;
             popupTitle.textContent = title;
             popupDesc.textContent = desc;
-            popupBtn.onclick = () => {
-                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
-            };
-
+            popupBtn.onclick = () => window.location.href = url;
             popupCard.classList.add('active');
         }
 
@@ -585,248 +253,31 @@
             hideTimer = setTimeout(() => popupCard.classList.remove('active'), 250);
         }
 
-        function setupHoverCard() {
-            const tokenHigh = document.getElementById('token-high');
-            const tokenVelocity = document.getElementById('token-velocity');
+        document.getElementById('token-tech').addEventListener('mouseenter', () => {
+            showHoverCard("WINDOWS TOOLS", "PC Optimization Lab", "Access run commands, temp cleaners, and keyboard shortcuts.", "tech/");
+        });
+        document.getElementById('token-tech').addEventListener('mouseleave', scheduleHide);
 
-            if (!tokenHigh || !tokenVelocity) return;
+        document.getElementById('token-cinema').addEventListener('mouseenter', () => {
+            showHoverCard("CINEMA HUB", "Thalapathy Arena", "Sub-bass SFX board, aura counters, and Leo Das edits.", "thalapathycorner/");
+        });
+        document.getElementById('token-cinema').addEventListener('mouseleave', scheduleHide);
 
-            tokenHigh.addEventListener('mouseenter', () => {
-                if (currentMode === 'cyber') {
-                    showHoverCard("COMMAND: cleanmgr.exe", "Clear Gigabytes of Hidden Junk", "Hit Win + R, type 'cleanmgr' to delete old Windows cache and update logs.", "card-video-1");
-                } else if (currentMode === 'thalapathy') {
-                    showHoverCard("THALAPATHY EDIT", "Master JD vs Leo Das Clash", "High-energy attitude clash edit featuring Anirudh mass track.", "card-video-1");
-                } else {
-                    showHoverCard("LEARN LAB", "Windows Knowledge Challenge", "Test your diagnostic commands and keyboard tricks.", "section-learn");
-                }
-            });
-            tokenHigh.addEventListener('mouseleave', scheduleHide);
-
-            tokenVelocity.addEventListener('mouseenter', () => {
-                if (currentMode === 'cyber') {
-                    showHoverCard("SHORTCUT: Win + .", "Instant Emoji & GIF Board", "Stop browsing emoji copy-paste sites. Use Win + Period anywhere.", "card-video-2");
-                } else if (currentMode === 'thalapathy') {
-                    showHoverCard("MASS AURA", "Leo Das Savage Entry", "Bloody Sweet action sequence with cinematic color grading.", "card-video-2");
-                } else {
-                    showHoverCard("STREAK BOOST", "Infinite Quiz Mode", "Answer consecutive questions to boost your multiplier.", "section-learn");
-                }
-            });
-            tokenVelocity.addEventListener('mouseleave', scheduleHide);
-        }
+        document.getElementById('token-rank').addEventListener('mouseenter', () => {
+            showHoverCard("RANKED LEARNING", "TechLearn Arena", "Chess.com-style tech puzzles, Elo rating, and unlockable badges.", "techlearn/");
+        });
+        document.getElementById('token-rank').addEventListener('mouseleave', scheduleHide);
 
         popupCard.addEventListener('mouseenter', () => clearTimeout(hideTimer));
         popupCard.addEventListener('mouseleave', scheduleHide);
 
-        const commands = {
-            'cleanmgr': 'Windows Disk Cleanup. Deletes cached update archives, thumbnails, and temp files.',
-            '%temp%': 'Opens Local User Temp folder (AppData\\Local\\Temp). Safe to empty.',
-            'mrt': 'Microsoft Malicious Software Removal Tool for on-demand deep scans.',
-            'resmon': 'Resource Monitor. Real-time CPU, RAM, Disk, and Network tracking.',
-            'perfmon': 'Performance Monitor for deep diagnostic telemetry graphs.',
-            'cmd': 'Opens Command Prompt interpreter.'
-        };
-
-        const runInput = document.getElementById('run-input');
-        const runBtn = document.getElementById('run-btn');
-        const termOut = document.getElementById('term-out');
-
-        function executeRun(cmd) {
-            const clean = cmd.trim().toLowerCase();
-            playTihSound(1700);
-            if (commands[clean]) {
-                termOut.innerHTML = `<strong>&gt; ${clean}</strong>: ${commands[clean]}`;
-            } else {
-                termOut.innerHTML = `<strong>&gt; ${clean}</strong>: Command recognized in Windows. Try 'cleanmgr' or '%temp%' for instant optimizations.`;
-            }
-        }
-
-        runBtn.addEventListener('click', () => { if (runInput.value) executeRun(runInput.value); });
-        runInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && runInput.value) executeRun(runInput.value); });
-
-        document.querySelectorAll('.chip').forEach(c => {
-            c.addEventListener('click', () => {
-                runInput.value = c.getAttribute('data-cmd');
-                executeRun(c.getAttribute('data-cmd'));
-            });
-        });
-
-        const keyCaps = document.querySelectorAll('.key-cap');
-        const keyTip = document.getElementById('key-tip');
-        const keyCombos = {
-            'Win': 'Windows Key: Combine for quick tools (Win + R, Win + ., Win + Shift + S).',
-            '.': 'Period Key: Combined with Win (Win + .) to open the emoji and symbol board!',
-            'R': 'R Key: Combined with Win (Win + R) to open the Run box.',
-            'Shift': 'Shift Key: Modifies commands and enables selective screen snapping.',
-            'S': 'S Key: Combined with Win + Shift (Win + Shift + S) to open the Snipping Tool.',
-            'V': 'V Key: Combined with Win + Shift (Win + V) to open Clipboard History.',
-            'Esc': 'Escape Key: Closes open dialogs, full screens, and overlays.'
-        };
-
-        keyCaps.forEach(cap => {
-            cap.addEventListener('click', () => {
-                playTihSound(2400);
-                cap.classList.add('pressed');
-                setTimeout(() => cap.classList.remove('pressed'), 180);
-                const k = cap.getAttribute('data-key');
-                keyTip.textContent = keyCombos[k] || `Key: ${k}`;
-            });
-        });
-
-        window.addEventListener('keydown', (e) => {
-            let k = e.key;
-            if (k === 'Meta' || k === 'OS') k = 'Win';
-            keyCaps.forEach(cap => {
-                if (cap.getAttribute('data-key').toLowerCase() === k.toLowerCase()) {
-                    playTihSound(2400);
-                    cap.classList.add('pressed');
-                    setTimeout(() => cap.classList.remove('pressed'), 180);
-                }
-            });
-        });
-
-        let quizQuestions = [];
-        let currentQuizIndex = 0;
-        let quizScore = 0;
-        let quizStreak = 0;
-        let currentDiff = 'all';
-
-        const fallbackQuestions = [
-            {
-                question: "Which Windows shortcut opens the emoji and symbol board?",
-                options: ["Win + . (Period)", "Ctrl + Alt + E", "Win + E", "Alt + Space"],
-                correct: 0,
-                difficulty: "EASY"
-            },
-            {
-                question: "What built-in command opens Windows Disk Cleanup?",
-                options: ["cleanmgr", "diskclean", "tempclear", "purge"],
-                correct: 0,
-                difficulty: "EASY"
-            },
-            {
-                question: "What does the command 'mrt' launch in Windows?",
-                options: ["Malicious Software Removal Tool", "Memory RAM Tester", "Master Registry Tool", "Media Rendering Terminal"],
-                correct: 0,
-                difficulty: "MEDIUM"
-            },
-            {
-                question: "Which shortcut opens the multi-item Windows Clipboard History?",
-                options: ["Win + V", "Ctrl + Shift + V", "Alt + V", "Win + C"],
-                correct: 0,
-                difficulty: "MEDIUM"
-            }
-        ];
-
-        function decodeHTML(html) {
-            const txt = document.createElement('textarea');
-            txt.innerHTML = html;
-            return txt.value;
-        }
-
-        async function fetchQuizBatch() {
-            const qBox = document.getElementById('quiz-question-text');
-            qBox.textContent = "Fetching fresh tech questions...";
-
-            let url = 'https://opentdb.com/api.php?amount=10&category=18&type=multiple';
-            if (currentDiff !== 'all') url += `&difficulty=${currentDiff}`;
-
-            try {
-                const res = await fetch(url);
-                const data = await res.json();
-
-                if (data.results && data.results.length > 0) {
-                    quizQuestions = data.results.map(q => {
-                        const opts = [...q.incorrect_answers, q.correct_answer]
-                            .map(decodeHTML)
-                            .sort(() => 0.5 - Math.random());
-                        return {
-                            question: decodeHTML(q.question),
-                            options: opts,
-                            correct: opts.indexOf(decodeHTML(q.correct_answer)),
-                            difficulty: q.difficulty.toUpperCase()
-                        };
-                    });
-                    currentQuizIndex = 0;
-                    renderCurrentQuiz();
-                    return;
-                }
-            } catch(e) {}
-
-            quizQuestions = [...fallbackQuestions].sort(() => 0.5 - Math.random());
-            currentQuizIndex = 0;
-            renderCurrentQuiz();
-        }
-
-        function renderCurrentQuiz() {
-            if (!quizQuestions.length) return;
-            const q = quizQuestions[currentQuizIndex];
-
-            document.getElementById('quiz-question-text').textContent = q.question;
-            document.getElementById('quiz-counter').textContent = `Question ${currentQuizIndex + 1} of ${quizQuestions.length} • [${q.difficulty}]`;
-
-            const container = document.getElementById('quiz-options-container');
-            container.innerHTML = '';
-
-            q.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'quiz-option-btn';
-                btn.textContent = opt;
-                btn.onclick = () => selectQuizOption(idx, btn);
-                container.appendChild(btn);
-            });
-        }
-
-        function selectQuizOption(idx, btnEl) {
-            const q = quizQuestions[currentQuizIndex];
-            const allBtns = document.querySelectorAll('.quiz-option-btn');
-            allBtns.forEach(b => b.disabled = true);
-
-            if (idx === q.correct) {
-                btnEl.classList.add('correct');
-                quizScore += 10;
-                quizStreak++;
-                playKhanCorrect();
-            } else {
-                btnEl.classList.add('wrong');
-                if (allBtns[q.correct]) allBtns[q.correct].classList.add('correct');
-                quizStreak = 0;
-                playKhanWrong();
-            }
-
-            document.getElementById('quiz-score').textContent = quizScore;
-            document.getElementById('quiz-streak').textContent = quizStreak;
-
-            setTimeout(() => {
-                currentQuizIndex++;
-                if (currentQuizIndex < quizQuestions.length) {
-                    renderCurrentQuiz();
-                } else {
-                    fetchQuizBatch();
-                }
-            }, 1200);
-        }
-
-        document.querySelectorAll('.diff-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                playTihSound();
-                document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentDiff = btn.getAttribute('data-diff');
-                fetchQuizBatch();
-            });
-        });
-
-        fetchQuizBatch();
-
-        const searchableCatalog = [
-            { title: "How to Clear Gigabytes of Hidden Windows Junk Fast!", tag: "VIDEO", action: () => switchMode('cyber') },
-            { title: "Stop copy-pasting emojis on PC, do THIS instead!", tag: "VIDEO", action: () => switchMode('cyber') },
-            { title: "JD vs Leo Das: The Ultimate Clash", tag: "VIDEO", action: () => switchMode('thalapathy') },
-            { title: "cleanmgr - Windows Disk Cleanup", tag: "HACK", action: () => { switchMode('cyber'); executeRun('cleanmgr'); } },
-            { title: "%temp% - Temporary Files Directory", tag: "HACK", action: () => { switchMode('cyber'); executeRun('%temp%'); } },
-            { title: "Win + . - Emoji & GIF Board", tag: "HACK", action: () => switchMode('cyber') },
-            { title: "Win + V - Clipboard History", tag: "HACK", action: () => switchMode('cyber') },
-            { title: "Computer Science & Hardware Quizzes", tag: "QUIZ", action: () => switchMode('learn') }
+        const portalCatalog = [
+            { title: "Clear Gigabytes of Hidden Windows Junk Fast", type: "fix", keywords: ["slow", "lag", "junk", "temp", "cleanmgr", "c drive", "storage"], url: "tech/" },
+            { title: "Stop copy-pasting emojis on PC - Win + . Shortcut", type: "fix", keywords: ["emoji", "symbol", "shortcut", "win period"], url: "tech/" },
+            { title: "Windows Run Console & Shortcut Dock", type: "fix", keywords: ["mrt", "resmon", "perfmon", "cmd", "%temp%"], url: "tech/" },
+            { title: "JD vs Leo Das: The Ultimate Clash Edit", type: "video", keywords: ["leo", "das", "jd", "master", "thalapathy", "vijay"], url: "thalapathycorner/" },
+            { title: "Cinema SFX Soundboard & Aura Meter", type: "video", keywords: ["bass", "impact", "stutter", "aura", "boost"], url: "thalapathycorner/" },
+            { title: "Ranked Tech Puzzles & Elo Calibration", type: "learn", keywords: ["quiz", "puzzle", "elo", "rating", "streak", "rank", "learn"], url: "techlearn/" }
         ];
 
         const searchInput = document.getElementById('search-input');
@@ -835,7 +286,7 @@
 
         document.querySelectorAll('.search-chip').forEach(chip => {
             chip.addEventListener('click', () => {
-                playTihSound();
+                playSound(1600);
                 document.querySelectorAll('.search-chip').forEach(c => c.classList.remove('active'));
                 chip.classList.add('active');
                 activeFilter = chip.getAttribute('data-filter');
@@ -850,14 +301,15 @@
                 return;
             }
 
-            const matches = searchableCatalog.filter(item => {
-                const matchesText = item.title.toLowerCase().includes(query);
-                const matchesType = activeFilter === 'all' || item.tag.toLowerCase() === activeFilter;
-                return matchesText && matchesType;
+            const matches = portalCatalog.filter(item => {
+                const titleMatch = item.title.toLowerCase().includes(query);
+                const kwMatch = item.keywords.some(k => k.includes(query) || query.includes(k));
+                const typeMatch = activeFilter === 'all' || item.type === activeFilter;
+                return (titleMatch || kwMatch) && typeMatch;
             });
 
             if (!matches.length) {
-                searchDropdown.innerHTML = `<div style="padding:10px; font-size:0.8rem; color:var(--text-med); text-align:center;">No matching shortcuts or videos found.</div>`;
+                searchDropdown.innerHTML = `<div style="padding:10px; font-size:0.8rem; color:var(--text-med); text-align:center;">No matching resources found.</div>`;
                 searchDropdown.style.display = 'block';
                 return;
             }
@@ -866,12 +318,8 @@
             matches.forEach(item => {
                 const row = document.createElement('div');
                 row.className = 'search-result-item';
-                row.innerHTML = `<span class="result-title">${item.title}</span><span class="result-tag">${item.tag}</span>`;
-                row.onclick = () => {
-                    item.action();
-                    searchDropdown.style.display = 'none';
-                    searchInput.value = '';
-                };
+                row.innerHTML = `<span class="result-title">${item.title}</span><span class="result-tag">${item.type.toUpperCase()}</span>`;
+                row.onclick = () => window.location.href = item.url;
                 searchDropdown.appendChild(row);
             });
 
@@ -879,14 +327,9 @@
         }
 
         searchInput.addEventListener('input', filterSearch);
-
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-container')) {
-                searchDropdown.style.display = 'none';
-            }
+            if (!e.target.closest('.search-container')) searchDropdown.style.display = 'none';
         });
-
-        switchMode('cyber');
     </script>
 </body>
 </html>
