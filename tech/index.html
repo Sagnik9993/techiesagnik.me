@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Windows PC Optimization Lab | Techie Sagnik</title>
-    <meta name="description" content="Master native Windows performance secrets, diagnostic shortcuts, and junk cleaning commands with Techie Sagnik.">
+    <meta name="description" content="Master native Windows performance secrets, interactive Command Prompt previews, diagnostic shortcuts, and junk cleaning commands with Techie Sagnik.">
+    <link rel="canonical" href="https://techiesagnik.me/tech/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,9 +22,214 @@
         "alternateName": "Sagnik Dey",
         "url": "https://techiesagnik.me/about.html"
       },
-      "url": "https://techiesagnik.me/tech"
+      "url": "https://techiesagnik.me/tech/"
     }
     </script>
+
+    <style>
+        /* Command Buttons Grid */
+        .cmd-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .cmd-tap-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: #e2e8f0;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cmd-tap-btn span.cmd-sub {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            color: var(--text-med);
+            font-weight: 400;
+        }
+
+        .cmd-tap-btn:hover,
+        .cmd-tap-btn.active {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: var(--accent-cyan);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.15);
+        }
+
+        /* Realistic Windows Command Prompt Window */
+        .cmd-window {
+            background: #0c0c0c;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+            font-family: 'Fira Code', Consolas, monospace;
+        }
+
+        .cmd-titlebar {
+            background: #1e1e1e;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2d2d2d;
+            user-select: none;
+        }
+
+        .cmd-title-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.76rem;
+            color: #e2e8f0;
+            font-family: var(--font-sans);
+            font-weight: 600;
+        }
+
+        .cmd-icon {
+            background: #000;
+            color: #fff;
+            border: 1px solid #555;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+
+        .cmd-window-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cmd-copy-btn {
+            background: rgba(0, 242, 254, 0.14);
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            color: var(--accent-cyan);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .cmd-copy-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+        }
+
+        .win-dots {
+            display: flex;
+            gap: 10px;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-family: sans-serif;
+        }
+
+        .cmd-body {
+            padding: 18px;
+            min-height: 230px;
+            max-height: 340px;
+            overflow-y: auto;
+            color: #cccccc;
+            font-size: 0.84rem;
+            line-height: 1.6;
+        }
+
+        .cmd-os-banner {
+            color: #888888;
+            margin-bottom: 12px;
+            font-size: 0.78rem;
+        }
+
+        .cmd-prompt-line {
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+
+        .cmd-path {
+            color: #cccccc;
+            font-weight: 400;
+        }
+
+        .cmd-typed-command {
+            color: #00f2fe;
+            font-weight: 700;
+        }
+
+        .cmd-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: #00f2fe;
+            vertical-align: middle;
+            margin-left: 3px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .cmd-output-log {
+            white-space: pre-wrap;
+            color: #d4d4d8;
+            font-size: 0.81rem;
+            margin-top: 8px;
+            padding-left: 4px;
+            border-left: 2px solid rgba(0, 242, 254, 0.35);
+        }
+
+        .cmd-output-log .log-success {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .cmd-output-log .log-warn {
+            color: #fbbf24;
+        }
+
+        .cmd-info-footer {
+            background: rgba(0, 242, 254, 0.06);
+            border-top: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 11px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cmd-badge-howto {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 3px 8px;
+            border-radius: 6px;
+            color: var(--accent-gold);
+        }
+    </style>
 </head>
 <body>
 
@@ -59,7 +265,7 @@
         <div class="search-container">
             <div class="search-box">
                 <span style="font-size: 1rem; color: var(--text-med);">🔍</span>
-                <input type="text" class="search-input" id="search-input" placeholder="Search fixes (e.g. slow, cleanmgr, emoji, junk, disk)...">
+                <input type="text" class="search-input" id="search-input" placeholder="Search fixes (e.g. slow, cleanmgr, sfc, dns, emoji)...">
                 <div class="search-chips">
                     <button class="search-chip active" data-filter="all">ALL</button>
                     <button class="search-chip" data-filter="fix">FIXES</button>
@@ -84,32 +290,88 @@
                 <span class="interactive-token" id="token-velocity">Velocity</span>.
             </h1>
             <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;">
-                Hover over the highlighted words or execute commands below to inspect real PC tools!
+                Tap any command below to preview its live execution inside the Command Prompt simulator!
             </p>
         </section>
 
+        <!-- UPGRADED COMMAND PROMPT TERMINAL PREVIEW -->
         <section class="interactive-panel">
             <div class="panel-header">
-                <span class="panel-title">⚡ Interactive Windows Run Console</span>
-                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Win + R Emulator</span>
+                <span class="panel-title">💻 Interactive Command Prompt Preview</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-med);">Tap a button to simulate</span>
             </div>
 
-            <div class="run-input-group">
-                <input type="text" class="run-input" id="run-input" placeholder="Type a command (cleanmgr, %temp%, mrt, resmon)...">
-                <button class="run-btn" id="run-btn">Execute</button>
+            <!-- Tap-to-Preview Buttons -->
+            <div class="cmd-selector-grid">
+                <button class="cmd-tap-btn active" data-cmd="cleanmgr">
+                    <span>cleanmgr</span>
+                    <span class="cmd-sub">Disk Junk Cleanup</span>
+                </button>
+                <button class="cmd-tap-btn" data-cmd="%temp%">
+                    <span>%temp%</span>
+                    <span class="cmd-sub">Purge Cache Folder</span>
+                </button>
+                <button class="cmd-tap-btn" data-cmd="sfc /scannow">
+                    <span>sfc /scannow</span>
+                    <span class="cmd-sub">Repair System Files</span>
+                </button>
+                <button class="cmd-tap-btn" data-cmd="ipconfig /flushdns">
+                    <span>ipconfig /flushdns</span>
+                    <span class="cmd-sub">Fix Network Lag</span>
+                </button>
+                <button class="cmd-tap-btn" data-cmd="mrt">
+                    <span>mrt</span>
+                    <span class="cmd-sub">Malware Scanner</span>
+                </button>
+                <button class="cmd-tap-btn" data-cmd="resmon">
+                    <span>resmon</span>
+                    <span class="cmd-sub">100% Disk Triage</span>
+                </button>
+                <button class="cmd-tap-btn" data-cmd="powercfg /batteryreport">
+                    <span>batteryreport</span>
+                    <span class="cmd-sub">Laptop Health Check</span>
+                </button>
+                <button class="cmd-tap-btn" data-cmd="netstat -ano">
+                    <span>netstat -ano</span>
+                    <span class="cmd-sub">Inspect Active Ports</span>
+                </button>
             </div>
 
-            <div class="command-chips">
-                <span class="chip" data-cmd="cleanmgr">cleanmgr</span>
-                <span class="chip" data-cmd="%temp%">%temp%</span>
-                <span class="chip" data-cmd="mrt">mrt</span>
-                <span class="chip" data-cmd="resmon">resmon</span>
-                <span class="chip" data-cmd="perfmon">perfmon</span>
-                <span class="chip" data-cmd="cmd">cmd</span>
+            <!-- Custom Command Input Bar -->
+            <div class="run-input-group" style="margin-bottom: 16px;">
+                <input type="text" class="run-input" id="run-input" placeholder="Or type any command (e.g. cleanmgr, sfc /scannow, perfmon)...">
+                <button class="run-btn" id="run-btn">Run in Terminal ➔</button>
             </div>
 
-            <div class="terminal-output" id="term-out">
-                Ready. Type or click any command above to inspect its real diagnostic function.
+            <!-- Authentic Command Prompt Window -->
+            <div class="cmd-window">
+                <div class="cmd-titlebar">
+                    <div class="cmd-title-left">
+                        <span class="cmd-icon">C:\_</span>
+                        <span>Administrator: Command Prompt</span>
+                    </div>
+                    <div class="cmd-window-controls">
+                        <button class="cmd-copy-btn" id="copy-cmd-btn" title="Copy command to clipboard">📋 Copy Command</button>
+                        <div class="win-dots">
+                            <span>─</span>
+                            <span>□</span>
+                            <span>✕</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cmd-body" id="cmd-terminal-body">
+                    <div class="cmd-os-banner">Microsoft Windows [Version 10.0.22631.4317]<br>(c) Microsoft Corporation. All rights reserved.</div>
+                    <div class="cmd-prompt-line">
+                        <span class="cmd-path">C:\Windows\System32&gt;</span> <span class="cmd-typed-command" id="cmd-typed-text">cleanmgr</span><span class="cmd-cursor"></span>
+                    </div>
+                    <div class="cmd-output-log" id="cmd-output-log"></div>
+                </div>
+
+                <div class="cmd-info-footer">
+                    <span id="cmd-purpose-text">💡 <strong>What it does:</strong> Launches Windows Disk Cleanup to clear gigabytes of old update cache and temp junk.</span>
+                    <span class="cmd-badge-howto" id="cmd-howto-badge">Run via: Win + R</span>
+                </div>
             </div>
         </section>
 
@@ -194,7 +456,7 @@
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, t);
                 osc.frequency.exponentialRampToValueAtTime(1100, t + 0.018);
-                gain.gain.setValueAtTime(0.06, t);
+                gain.gain.setValueAtTime(0.05, t);
                 gain.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
@@ -242,39 +504,188 @@
         }
         renderParticles();
 
-        const commands = {
-            'cleanmgr': 'Windows Disk Cleanup. Deletes cached update archives, thumbnails, and temp files.',
-            '%temp%': 'Opens Local User Temp folder (AppData\\Local\\Temp). Safe to empty.',
-            'mrt': 'Microsoft Malicious Software Removal Tool for on-demand deep scans.',
-            'resmon': 'Resource Monitor. Real-time CPU, RAM, Disk, and Network tracking.',
-            'perfmon': 'Performance Monitor for deep diagnostic telemetry graphs.',
-            'cmd': 'Opens Command Prompt interpreter.'
+        // Rich Terminal Command Database
+        const commandDatabase = {
+            'cleanmgr': {
+                howto: 'Run via: Win + R',
+                purpose: 'Launches Windows Disk Cleanup to clear gigabytes of old Windows Update cache, thumbnails, and temp files.',
+                output: `[Initializing Disk Cleanup Utility for (C:)...]
+Scanning system drive for reclaimable space...
+
+  ✔ Windows Update Cleanup       : 3.42 GB found
+  ✔ DirectX Shader Cache         : 412 MB found
+  ✔ Delivery Optimization Files  : 1.18 GB found
+  ✔ Temporary System Files       : 890 MB found
+
+<span class="log-success">[READY] Total space ready to reclaim: 5.90 GB.</span>`
+            },
+            '%temp%': {
+                howto: 'Run via: Win + R',
+                purpose: 'Opens your hidden Local AppData Temp folder so you can select all (Ctrl + A) and delete leftover app cache.',
+                output: `[Expanding Environment Variable %TEMP%...]
+Target Directory: C:\\Users\\TechieSagnik\\AppData\\Local\\Temp
+
+08/10/2026  02:14 PM    <DIR>          chrome_bits_9910
+08/10/2026  02:15 PM         48,291,104 ~DF8812A.tmp
+08/10/2026  02:18 PM        129,442,000 vscode-update-x64.log
+
+<span class="log-warn">Tip: Press Ctrl + A then Shift + Delete inside the folder to purge unlocked cache files.</span>`
+            },
+            'sfc /scannow': {
+                howto: 'Run in: Admin CMD',
+                purpose: 'Scans all protected Windows system files and automatically repairs corrupted or missing OS components.',
+                output: `Beginning system scan. This process will take some time.
+
+Beginning verification phase of system scan.
+Verification 100% complete.
+
+<span class="log-success">Windows Resource Protection found corrupt files and successfully repaired them.</span>
+Details are included in the CBS.Log windir\\Logs\\CBS\\CBS.log.`
+            },
+            'ipconfig /flushdns': {
+                howto: 'Run in: CMD',
+                purpose: 'Clears stale or corrupted DNS cache entries to fix websites not loading or sudden ping spikes.',
+                output: `Windows IP Configuration
+
+Purging local DNS Resolver Cache...
+Resetting adapter socket name resolution table...
+
+<span class="log-success">Successfully flushed the DNS Resolver Cache.</span>`
+            },
+            'mrt': {
+                howto: 'Run via: Win + R',
+                purpose: 'Launches Microsoft’s built-in Malicious Software Removal Tool for a second-opinion deep malware check.',
+                output: `[Launching Microsoft Windows Malicious Software Removal Tool v5.128]
+Engine Status: Active & Updated
+Scan Mode    : Quick System Memory & Boot Sector Audit
+
+Scanning active system processes...
+<span class="log-success">Result: No prevalent malicious software was detected on this machine.</span>`
+            },
+            'resmon': {
+                howto: 'Run via: Win + R',
+                purpose: 'Opens Resource Monitor to pinpoint the exact background process causing 100% disk usage or network lag.',
+                output: `[Starting Windows Resource Monitor (resmon.exe)...]
+
+Real-Time Telemetry Stream:
+  • CPU Usage       : 14% (3.85 GHz)
+  • Disk I/O Queue  : 0.04 sec response time (Healthy)
+  • Active Network  : 4.2 Mbps inbound
+
+<span class="log-success">[ACTIVE] Inspect the 'Disk' tab inside Resource Monitor to find heavy read/write processes.</span>`
+            },
+            'powercfg /batteryreport': {
+                howto: 'Run in: CMD',
+                purpose: 'Generates a detailed HTML report showing your laptop battery’s factory capacity vs current wear level.',
+                output: `Querying ACPI battery controller firmware...
+Compiling charge cycle history and capacity degradation metrics...
+
+<span class="log-success">Battery life report saved to file path:
+C:\\Users\\TechieSagnik\\battery-report.html</span>`
+            },
+            'netstat -ano': {
+                howto: 'Run in: CMD',
+                purpose: 'Lists all active network connections, open ports, and the exact Process ID (PID) using your internet.',
+                output: `Active Connections
+
+  Proto  Local Address          Foreign Address        State           PID
+  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       1044
+  TCP    192.168.1.12:52419     142.250.193.78:443     ESTABLISHED     8412
+  TCP    192.168.1.12:52425     20.198.112.40:443      ESTABLISHED     4920
+
+<span class="log-success">[INFO] Match the PID column with Task Manager to spot hidden apps using bandwidth.</span>`
+            },
+            'perfmon': {
+                howto: 'Run via: Win + R',
+                purpose: 'Launches Windows Performance Monitor for real-time hardware counters and system diagnostics.',
+                output: `[Initializing Performance Monitor (perfmon.msc)...]
+Loading system collector sets and hardware counters...
+<span class="log-success">[READY] Real-time performance graph initialized.</span>`
+            }
         };
 
+        let activeCommand = 'cleanmgr';
+        let typingTimer = null;
+
+        const typedTextEl = document.getElementById('cmd-typed-text');
+        const outputLogEl = document.getElementById('cmd-output-log');
+        const purposeTextEl = document.getElementById('cmd-purpose-text');
+        const howtoBadgeEl = document.getElementById('cmd-howto-badge');
         const runInput = document.getElementById('run-input');
         const runBtn = document.getElementById('run-btn');
-        const termOut = document.getElementById('term-out');
+        const copyCmdBtn = document.getElementById('copy-cmd-btn');
 
-        function executeRun(cmd) {
-            const clean = cmd.trim().toLowerCase();
-            playTihSound(1700);
-            if (commands[clean]) {
-                termOut.innerHTML = `<strong>&gt; ${clean}</strong>: ${commands[clean]}`;
-            } else {
-                termOut.innerHTML = `<strong>&gt; ${clean}</strong>: Command recognized in Windows. Try 'cleanmgr' or '%temp%' for instant optimizations.`;
-            }
+        function simulateTerminalCommand(rawCmd) {
+            const cleanCmd = rawCmd.trim().toLowerCase();
+            activeCommand = cleanCmd;
+
+            // Highlight matching button if exists
+            document.querySelectorAll('.cmd-tap-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-cmd').toLowerCase() === cleanCmd);
+            });
+
+            clearInterval(typingTimer);
+            typedTextEl.textContent = '';
+            outputLogEl.innerHTML = '';
+
+            const entry = commandDatabase[cleanCmd] || {
+                howto: 'Run via: Win + R / CMD',
+                purpose: `Executes '${cleanCmd}' in the Windows shell interpreter.`,
+                output: `Executing command: ${cleanCmd}...\n\n<span class="log-success">[COMPLETED] Command dispatched to Windows System32 interpreter.</span>`
+            };
+
+            purposeTextEl.innerHTML = `💡 <strong>What it does:</strong> ${entry.purpose}`;
+            howtoBadgeEl.textContent = entry.howto;
+
+            // Typewriter effect for the command
+            let charIndex = 0;
+            typingTimer = setInterval(() => {
+                if (charIndex < cleanCmd.length) {
+                    typedTextEl.textContent += cleanCmd[charIndex];
+                    playTihSound(2100 + (charIndex * 40));
+                    charIndex++;
+                } else {
+                    clearInterval(typingTimer);
+                    setTimeout(() => {
+                        playTihSound(1400);
+                        outputLogEl.innerHTML = entry.output;
+                    }, 120);
+                }
+            }, 35);
         }
 
-        runBtn.addEventListener('click', () => { if (runInput.value) executeRun(runInput.value); });
-        runInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && runInput.value) executeRun(runInput.value); });
-
-        document.querySelectorAll('.chip').forEach(c => {
-            c.addEventListener('click', () => {
-                runInput.value = c.getAttribute('data-cmd');
-                executeRun(c.getAttribute('data-cmd'));
+        // Attach listeners to tap buttons
+        document.querySelectorAll('.cmd-tap-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cmd = btn.getAttribute('data-cmd');
+                runInput.value = cmd;
+                simulateTerminalCommand(cmd);
             });
         });
 
+        runBtn.addEventListener('click', () => {
+            if (runInput.value.trim()) simulateTerminalCommand(runInput.value);
+        });
+
+        runInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && runInput.value.trim()) simulateTerminalCommand(runInput.value);
+        });
+
+        // Copy Command Button
+        copyCmdBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(activeCommand).then(() => {
+                playTihSound(2500);
+                copyCmdBtn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    copyCmdBtn.textContent = '📋 Copy Command';
+                }, 1500);
+            });
+        });
+
+        // Load initial command preview on page load
+        simulateTerminalCommand('cleanmgr');
+
+        // Keyboard Shortcut Lab
         const keyCaps = document.querySelectorAll('.key-cap');
         const keyTip = document.getElementById('key-tip');
         const keyCombos = {
@@ -283,7 +694,7 @@
             'R': 'R Key: Combined with Win (Win + R) to open the Run box.',
             'Shift': 'Shift Key: Modifies commands and enables selective screen snapping.',
             'S': 'S Key: Combined with Win + Shift (Win + Shift + S) to open Snipping Tool.',
-            'V': 'V Key: Combined with Win + Shift (Win + V) to open Clipboard History.',
+            'V': 'V Key: Combined with Win (Win + V) to open Clipboard History.',
             'Esc': 'Escape Key: Closes open dialogs, full screens, and overlays.'
         };
 
@@ -297,6 +708,7 @@
             });
         });
 
+        // Hover Popup Card
         const popupCard = document.getElementById('interactive-popup-card');
         const popupBadge = document.getElementById('popup-badge');
         const popupTitle = document.getElementById('popup-title');
@@ -331,6 +743,7 @@
         popupCard.addEventListener('mouseenter', () => clearTimeout(hideTimer));
         popupCard.addEventListener('mouseleave', scheduleHide);
 
+        // Search Bar Integration
         const techCatalog = [
             { 
                 title: "How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀", 
@@ -350,10 +763,12 @@
                     document.getElementById('card-video-2').scrollIntoView({ behavior: 'smooth' });
                 }
             },
-            { title: "cleanmgr - Windows Disk Cleanup", type: "cmd", keywords: ["clean", "disk", "cache"], action: () => executeRun('cleanmgr') },
-            { title: "%temp% - Temporary Files Directory", type: "cmd", keywords: ["temp", "cache", "delete"], action: () => executeRun('%temp%') },
-            { title: "mrt - Malicious Software Removal Tool", type: "cmd", keywords: ["virus", "malware", "scan"], action: () => executeRun('mrt') },
-            { title: "resmon - Resource Monitor", type: "cmd", keywords: ["cpu", "ram", "disk 100", "memory"], action: () => executeRun('resmon') }
+            { title: "cleanmgr - Windows Disk Cleanup", type: "cmd", keywords: ["clean", "disk", "cache"], action: () => simulateTerminalCommand('cleanmgr') },
+            { title: "%temp% - Purge Temp Cache Folder", type: "cmd", keywords: ["temp", "cache", "delete"], action: () => simulateTerminalCommand('%temp%') },
+            { title: "sfc /scannow - Repair Corrupted System Files", type: "cmd", keywords: ["sfc", "repair", "corrupt", "broken"], action: () => simulateTerminalCommand('sfc /scannow') },
+            { title: "ipconfig /flushdns - Fix Internet & DNS Lag", type: "cmd", keywords: ["dns", "ping", "internet", "network", "wifi"], action: () => simulateTerminalCommand('ipconfig /flushdns') },
+            { title: "mrt - Malicious Software Removal Tool", type: "cmd", keywords: ["virus", "malware", "scan"], action: () => simulateTerminalCommand('mrt') },
+            { title: "resmon - Resource Monitor (100% Disk Triage)", type: "cmd", keywords: ["cpu", "ram", "disk 100", "memory"], action: () => simulateTerminalCommand('resmon') }
         ];
 
         const searchInput = document.getElementById('search-input');
