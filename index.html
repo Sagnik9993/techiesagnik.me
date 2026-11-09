@@ -11,6 +11,172 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
+    <style>
+        /* ---------- BUG FIX: keep the particle canvas behind everything so it never blocks clicks ---------- */
+        #bg-canvas {
+            position: fixed !important;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0 !important;
+            pointer-events: none !important;
+        }
+        .portal-container { position: relative; z-index: 1; }
+        .hero-section { position: relative; z-index: 5; }
+        .search-container { position: relative; z-index: 20; }
+        .search-results-dropdown { z-index: 30; }
+        #interactive-popup-card { z-index: 40; }
+        .top-navbar, .mode-switcher { position: relative; z-index: 10; }
+        .top-navbar a, .top-navbar button, .mode-btn, .search-chip, .popup-btn, .interactive-token { cursor: pointer; }
+        .interactive-token { outline-offset: 4px; }
+        body.gate-locked { overflow: hidden; }
+
+        /* ---------- LOGIN GATE ---------- */
+        #login-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at 50% 38%, rgba(0, 242, 254, 0.14), transparent 55%),
+                radial-gradient(circle at 80% 90%, rgba(255, 30, 86, 0.10), transparent 45%),
+                #05070d;
+            color: #e6f1ff;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            transition: opacity 0.7s ease, transform 0.7s ease, visibility 0.7s;
+        }
+        #login-gate.leaving { opacity: 0; transform: scale(1.06); pointer-events: none; }
+        #login-gate.gone { display: none; }
+
+        #gate-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 242, 254, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.06) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at 50% 45%, #000 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(circle at 50% 45%, #000 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .gate-card {
+            position: relative;
+            width: min(420px, 100%);
+            padding: 38px 30px 30px;
+            text-align: center;
+            border: 1px solid rgba(0, 242, 254, 0.28);
+            border-radius: 18px;
+            background: rgba(8, 12, 22, 0.78);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 0 60px rgba(0, 242, 254, 0.12), inset 0 0 40px rgba(0, 242, 254, 0.03);
+        }
+
+        .gate-avatar-wrap {
+            position: relative;
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 18px;
+        }
+        .gate-avatar-wrap::before {
+            content: "";
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #00f2fe;
+            border-right-color: rgba(0, 242, 254, 0.3);
+            animation: gate-spin 2.4s linear infinite;
+        }
+        .gate-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(0, 242, 254, 0.5);
+            background: #0b1220;
+        }
+        @keyframes gate-spin { to { transform: rotate(360deg); } }
+
+        .gate-card h1 {
+            font-size: 1.55rem;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+            margin: 0 0 6px;
+            color: #fff;
+        }
+        .gate-sub {
+            margin: 0 0 24px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: #8fa3bf;
+        }
+
+        .gate-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.74rem;
+            color: #00f2fe;
+        }
+        .gate-status i {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00f2fe;
+            box-shadow: 0 0 10px #00f2fe;
+            animation: gate-pulse 1.4s ease-in-out infinite;
+        }
+        @keyframes gate-pulse { 50% { opacity: 0.25; } }
+
+        #enter-portal-btn {
+            position: relative;
+            width: 100%;
+            padding: 15px 20px;
+            border: 0;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            color: #021014;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 0 28px rgba(0, 242, 254, 0.4);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        #enter-portal-btn:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0, 242, 254, 0.6); }
+        #enter-portal-btn:active { transform: translateY(0) scale(0.98); }
+        #enter-portal-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+        #enter-portal-btn.granted { background: linear-gradient(135deg, #3dffa0, #00f2fe); pointer-events: none; }
+
+        .gate-hint {
+            margin-top: 14px;
+            font-size: 0.72rem;
+            color: #5f7390;
+        }
+        .gate-hint kbd {
+            font-family: 'Fira Code', monospace;
+            padding: 1px 6px;
+            border: 1px solid #2a3a52;
+            border-radius: 4px;
+            color: #8fa3bf;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .gate-avatar-wrap::before, .gate-status i { animation: none; }
+            #login-gate { transition: opacity 0.2s ease; }
+        }
+    </style>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -25,8 +191,35 @@
       ]
     }
     </script>
+
+    <script>
+        /* Decide before first paint whether the gate is needed (once per browser session). */
+        (function () {
+            var seen = false;
+            try { seen = sessionStorage.getItem('ts_portal_entered') === '1'; } catch (e) {}
+            if (!seen) document.documentElement.classList.add('needs-gate');
+        })();
+    </script>
+    <style>
+        html:not(.needs-gate) #login-gate { display: none; }
+    </style>
 </head>
 <body>
+
+    <!-- ================= LOGIN GATE ================= -->
+    <div id="login-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+        <div id="gate-grid"></div>
+        <div class="gate-card">
+            <div class="gate-avatar-wrap">
+                <img class="gate-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+            </div>
+            <h1 id="gate-title">Techie Sagnik</h1>
+            <p class="gate-sub">PC fixes, cinema edits and ranked tech puzzles, all in one place.</p>
+            <div class="gate-status"><i></i><span id="gate-status-text">Portal ready</span></div>
+            <button type="button" id="enter-portal-btn">Enter Portal</button>
+            <p class="gate-hint">or press <kbd>Enter</kbd></p>
+        </div>
+    </div>
 
     <canvas id="bg-canvas"></canvas>
 
@@ -34,7 +227,7 @@
         <header class="top-navbar">
             <div class="brand-cluster">
                 <a href="index.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
-                    <img class="brand-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
+                    <img class="brand-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
                     <div class="brand-meta">
                         <h2>Techie Sagnik</h2>
                         <span id="brand-subtitle">Creator Hub &amp; Knowledge Base</span>
@@ -44,8 +237,8 @@
 
             <div class="nav-actions">
                 <a href="about.html" class="sfx-toggle" style="text-decoration: none; display: inline-flex; align-items: center;">About</a>
-                <button class="sfx-toggle" id="sfx-btn">SFX: ON</button>
-                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener" class="btn-subscribe">
+                <button type="button" class="sfx-toggle" id="sfx-btn">SFX: ON</button>
+                <a href="https://www.youtube.com/channel/UC7iDb0g7a62P5tcSEwZeAFA?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn-subscribe">
                     Subscribe ➔
                 </a>
             </div>
@@ -60,12 +253,12 @@
         <div class="search-container">
             <div class="search-box">
                 <span style="font-size: 1rem; color: var(--text-med);">🔍</span>
-                <input type="text" class="search-input" id="search-input" placeholder="Search fixes, shortcuts, or cinema edits (e.g. slow, cleanmgr, leo)...">
+                <input type="text" class="search-input" id="search-input" autocomplete="off" placeholder="Search fixes, shortcuts, or cinema edits (e.g. slow, cleanmgr, leo)...">
                 <div class="search-chips">
-                    <button class="search-chip active" data-filter="all">ALL</button>
-                    <button class="search-chip" data-filter="fix">FIXES</button>
-                    <button class="search-chip" data-filter="video">VIDEOS</button>
-                    <button class="search-chip" data-filter="learn">LEARN</button>
+                    <button type="button" class="search-chip active" data-filter="all">ALL</button>
+                    <button type="button" class="search-chip" data-filter="fix">FIXES</button>
+                    <button type="button" class="search-chip" data-filter="video">VIDEOS</button>
+                    <button type="button" class="search-chip" data-filter="learn">LEARN</button>
                 </div>
             </div>
             <div class="search-results-dropdown" id="search-results"></div>
@@ -76,13 +269,13 @@
                 <span class="popup-badge" id="popup-badge">QUICK PREVIEW</span>
                 <h3 class="popup-title" id="popup-title">Tip Title</h3>
                 <p class="popup-desc" id="popup-desc"></p>
-                <button class="popup-btn" id="popup-btn">Open Section ➔</button>
+                <button type="button" class="popup-btn" id="popup-btn">Open Section ➔</button>
             </div>
 
             <h1 id="hero-headline">
-                Explore <span class="interactive-token" id="token-tech">PC Optimizations</span>, Experience 
-                <span class="interactive-token" style="color:var(--accent-red); border-bottom-color:var(--accent-red);" id="token-cinema">Mass Cinema</span>, and Master
-                <span class="interactive-token" style="color:var(--accent-gold); border-bottom-color:var(--accent-gold);" id="token-rank">Ranked Tech</span>.
+                Explore <span class="interactive-token" id="token-tech" tabindex="0" role="button">PC Optimizations</span>, Experience
+                <span class="interactive-token" style="color:var(--accent-red); border-bottom-color:var(--accent-red);" id="token-cinema" tabindex="0" role="button">Mass Cinema</span>, and Master
+                <span class="interactive-token" style="color:var(--accent-gold); border-bottom-color:var(--accent-gold);" id="token-rank" tabindex="0" role="button">Ranked Tech</span>.
             </h1>
             <p style="color: var(--text-med); margin-top: 12px; font-size: 0.95rem;">
                 Select a dedicated domain below or search the knowledge base for instant fixes!
@@ -131,7 +324,7 @@
                     <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">HD / SHORTS</span>
                 </div>
                 <div class="iframe-container">
-                    <iframe src="https://www.youtube-nocookie.com/embed/_-SvBNpiF3E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Windows Cleanup Guide"></iframe>
+                    <iframe src="https://www.youtube-nocookie.com/embed/_-SvBNpiF3E" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Windows Cleanup Guide"></iframe>
                 </div>
                 <h2 class="video-title">How to Clear Gigabytes of Hidden Windows Junk Fast! 🚀</h2>
             </article>
@@ -142,7 +335,7 @@
                     <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94a3b8;">9:16 VERTICAL</span>
                 </div>
                 <div class="iframe-container short">
-                    <iframe src="https://www.youtube-nocookie.com/embed/683RsckWKG4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="JD vs Leo Das"></iframe>
+                    <iframe src="https://www.youtube-nocookie.com/embed/683RsckWKG4" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="JD vs Leo Das"></iframe>
                 </div>
                 <h2 class="video-title">JD vs Leo Das: The Ultimate Clash ⚔️ Comment Your Fav!</h2>
             </article>
@@ -154,55 +347,193 @@
     </div>
 
     <script>
-        let sfxEnabled = true;
-        let audioCtx = null;
-        const sfxBtn = document.getElementById('sfx-btn');
+    (function () {
+        'use strict';
+
+        /* =====================================================
+           AUDIO
+           ===================================================== */
+        var sfxEnabled = true;
+        var audioCtx = null;
+        var sfxBtn = document.getElementById('sfx-btn');
 
         function ensureAudioContext() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+            try {
+                if (!audioCtx) {
+                    var AC = window.AudioContext || window.webkitAudioContext;
+                    if (!AC) return null;
+                    audioCtx = new AC();
+                }
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+            } catch (e) { return null; }
+            return audioCtx;
         }
 
-        window.addEventListener('click', ensureAudioContext, { once: true });
+        /* Short UI tick used for hovers, chips and toggles. */
+        function playSound(freq) {
+            freq = freq || 1950;
+            if (!sfxEnabled) return;
+            var ac = ensureAudioContext();
+            if (!ac) return;
+            try {
+                var t = ac.currentTime;
+                var osc = ac.createOscillator();
+                var gain = ac.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, t);
+                osc.frequency.exponentialRampToValueAtTime(1100, t + 0.05);
+                gain.gain.setValueAtTime(0.0001, t);
+                gain.gain.exponentialRampToValueAtTime(0.09, t + 0.005);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+                osc.connect(gain);
+                gain.connect(ac.destination);
+                osc.start(t);
+                osc.stop(t + 0.07);
+            } catch (e) {}
+        }
+
+        /* Login sound: low sweep + rising chord arpeggio + soft shimmer. About 1.6 seconds. */
+        function playLoginSound() {
+            var ac = ensureAudioContext();
+            if (!ac) return;
+            try {
+                var t0 = ac.currentTime + 0.02;
+
+                var master = ac.createGain();
+                master.gain.setValueAtTime(0.0001, t0);
+                master.gain.exponentialRampToValueAtTime(0.5, t0 + 0.05);
+                master.gain.exponentialRampToValueAtTime(0.0001, t0 + 1.9);
+
+                var comp = ac.createDynamicsCompressor();
+                master.connect(comp);
+                comp.connect(ac.destination);
+
+                /* Sub sweep (the "power on" thump) */
+                var sub = ac.createOscillator();
+                var subGain = ac.createGain();
+                sub.type = 'sine';
+                sub.frequency.setValueAtTime(70, t0);
+                sub.frequency.exponentialRampToValueAtTime(160, t0 + 0.5);
+                subGain.gain.setValueAtTime(0.0001, t0);
+                subGain.gain.exponentialRampToValueAtTime(0.7, t0 + 0.08);
+                subGain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.7);
+                sub.connect(subGain);
+                subGain.connect(master);
+                sub.start(t0);
+                sub.stop(t0 + 0.75);
+
+                /* Rising arpeggio: C5 E5 G5 C6 E6 */
+                var notes = [523.25, 659.25, 783.99, 1046.5, 1318.5];
+                notes.forEach(function (f, i) {
+                    var t = t0 + 0.12 + i * 0.1;
+                    var dur = i === notes.length - 1 ? 1.1 : 0.45;
+
+                    [0, 6].forEach(function (detune, k) {
+                        var o = ac.createOscillator();
+                        var g = ac.createGain();
+                        o.type = k === 0 ? 'triangle' : 'sine';
+                        o.frequency.value = f;
+                        o.detune.value = detune;
+                        g.gain.setValueAtTime(0.0001, t);
+                        g.gain.exponentialRampToValueAtTime(k === 0 ? 0.28 : 0.16, t + 0.015);
+                        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+                        o.connect(g);
+                        g.connect(master);
+                        o.start(t);
+                        o.stop(t + dur + 0.05);
+                    });
+                });
+
+                /* High shimmer on the final note */
+                var tS = t0 + 0.12 + (notes.length - 1) * 0.1;
+                var sh = ac.createOscillator();
+                var shGain = ac.createGain();
+                sh.type = 'sine';
+                sh.frequency.setValueAtTime(2637, tS);
+                sh.frequency.exponentialRampToValueAtTime(3136, tS + 0.9);
+                shGain.gain.setValueAtTime(0.0001, tS);
+                shGain.gain.exponentialRampToValueAtTime(0.07, tS + 0.05);
+                shGain.gain.exponentialRampToValueAtTime(0.0001, tS + 1.0);
+                sh.connect(shGain);
+                shGain.connect(master);
+                sh.start(tS);
+                sh.stop(tS + 1.05);
+            } catch (e) {}
+        }
+
+        window.addEventListener('pointerdown', ensureAudioContext, { once: true });
         window.addEventListener('keydown', ensureAudioContext, { once: true });
 
-        sfxBtn.addEventListener('click', () => {
+        sfxBtn.addEventListener('click', function () {
             sfxEnabled = !sfxEnabled;
             sfxBtn.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
             sfxBtn.classList.toggle('off', !sfxEnabled);
             if (sfxEnabled) playSound(1800);
         });
 
-        function playSound(freq = 1950) {
-            if (!sfxEnabled) return;
-            ensureAudioContext();
-            if (!audioCtx) return;
-            try {
-                const t = audioCtx.currentTime;
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, t);
-                osc.frequency.exponentialRampToValueAtTime(1100, t + 0.02);
-                gain.gain.setValueAtTime(0.06, t);
-                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.02);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(t);
-                osc.stop(t + 0.02);
-            } catch(e) {}
+        /* =====================================================
+           LOGIN GATE
+           ===================================================== */
+        var gate = document.getElementById('login-gate');
+        var enterBtn = document.getElementById('enter-portal-btn');
+        var gateStatus = document.getElementById('gate-status-text');
+        var entering = false;
+
+        function gateIsOpen() {
+            return document.documentElement.classList.contains('needs-gate') && !gate.classList.contains('gone');
         }
 
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        if (gateIsOpen()) {
+            document.body.classList.add('gate-locked');
+            setTimeout(function () { try { enterBtn.focus({ preventScroll: true }); } catch (e) {} }, 50);
+        }
+
+        function enterPortal() {
+            if (entering || !gateIsOpen()) return;
+            entering = true;
+
+            playLoginSound();
+
+            enterBtn.classList.add('granted');
+            enterBtn.textContent = 'Access granted';
+            gateStatus.textContent = 'Welcome back';
+
+            try { sessionStorage.setItem('ts_portal_entered', '1'); } catch (e) {}
+
+            setTimeout(function () {
+                gate.classList.add('leaving');
+                document.body.classList.remove('gate-locked');
+                setTimeout(function () {
+                    gate.classList.add('gone');
+                    document.documentElement.classList.remove('needs-gate');
+                }, 750);
+            }, 900);
+        }
+
+        enterBtn.addEventListener('click', enterPortal);
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && gateIsOpen()) {
+                e.preventDefault();
+                enterPortal();
+            }
+        });
+
+        /* =====================================================
+           BACKGROUND PARTICLES
+           ===================================================== */
+        var canvas = document.getElementById('bg-canvas');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var rafId = null;
+        var resizeTimer = null;
 
         function initCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particles = [];
-            const count = Math.floor((window.innerWidth * window.innerHeight) / 13000);
-            for (let i = 0; i < count; i++) {
+            var count = Math.min(140, Math.floor((window.innerWidth * window.innerHeight) / 13000));
+            for (var i = 0; i < count; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
@@ -212,14 +543,12 @@
                 });
             }
         }
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
 
         function renderParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00f2fe';
-            for (let i = 0; i < particles.length; i++) {
-                let p = particles[i];
+            ctx.fillStyle = 'rgba(0, 242, 254, 0.75)';
+            for (var i = 0; i < particles.length; i++) {
+                var p = particles[i];
                 p.x += p.vx;
                 p.y += p.vy;
                 if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
@@ -228,16 +557,40 @@
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fill();
             }
-            requestAnimationFrame(renderParticles);
+            if (!reduceMotion) rafId = requestAnimationFrame(renderParticles);
         }
+
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                initCanvas();
+                if (reduceMotion) renderParticles();
+            }, 150);
+        });
+
+        /* Pause the animation while the tab is hidden to save CPU/battery. */
+        document.addEventListener('visibilitychange', function () {
+            if (reduceMotion) return;
+            if (document.hidden) {
+                cancelAnimationFrame(rafId);
+            } else {
+                rafId = requestAnimationFrame(renderParticles);
+            }
+        });
+
+        initCanvas();
         renderParticles();
 
-        const popupCard = document.getElementById('interactive-popup-card');
-        const popupBadge = document.getElementById('popup-badge');
-        const popupTitle = document.getElementById('popup-title');
-        const popupDesc = document.getElementById('popup-desc');
-        const popupBtn = document.getElementById('popup-btn');
-        let hideTimer;
+        /* =====================================================
+           HERO POPUP CARD (hover on desktop, tap/focus on touch + keyboard)
+           ===================================================== */
+        var popupCard = document.getElementById('interactive-popup-card');
+        var popupBadge = document.getElementById('popup-badge');
+        var popupTitle = document.getElementById('popup-title');
+        var popupDesc = document.getElementById('popup-desc');
+        var popupBtn = document.getElementById('popup-btn');
+        var hideTimer = null;
+        var popupUrl = '#';
 
         function showHoverCard(badge, title, desc, url) {
             clearTimeout(hideTimer);
@@ -245,91 +598,176 @@
             popupBadge.textContent = badge;
             popupTitle.textContent = title;
             popupDesc.textContent = desc;
-            popupBtn.onclick = () => window.location.href = url;
+            popupUrl = url;
             popupCard.classList.add('active');
         }
 
-        function scheduleHide() {
-            hideTimer = setTimeout(() => popupCard.classList.remove('active'), 250);
+        function hideCardNow() {
+            clearTimeout(hideTimer);
+            popupCard.classList.remove('active');
         }
 
-        document.getElementById('token-tech').addEventListener('mouseenter', () => {
-            showHoverCard("WINDOWS TOOLS", "PC Optimization Lab", "Access run commands, temp cleaners, and keyboard shortcuts.", "tech/");
+        function scheduleHide() {
+            clearTimeout(hideTimer);
+            /* 600ms gives the mouse enough time to travel from the word onto the card. */
+            hideTimer = setTimeout(hideCardNow, 600);
+        }
+
+        popupBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            playSound(1900);
+            window.location.href = popupUrl;
         });
-        document.getElementById('token-tech').addEventListener('mouseleave', scheduleHide);
 
-        document.getElementById('token-cinema').addEventListener('mouseenter', () => {
-            showHoverCard("CINEMA HUB", "Thalapathy Arena", "Sub-bass SFX board, aura counters, and Leo Das edits.", "thalapathycorner/");
-        });
-        document.getElementById('token-cinema').addEventListener('mouseleave', scheduleHide);
-
-        document.getElementById('token-rank').addEventListener('mouseenter', () => {
-            showHoverCard("RANKED LEARNING", "TechLearn Arena", "Competitive tech puzzles, Elo rating, and unlockable badges.", "learntech/");
-        });
-        document.getElementById('token-rank').addEventListener('mouseleave', scheduleHide);
-
-        popupCard.addEventListener('mouseenter', () => clearTimeout(hideTimer));
-        popupCard.addEventListener('mouseleave', scheduleHide);
-
-        const portalCatalog = [
-            { title: "Clear Gigabytes of Hidden Windows Junk Fast", type: "fix", keywords: ["slow", "lag", "junk", "temp", "cleanmgr", "c drive", "storage"], url: "tech/" },
-            { title: "Stop copy-pasting emojis on PC - Win + . Shortcut", type: "fix", keywords: ["emoji", "symbol", "shortcut", "win period"], url: "tech/" },
-            { title: "Windows Run Console & Shortcut Dock", type: "fix", keywords: ["mrt", "resmon", "perfmon", "cmd", "%temp%"], url: "tech/" },
-            { title: "JD vs Leo Das: The Ultimate Clash Edit", type: "video", keywords: ["leo", "das", "jd", "master", "thalapathy", "vijay"], url: "thalapathycorner/" },
-            { title: "Cinema SFX Soundboard & Aura Meter", type: "video", keywords: ["bass", "impact", "stutter", "aura", "boost"], url: "thalapathycorner/" },
-            { title: "Ranked Tech Puzzles & Elo Calibration", type: "learn", keywords: ["quiz", "puzzle", "elo", "rating", "streak", "rank", "learn"], url: "learntech/" }
+        var tokens = [
+            { id: 'token-tech',   badge: 'WINDOWS TOOLS',   title: 'PC Optimization Lab', desc: 'Access run commands, temp cleaners, and keyboard shortcuts.', url: 'tech/' },
+            { id: 'token-cinema', badge: 'CINEMA HUB',      title: 'Thalapathy Arena',    desc: 'Sub-bass SFX board, aura counters, and Leo Das edits.',        url: 'thalapathycorner/' },
+            { id: 'token-rank',   badge: 'RANKED LEARNING', title: 'TechLearn Arena',     desc: 'Competitive tech puzzles, Elo rating, and unlockable badges.', url: 'learntech/' }
         ];
 
-        const searchInput = document.getElementById('search-input');
-        const searchDropdown = document.getElementById('search-results');
-        let activeFilter = 'all';
+        tokens.forEach(function (tk) {
+            var el = document.getElementById(tk.id);
+            var open = function () { showHoverCard(tk.badge, tk.title, tk.desc, tk.url); };
 
-        document.querySelectorAll('.search-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                playSound(1600);
-                document.querySelectorAll('.search-chip').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                activeFilter = chip.getAttribute('data-filter');
-                filterSearch();
+            el.addEventListener('mouseenter', open);
+            el.addEventListener('mouseleave', scheduleHide);
+            el.addEventListener('focus', open);
+            el.addEventListener('click', function (e) { e.stopPropagation(); open(); });
+            el.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
             });
         });
 
+        popupCard.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
+        popupCard.addEventListener('mouseleave', scheduleHide);
+        popupCard.addEventListener('click', function (e) { e.stopPropagation(); });
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.interactive-token') && !e.target.closest('#interactive-popup-card')) hideCardNow();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') hideCardNow();
+        });
+
+        /* =====================================================
+           SEARCH
+           ===================================================== */
+        var portalCatalog = [
+            { title: 'Clear Gigabytes of Hidden Windows Junk Fast', type: 'fix',   keywords: ['slow', 'lag', 'junk', 'temp', 'cleanmgr', 'c drive', 'storage', 'disk', 'cleanup'], url: 'tech/' },
+            { title: 'Stop copy-pasting emojis on PC - Win + . Shortcut', type: 'fix', keywords: ['emoji', 'symbol', 'shortcut', 'win period', 'keyboard'], url: 'tech/' },
+            { title: 'Windows Run Console & Shortcut Dock', type: 'fix',            keywords: ['mrt', 'resmon', 'perfmon', 'cmd', '%temp%', 'run', 'command'], url: 'tech/' },
+            { title: 'JD vs Leo Das: The Ultimate Clash Edit', type: 'video',       keywords: ['leo', 'das', 'jd', 'master', 'thalapathy', 'vijay', 'edit'], url: 'thalapathycorner/' },
+            { title: 'Cinema SFX Soundboard & Aura Meter', type: 'video',           keywords: ['bass', 'impact', 'stutter', 'aura', 'boost', 'sfx', 'sound'], url: 'thalapathycorner/' },
+            { title: 'Ranked Tech Puzzles & Elo Calibration', type: 'learn',        keywords: ['quiz', 'puzzle', 'elo', 'rating', 'streak', 'rank', 'learn', 'badge'], url: 'learntech/' }
+        ];
+
+        var searchInput = document.getElementById('search-input');
+        var searchDropdown = document.getElementById('search-results');
+        var activeFilter = 'all';
+        var activeIndex = -1;
+
+        function matchesQuery(item, query) {
+            var title = item.title.toLowerCase();
+            /* Every typed word has to match the title or one keyword. */
+            return query.split(/\s+/).every(function (word) {
+                if (title.indexOf(word) !== -1) return true;
+                return item.keywords.some(function (k) { return k.indexOf(word) !== -1 || word.indexOf(k) !== -1; });
+            });
+        }
+
+        function setActiveResult(idx) {
+            var rows = searchDropdown.querySelectorAll('.search-result-item');
+            if (!rows.length) return;
+            activeIndex = (idx + rows.length) % rows.length;
+            rows.forEach(function (r, i) { r.style.background = i === activeIndex ? 'rgba(0, 242, 254, 0.12)' : ''; });
+        }
+
         function filterSearch() {
-            const query = searchInput.value.trim().toLowerCase();
+            var query = searchInput.value.trim().toLowerCase();
+            activeIndex = -1;
+
             if (!query) {
                 searchDropdown.style.display = 'none';
                 return;
             }
 
-            const matches = portalCatalog.filter(item => {
-                const titleMatch = item.title.toLowerCase().includes(query);
-                const kwMatch = item.keywords.some(k => k.includes(query) || query.includes(k));
-                const typeMatch = activeFilter === 'all' || item.type === activeFilter;
-                return (titleMatch || kwMatch) && typeMatch;
+            var matches = portalCatalog.filter(function (item) {
+                var typeMatch = activeFilter === 'all' || item.type === activeFilter;
+                return typeMatch && matchesQuery(item, query);
             });
 
+            searchDropdown.innerHTML = '';
+
             if (!matches.length) {
-                searchDropdown.innerHTML = `<div style="padding:10px; font-size:0.8rem; color:var(--text-med); text-align:center;">No matching resources found.</div>`;
+                var empty = document.createElement('div');
+                empty.style.cssText = 'padding:10px; font-size:0.8rem; color:var(--text-med); text-align:center;';
+                empty.textContent = 'No matching resources found.';
+                searchDropdown.appendChild(empty);
                 searchDropdown.style.display = 'block';
                 return;
             }
 
-            searchDropdown.innerHTML = '';
-            matches.forEach(item => {
-                const row = document.createElement('div');
+            matches.forEach(function (item) {
+                var row = document.createElement('div');
                 row.className = 'search-result-item';
-                row.innerHTML = `<span class="result-title">${item.title}</span><span class="result-tag">${item.type.toUpperCase()}</span>`;
-                row.onclick = () => window.location.href = item.url;
+                row.setAttribute('role', 'link');
+                row.tabIndex = 0;
+                row.dataset.url = item.url;
+
+                var title = document.createElement('span');
+                title.className = 'result-title';
+                title.textContent = item.title;
+
+                var tag = document.createElement('span');
+                tag.className = 'result-tag';
+                tag.textContent = item.type.toUpperCase();
+
+                row.appendChild(title);
+                row.appendChild(tag);
+                row.addEventListener('click', function () { playSound(1900); window.location.href = item.url; });
                 searchDropdown.appendChild(row);
             });
 
             searchDropdown.style.display = 'block';
         }
 
+        document.querySelectorAll('.search-chip').forEach(function (chip) {
+            chip.addEventListener('click', function () {
+                playSound(1600);
+                document.querySelectorAll('.search-chip').forEach(function (c) { c.classList.remove('active'); });
+                chip.classList.add('active');
+                activeFilter = chip.getAttribute('data-filter');
+                filterSearch();
+            });
+        });
+
         searchInput.addEventListener('input', filterSearch);
-        document.addEventListener('click', (e) => {
+        searchInput.addEventListener('focus', filterSearch);
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowDown') { e.preventDefault(); setActiveResult(activeIndex + 1); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); setActiveResult(activeIndex - 1); }
+            else if (e.key === 'Enter') {
+                var rows = searchDropdown.querySelectorAll('.search-result-item');
+                if (rows.length) {
+                    e.preventDefault();
+                    var target = rows[activeIndex >= 0 ? activeIndex : 0];
+                    window.location.href = target.dataset.url;
+                }
+            } else if (e.key === 'Escape') {
+                searchDropdown.style.display = 'none';
+                searchInput.blur();
+            }
+        });
+
+        document.addEventListener('click', function (e) {
             if (!e.target.closest('.search-container')) searchDropdown.style.display = 'none';
         });
+
+        /* Soft tick on the main navigation buttons. */
+        document.querySelectorAll('.mode-btn, .btn-subscribe').forEach(function (el) {
+            el.addEventListener('click', function () { playSound(1900); });
+        });
+    })();
     </script>
 </body>
 </html>
