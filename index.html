@@ -203,25 +203,142 @@
     <style>
         html:not(.needs-gate) #login-gate { display: none; }
     </style>
+
+    <style id="fx-style">
+        /* ====================== AMBIENT BACKGROUND ====================== */
+        #aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+        #aurora i { position: absolute; width: 55vmax; height: 55vmax; border-radius: 50%; filter: blur(90px); opacity: .26; mix-blend-mode: screen; animation: auroraDrift 24s ease-in-out infinite alternate; }
+        #aurora i:nth-child(1) { background: radial-gradient(circle, #00f2fe, transparent 65%); top: -22vmax; left: -16vmax; }
+        #aurora i:nth-child(2) { background: radial-gradient(circle, #ff1e56, transparent 65%); bottom: -26vmax; right: -16vmax; animation-duration: 30s; animation-delay: -9s; }
+        #aurora i:nth-child(3) { background: radial-gradient(circle, #7c3aed, transparent 65%); top: 28vh; left: 34vw; opacity: .16; animation-duration: 36s; animation-delay: -4s; }
+        @keyframes auroraDrift { to { transform: translate3d(9vmax, 6vmax, 0) scale(1.18); } }
+
+        #scroll-progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 9000; transform-origin: 0 50%; transform: scaleX(0);
+            background: linear-gradient(90deg, #00f2fe, #7c3aed, #ff1e56, #ffb703); box-shadow: 0 0 12px rgba(0,242,254,.7); }
+
+        #cursor-glow { position: fixed; left: 0; top: 0; width: 460px; height: 460px; margin: -230px 0 0 -230px; border-radius: 50%; pointer-events: none; z-index: 2; opacity: 0; will-change: transform;
+            background: radial-gradient(circle, rgba(0,242,254,.13), rgba(124,58,237,.05) 45%, transparent 68%); mix-blend-mode: screen; transition: opacity .5s; }
+        #cursor-glow.on { opacity: 1; }
+        @media (hover: none) { #cursor-glow { display: none; } }
+
+        /* ====================== SCROLL REVEAL ====================== */
+        .js .reveal { opacity: 0; transform: translateY(30px) scale(.985); transition: opacity .8s ease, transform .9s cubic-bezier(.16,1,.3,1); }
+        .js .reveal.in { opacity: 1; transform: none; }
+
+        /* ====================== HERO EXTRAS ====================== */
+        .hero-kicker { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 16px; padding: 6px 14px; border-radius: 999px;
+            font-family: 'Fira Code', monospace; font-size: .68rem; font-weight: 700; letter-spacing: .12em; color: #7dd3fc;
+            background: rgba(0,242,254,.07); border: 1px solid rgba(0,242,254,.25); }
+        .hero-kicker i { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; animation: kickPulse 1.6s infinite; }
+        @keyframes kickPulse { 50% { opacity: .25; } }
+        #hero-headline { text-shadow: 0 0 40px rgba(0,242,254,.12); }
+
+        .type-strip { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 14px 18px; border-radius: 14px;
+            font-family: 'Fira Code', monospace; font-size: .95rem; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); }
+        .ts-label { color: #64748b; }
+        .ts-text { min-height: 1.3em; font-weight: 700; background: linear-gradient(90deg, #00f2fe, #a78bfa, #ff4d6d); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+        .ts-caret { width: 9px; height: 1.15em; background: #00f2fe; box-shadow: 0 0 10px #00f2fe; animation: caretBlink 1s step-end infinite; }
+        @keyframes caretBlink { 50% { opacity: 0; } }
+
+        /* ====================== DOMAIN CARDS (3D tilt + glare + neon border) ====================== */
+        @property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+        @keyframes spinAng { to { --ang: 360deg; } }
+        .domain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; perspective: 1100px; }
+        .domain-card { position: relative; display: block; text-decoration: none; color: inherit; border-radius: 20px; padding: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.02));
+            transition: transform .18s ease-out, box-shadow .35s ease; will-change: transform; --gx: 50%; --gy: 0%; }
+        .domain-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; pointer-events: none; opacity: 0; transition: opacity .35s;
+            background: conic-gradient(from var(--ang), transparent 0 55%, var(--ac) 80%, transparent 100%);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+            animation: spinAng 3.5s linear infinite; }
+        .domain-card:hover, .domain-card:focus-visible { box-shadow: 0 24px 70px var(--glow); }
+        .domain-card:hover::before, .domain-card:focus-visible::before { opacity: 1; }
+        .domain-card:focus-visible { outline: 2px solid var(--ac); outline-offset: 4px; }
+        .dc-body { position: relative; height: 100%; padding: 24px 22px 22px; border-radius: 18px; overflow: hidden;
+            background: linear-gradient(160deg, rgba(14,18,30,.94), rgba(8,10,18,.95)); }
+        .dc-body::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+            background: radial-gradient(260px circle at var(--gx) var(--gy), rgba(255,255,255,.13), transparent 60%); }
+        .domain-card:hover .dc-body::after { opacity: 1; }
+        .dc-icon { width: 54px; height: 54px; display: grid; place-items: center; margin-bottom: 14px; font-size: 1.7rem; border-radius: 16px;
+            background: radial-gradient(circle at 30% 25%, var(--glow), rgba(255,255,255,.03)); border: 1px solid var(--ac); box-shadow: 0 0 24px var(--glow);
+            animation: iconFloat 4.5s ease-in-out infinite; }
+        .domain-card:nth-child(2) .dc-icon { animation-delay: -1.5s; }
+        .domain-card:nth-child(3) .dc-icon { animation-delay: -3s; }
+        @keyframes iconFloat { 50% { transform: translateY(-6px) rotate(-4deg); } }
+        .dc-body h3 { font-size: 1.15rem; color: #fff; margin: 0 0 7px; }
+        .dc-body p { font-size: .84rem; color: var(--text-med, #94a3b8); line-height: 1.55; margin: 0; }
+        .dc-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+        .dc-chips span { font-family: 'Fira Code', monospace; font-size: .64rem; padding: 3px 9px; border-radius: 999px; color: var(--ac); border: 1px solid var(--ac); background: rgba(255,255,255,.03); }
+        .dc-cta { margin-top: 16px; font-family: 'Fira Code', monospace; font-size: .76rem; font-weight: 700; color: var(--ac); display: flex; align-items: center; gap: 8px; }
+        .dc-cta b { transition: transform .25s; }
+        .domain-card:hover .dc-cta b { transform: translateX(7px); }
+
+        /* ====================== TICKER ====================== */
+        .ticker { overflow: hidden; border-block: 1px solid rgba(255,255,255,.07);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+        .ticker-track { display: flex; gap: 38px; width: max-content; padding: 13px 0; font-family: 'Fira Code', monospace; font-size: .78rem; color: #7f93ad; animation: tickerMove 42s linear infinite; }
+        .ticker:hover .ticker-track { animation-play-state: paused; }
+        .ticker-track span { white-space: nowrap; }
+        @keyframes tickerMove { to { transform: translateX(-50%); } }
+
+        /* ====================== VIDEO CARDS ====================== */
+        .video-card { transition: transform .3s ease, box-shadow .3s ease; }
+        .video-card:hover { transform: translateY(-6px); box-shadow: 0 24px 64px rgba(0,242,254,.16); }
+
+        /* ====================== LOGIN GATE UPGRADE ====================== */
+        #login-gate { perspective: 1100px; }
+        #gate-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+        #gate-grid { animation: gridMove 14s linear infinite; }
+        @keyframes gridMove { to { background-position: 0 44px; } }
+        .gate-card { transform-style: preserve-3d; transition: transform .14s ease-out, opacity .8s ease; will-change: transform; }
+        .gate-card::before { content: ""; position: absolute; inset: -1px; border-radius: 19px; padding: 2px; pointer-events: none;
+            background: conic-gradient(from var(--ang), transparent 0 50%, #00f2fe 72%, #7c3aed 86%, transparent 100%);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+            animation: spinAng 4s linear infinite; }
+        .gate-card.warp { transform: translateZ(300px) scale(1.2) !important; opacity: 0; transition: transform .95s cubic-bezier(.6,0,.9,.4), opacity .8s ease .15s; }
+        .boot-log { height: 76px; margin: 0 0 12px; overflow: hidden; text-align: left; font-family: 'Fira Code', monospace; font-size: .69rem; line-height: 1.55; color: #6ee7f9; }
+        .boot-log div { white-space: nowrap; }
+        .boot-log .ok { color: #3dffa0; }
+        .boot-bar { height: 4px; margin-bottom: 14px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+        .boot-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #00f2fe, #7c3aed, #ff1e56); box-shadow: 0 0 12px #00f2fe; transition: width .3s ease; }
+        #enter-portal-btn.ready { animation: readyPulse 1.8s ease-in-out infinite; }
+        @keyframes readyPulse { 50% { box-shadow: 0 0 54px rgba(0,242,254,.9), 0 0 0 7px rgba(0,242,254,.14); } }
+        #gate-flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+        #gate-flash.go { animation: gateFlash 1s ease-out forwards; }
+        @keyframes gateFlash { 0% { opacity: 0; } 40% { opacity: .85; } 100% { opacity: 0; } }
+
+        @media (prefers-reduced-motion: reduce) {
+            #aurora i, .dc-icon, .ticker-track, .gate-card::before, .domain-card::before, #gate-grid, .hero-kicker i { animation: none; }
+            .js .reveal { opacity: 1; transform: none; transition: none; }
+            .gate-card.warp { transition: opacity .3s ease; transform: none !important; }
+        }
+    </style>
 </head>
 <body>
 
     <!-- ================= LOGIN GATE ================= -->
     <div id="login-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+        <canvas id="gate-canvas"></canvas>
         <div id="gate-grid"></div>
-        <div class="gate-card">
+        <div class="gate-card" id="gate-card">
             <div class="gate-avatar-wrap">
                 <img class="gate-avatar" src="logo.png" alt="Techie Sagnik" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f2fe&color=000&bold=true'">
             </div>
             <h1 id="gate-title">Techie Sagnik</h1>
             <p class="gate-sub">PC fixes, cinema edits and ranked tech puzzles, all in one place.</p>
-            <div class="gate-status"><i></i><span id="gate-status-text">Portal ready</span></div>
+            <div class="boot-log" id="boot-log" aria-hidden="true"></div>
+            <div class="boot-bar" aria-hidden="true"><i id="boot-fill"></i></div>
+            <div class="gate-status"><i></i><span id="gate-status-text">Booting portal...</span></div>
             <button type="button" id="enter-portal-btn">Enter Portal</button>
             <p class="gate-hint">or press <kbd>Enter</kbd></p>
         </div>
+        <div id="gate-flash"></div>
     </div>
 
+    <div id="scroll-progress"></div>
+    <div id="aurora"><i></i><i></i><i></i></div>
     <canvas id="bg-canvas"></canvas>
+    <div id="cursor-glow"></div>
 
     <div class="portal-container">
         <header class="top-navbar">
@@ -272,6 +389,7 @@
                 <button type="button" class="popup-btn" id="popup-btn">Open Section ➔</button>
             </div>
 
+            <div class="hero-kicker"><i></i>LIVE · TECH · CINEMA · LEARNING</div>
             <h1 id="hero-headline">
                 Explore <span class="interactive-token" id="token-tech" tabindex="0" role="button">PC Optimizations</span>, Experience
                 <span class="interactive-token" style="color:var(--accent-red); border-bottom-color:var(--accent-red);" id="token-cinema" tabindex="0" role="button">Mass Cinema</span>, and Master
@@ -282,40 +400,46 @@
             </p>
         </section>
 
-        <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
-            <a href="tech/" style="text-decoration: none; color: inherit;">
-                <div class="interactive-panel" style="height: 100%; transition: transform 0.2s ease, border-color 0.2s ease;" onmouseenter="this.style.borderColor='var(--accent-cyan)'; this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='var(--panel-border)'; this.style.transform='none'">
-                    <div style="font-size: 1.8rem; margin-bottom: 8px;">⚡</div>
-                    <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">Cyber &amp; Tech Lab</h3>
-                    <p style="font-size: 0.82rem; color: var(--text-med); line-height: 1.5;">
-                        Interactive Windows Run command emulator, keyboard shortcut diagnostics, and disk cleanup guides.
-                    </p>
-                    <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan); font-weight: 700;">ENTER LAB ➔</div>
+        <div class="type-strip" aria-live="off"><span class="ts-label">I want to</span><span class="ts-text" id="ts-text">speed up my PC</span><i class="ts-caret"></i></div>
+
+        <section class="domain-grid">
+            <a href="tech/" class="domain-card" style="--ac:#00f2fe; --glow:rgba(0,242,254,.28);">
+                <div class="dc-body">
+                    <div class="dc-icon">⚡</div>
+                    <h3>Cyber &amp; Tech Lab</h3>
+                    <p>Interactive Windows Run command emulator, keyboard shortcut diagnostics, and disk cleanup guides.</p>
+                    <div class="dc-chips"><span>6 CLI tools</span><span>6 shortcuts</span><span>Win 11 sim</span></div>
+                    <div class="dc-cta">ENTER LAB <b>➔</b></div>
                 </div>
             </a>
 
-            <a href="thalapathycorner/" style="text-decoration: none; color: inherit;">
-                <div class="interactive-panel" style="height: 100%; border-color: rgba(255, 30, 86, 0.3); transition: transform 0.2s ease, border-color 0.2s ease;" onmouseenter="this.style.borderColor='var(--accent-red)'; this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(255, 30, 86, 0.3)'; this.style.transform='none'">
-                    <div style="font-size: 1.8rem; margin-bottom: 8px;">🔥</div>
-                    <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">Thalapathy Arena</h3>
-                    <p style="font-size: 0.82rem; color: var(--text-med); line-height: 1.5;">
-                        Global community aura meter, instant cinema beat triggers, and high-energy video tributes.
-                    </p>
-                    <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-red); font-weight: 700;">ENTER ARENA ➔</div>
+            <a href="thalapathycorner/" class="domain-card" style="--ac:#ff1e56; --glow:rgba(255,30,86,.3);">
+                <div class="dc-body">
+                    <div class="dc-icon">🔥</div>
+                    <h3>Thalapathy Arena</h3>
+                    <p>Global community aura meter, instant cinema beat triggers, and high-energy video tributes.</p>
+                    <div class="dc-chips"><span>Live aura meter</span><span>4 SFX pads</span><span>Edits</span></div>
+                    <div class="dc-cta">ENTER ARENA <b>➔</b></div>
                 </div>
             </a>
 
-            <a href="learntech/" style="text-decoration: none; color: inherit;">
-                <div class="interactive-panel" style="height: 100%; border-color: rgba(255, 183, 3, 0.3); transition: transform 0.2s ease, border-color 0.2s ease;" onmouseenter="this.style.borderColor='var(--accent-gold)'; this.style.transform='translateY(-4px)'" onmouseleave="this.style.borderColor='rgba(255, 183, 3, 0.3)'; this.style.transform='none'">
-                    <div style="font-size: 1.8rem; margin-bottom: 8px;">📚</div>
-                    <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 6px;">TechLearn Lab</h3>
-                    <p style="font-size: 0.82rem; color: var(--text-med); line-height: 1.5;">
-                        Competitive Elo rating system, rank calibration, unlockable achievement badges, and interactive modules.
-                    </p>
-                    <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-gold); font-weight: 700;">START PUZZLES ➔</div>
+            <a href="learntech/" class="domain-card" style="--ac:#ffb703; --glow:rgba(255,183,3,.3);">
+                <div class="dc-body">
+                    <div class="dc-icon">📚</div>
+                    <h3>TechLearn Lab</h3>
+                    <p>Competitive Elo rating system, rank calibration, unlockable achievement badges, and interactive modules.</p>
+                    <div class="dc-chips"><span>Elo ranked</span><span>Badges</span><span>Puzzles</span></div>
+                    <div class="dc-cta">START PUZZLES <b>➔</b></div>
                 </div>
             </a>
         </section>
+
+        <div class="ticker" aria-hidden="true">
+            <div class="ticker-track" id="ticker-track">
+                <span>⚡ sfc /scannow</span><span>🧹 cleanmgr</span><span>⌨️ Win + .</span><span>🔥 Global Aura Meter</span><span>🎬 Cinema SFX</span>
+                <span>🏆 Elo Rankings</span><span>🛡️ mrt</span><span>📊 resmon</span><span>📋 Win + V</span><span>🌐 ipconfig /flushdns</span>
+            </div>
+        </div>
 
         <main class="video-grid" style="margin-top: 10px;">
             <article class="video-card">
@@ -494,11 +618,19 @@
 
             playLoginSound();
 
+            enterBtn.classList.remove('ready');
             enterBtn.classList.add('granted');
             enterBtn.textContent = 'Access granted';
             gateStatus.textContent = 'Welcome back';
+            document.getElementById('boot-fill').style.width = '100%';
 
             try { sessionStorage.setItem('ts_portal_entered', '1'); } catch (e) {}
+
+            if (!gReduce) {
+                gTarget = 44;                                              /* hyperspace */
+                document.getElementById('gate-flash').classList.add('go');
+                document.getElementById('gate-card').classList.add('warp');
+            }
 
             setTimeout(function () {
                 gate.classList.add('leaving');
@@ -506,9 +638,108 @@
                 setTimeout(function () {
                     gate.classList.add('gone');
                     document.documentElement.classList.remove('needs-gate');
+                    cancelAnimationFrame(gRaf);
                 }, 750);
-            }, 900);
+            }, gReduce ? 400 : 1100);
         }
+
+        /* ---------- gate starfield (3D warp) ---------- */
+        var gReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var gc = document.getElementById('gate-canvas');
+        var gx = gc.getContext('2d');
+        var gStars = [], gSpeed = 0.7, gTarget = 0.7, gRaf = null, gMx = 0, gMy = 0;
+        var gColors = ['#aef6ff', '#ffffff', '#ff9bb5', '#c4b5fd', '#7dd3fc'];
+
+        function newStar(randomZ) {
+            return { x: (Math.random() - 0.5) * 2400, y: (Math.random() - 0.5) * 2400,
+                     z: randomZ ? Math.random() * 1000 + 1 : 1000, c: gColors[(Math.random() * gColors.length) | 0] };
+        }
+        function gResize() {
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
+            gc.width = window.innerWidth * dpr;
+            gc.height = window.innerHeight * dpr;
+            gx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        function gFrame() {
+            var w = window.innerWidth, h = window.innerHeight;
+            var cx = w / 2 + gMx * 50, cy = h / 2 + gMy * 50, f = Math.min(w, h) * 0.55;
+            gx.clearRect(0, 0, w, h);
+            gSpeed += (gTarget - gSpeed) * 0.05;
+            gx.lineCap = 'round';
+            for (var i = 0; i < gStars.length; i++) {
+                var st = gStars[i];
+                var pz = st.z + gSpeed * 2.2 + 1;
+                st.z -= gSpeed;
+                if (st.z < 1) { gStars[i] = newStar(false); continue; }
+                var sx = cx + (st.x / st.z) * f, sy = cy + (st.y / st.z) * f;
+                var px = cx + (st.x / pz) * f, py = cy + (st.y / pz) * f;
+                if (sx < -50 || sx > w + 50 || sy < -50 || sy > h + 50) { gStars[i] = newStar(false); continue; }
+                var depth = 1 - st.z / 1000;
+                gx.globalAlpha = Math.min(1, 0.15 + depth * 1.1);
+                gx.strokeStyle = st.c;
+                gx.lineWidth = 0.4 + depth * 2.2;
+                gx.beginPath(); gx.moveTo(px, py); gx.lineTo(sx, sy); gx.stroke();
+            }
+            gx.globalAlpha = 1;
+            gRaf = requestAnimationFrame(gFrame);
+        }
+
+        function startGateFx() {
+            gResize();
+            var n = gReduce ? 90 : 300;
+            for (var i = 0; i < n; i++) gStars.push(newStar(true));
+            if (gReduce) { gSpeed = gTarget = 0; gFrame(); cancelAnimationFrame(gRaf); }
+            else gRaf = requestAnimationFrame(gFrame);
+
+            window.addEventListener('resize', gResize);
+            gate.addEventListener('pointermove', function (e) {
+                gMx = (e.clientX / window.innerWidth - 0.5) * 2;
+                gMy = (e.clientY / window.innerHeight - 0.5) * 2;
+                if (!gReduce && !entering) {
+                    document.getElementById('gate-card').style.transform =
+                        'rotateY(' + (gMx * 9).toFixed(2) + 'deg) rotateX(' + (-gMy * 7).toFixed(2) + 'deg)';
+                }
+            });
+        }
+
+        /* ---------- boot sequence ---------- */
+        var BOOT = [
+            '> mounting /tech/cyber-lab',
+            '> syncing cinema edits + aura meter',
+            '> calibrating Elo rank engine',
+            '> portal online. welcome, creator.'
+        ];
+        function bootDone() {
+            if (entering) return;
+            gateStatus.textContent = 'Portal ready';
+            enterBtn.classList.add('ready');
+        }
+        function runBoot() {
+            var log = document.getElementById('boot-log'), fill = document.getElementById('boot-fill'), li = 0;
+            if (gReduce) {
+                BOOT.forEach(function (t) { var d = document.createElement('div'); d.className = 'ok'; d.textContent = t; log.appendChild(d); });
+                fill.style.width = '100%'; bootDone(); return;
+            }
+            (function nextLine() {
+                if (entering) return;
+                if (li >= BOOT.length) { bootDone(); return; }
+                var div = document.createElement('div');
+                log.appendChild(div);
+                var txt = BOOT[li], ci = 0;
+                (function typeChar() {
+                    if (entering) return;
+                    if (ci <= txt.length) { div.textContent = txt.slice(0, ci++); setTimeout(typeChar, 13); }
+                    else {
+                        div.classList.add('ok');
+                        li++;
+                        fill.style.width = Math.round(li / BOOT.length * 100) + '%';
+                        setTimeout(nextLine, 150);
+                    }
+                })();
+            })();
+        }
+
+        if (gateIsOpen()) { startGateFx(); runBoot(); }
 
         enterBtn.addEventListener('click', enterPortal);
         document.addEventListener('keydown', function (e) {
@@ -519,67 +750,91 @@
         });
 
         /* =====================================================
-           BACKGROUND PARTICLES
+           BACKGROUND: INTERACTIVE CONSTELLATION NETWORK
            ===================================================== */
         var canvas = document.getElementById('bg-canvas');
         var ctx = canvas.getContext('2d');
-        var particles = [];
+        var nodes = [], W = 0, H = 0;
+        var mouse = { x: -9999, y: -9999 };
         var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var rafId = null;
-        var resizeTimer = null;
+        var rafId = null, resizeTimer = null;
+        var LINK = 135, MOUSE_R = 190;
 
         function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = [];
-            var count = Math.min(140, Math.floor((window.innerWidth * window.innerHeight) / 13000));
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = window.innerWidth; H = window.innerHeight;
+            canvas.width = W * dpr; canvas.height = H * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            nodes = [];
+            var count = Math.min(110, Math.floor((W * H) / 14000));
             for (var i = 0; i < count; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.4,
-                    vy: (Math.random() - 0.5) * 0.4,
-                    size: Math.random() * 2 + 1
-                });
+                nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.45, vy: (Math.random() - 0.5) * 0.45, r: Math.random() * 1.8 + 0.8 });
             }
         }
 
-        function renderParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(0, 242, 254, 0.75)';
-            for (var i = 0; i < particles.length; i++) {
-                var p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
+        function renderNet() {
+            ctx.clearRect(0, 0, W, H);
+            var i, j, a, b, dx, dy, d, sp;
+
+            for (i = 0; i < nodes.length; i++) {
+                a = nodes[i];
+                if (!reduceMotion) {
+                    dx = mouse.x - a.x; dy = mouse.y - a.y;
+                    d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < MOUSE_R && d > 1) {
+                        var push = d < 70 ? -0.03 : 0.012;       /* orbit the cursor: repel up close, attract further out */
+                        a.vx += (dx / d) * push; a.vy += (dy / d) * push;
+                    }
+                    sp = Math.sqrt(a.vx * a.vx + a.vy * a.vy);
+                    if (sp > 1.15) { a.vx *= 1.15 / sp; a.vy *= 1.15 / sp; }
+                    a.x += a.vx; a.y += a.vy;
+                    if (a.x < 0 || a.x > W) a.vx *= -1;
+                    if (a.y < 0 || a.y > H) a.vy *= -1;
+                }
             }
-            if (!reduceMotion) rafId = requestAnimationFrame(renderParticles);
+
+            ctx.lineWidth = 1;
+            for (i = 0; i < nodes.length; i++) {
+                a = nodes[i];
+                for (j = i + 1; j < nodes.length; j++) {
+                    b = nodes[j];
+                    dx = a.x - b.x; dy = a.y - b.y;
+                    if (dx > LINK || dx < -LINK || dy > LINK || dy < -LINK) continue;
+                    d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < LINK) {
+                        ctx.strokeStyle = 'rgba(0,242,254,' + ((1 - d / LINK) * 0.34).toFixed(3) + ')';
+                        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                    }
+                }
+                dx = a.x - mouse.x; dy = a.y - mouse.y;
+                d = Math.sqrt(dx * dx + dy * dy);
+                if (d < MOUSE_R) {
+                    ctx.strokeStyle = 'rgba(255,30,86,' + ((1 - d / MOUSE_R) * 0.55).toFixed(3) + ')';
+                    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+                }
+            }
+
+            ctx.fillStyle = 'rgba(0,242,254,0.85)';
+            for (i = 0; i < nodes.length; i++) {
+                a = nodes[i];
+                ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.283); ctx.fill();
+            }
+            if (!reduceMotion) rafId = requestAnimationFrame(renderNet);
         }
 
+        window.addEventListener('pointermove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+        document.addEventListener('mouseleave', function () { mouse.x = mouse.y = -9999; });
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                initCanvas();
-                if (reduceMotion) renderParticles();
-            }, 150);
+            resizeTimer = setTimeout(function () { initCanvas(); if (reduceMotion) renderNet(); }, 150);
         });
-
-        /* Pause the animation while the tab is hidden to save CPU/battery. */
         document.addEventListener('visibilitychange', function () {
             if (reduceMotion) return;
-            if (document.hidden) {
-                cancelAnimationFrame(rafId);
-            } else {
-                rafId = requestAnimationFrame(renderParticles);
-            }
+            if (document.hidden) cancelAnimationFrame(rafId); else rafId = requestAnimationFrame(renderNet);
         });
 
         initCanvas();
-        renderParticles();
+        renderNet();
 
         /* =====================================================
            HERO POPUP CARD (hover on desktop, tap/focus on touch + keyboard)
@@ -767,6 +1022,92 @@
         document.querySelectorAll('.mode-btn, .btn-subscribe').forEach(function (el) {
             el.addEventListener('click', function () { playSound(1900); });
         });
+
+        /* =====================================================
+           VISUAL FX: reveal, tilt, cursor glow, progress, typewriter, ticker
+           ===================================================== */
+        document.documentElement.classList.add('js');
+        var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+        /* scroll reveal (class is removed afterwards so it never fights other transforms) */
+        var revealEls = document.querySelectorAll('.search-container, .hero-section, .type-strip, .domain-card, .ticker, .video-card');
+        revealEls.forEach(function (el, i) {
+            el.classList.add('reveal');
+            if (el.classList.contains('domain-card')) el.style.transitionDelay = ((i % 3) * 90) + 'ms';
+        });
+        function showEl(el) {
+            el.classList.add('in');
+            setTimeout(function () { el.classList.remove('reveal', 'in'); el.style.transitionDelay = ''; }, 1100);
+        }
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) { if (en.isIntersecting) { showEl(en.target); io.unobserve(en.target); } });
+            }, { threshold: 0.08 });
+            revealEls.forEach(function (el) { io.observe(el); });
+        } else {
+            revealEls.forEach(function (el) { el.classList.remove('reveal'); });
+        }
+
+        /* 3D tilt + glare on the domain cards */
+        if (canHover && !reduceMotion) {
+            document.querySelectorAll('.domain-card').forEach(function (card) {
+                card.addEventListener('pointerenter', function () { playSound(2300); });
+                card.addEventListener('pointermove', function (e) {
+                    var r = card.getBoundingClientRect();
+                    var px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+                    card.style.setProperty('--gx', (px * 100).toFixed(1) + '%');
+                    card.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
+                    card.style.transform = 'rotateY(' + ((px - 0.5) * 14).toFixed(2) + 'deg) rotateX(' + ((0.5 - py) * 12).toFixed(2) + 'deg) translateZ(10px)';
+                });
+                card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+            });
+        }
+
+        /* soft cursor glow */
+        var glow = document.getElementById('cursor-glow');
+        if (canHover && !reduceMotion) {
+            var gx0 = window.innerWidth / 2, gy0 = window.innerHeight / 2, gtx = gx0, gty = gy0, glowRaf = null;
+            var glowLoop = function () {
+                gx0 += (gtx - gx0) * 0.14; gy0 += (gty - gy0) * 0.14;
+                glow.style.transform = 'translate3d(' + gx0.toFixed(1) + 'px,' + gy0.toFixed(1) + 'px,0)';
+                glowRaf = requestAnimationFrame(glowLoop);
+            };
+            window.addEventListener('pointermove', function (e) {
+                gtx = e.clientX; gty = e.clientY;
+                glow.classList.add('on');
+                if (!glowRaf) glowLoop();
+            }, { passive: true });
+            document.addEventListener('mouseleave', function () { glow.classList.remove('on'); });
+        }
+
+        /* scroll progress bar */
+        var bar = document.getElementById('scroll-progress');
+        function onScrollBar() {
+            var max = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0).toFixed(4) + ')';
+        }
+        window.addEventListener('scroll', onScrollBar, { passive: true });
+        onScrollBar();
+
+        /* typewriter */
+        var TYPE_LINES = ['speed up my PC', 'clear hidden C: drive junk', 'feel the Thalapathy aura', 'fix DNS and ping lag', 'level up my Elo rank', 'master Windows shortcuts'];
+        var tsEl = document.getElementById('ts-text');
+        if (reduceMotion) {
+            tsEl.textContent = TYPE_LINES[0];
+        } else {
+            var tl = 0, tc = 0, del = false;
+            (function typeLoop() {
+                var line = TYPE_LINES[tl], delay = del ? 28 : 62;
+                if (!del) { tc++; if (tc === line.length) { del = true; delay = 1500; } }
+                else { tc--; if (tc === 0) { del = false; tl = (tl + 1) % TYPE_LINES.length; delay = 350; } }
+                tsEl.textContent = line.slice(0, tc);
+                setTimeout(typeLoop, delay);
+            })();
+        }
+
+        /* ticker: duplicate the content for a seamless loop */
+        var track = document.getElementById('ticker-track');
+        if (track) track.innerHTML += track.innerHTML;
     })();
     </script>
 </body>
