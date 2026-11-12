@@ -3,768 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techie Sagnik | Creator & Developer</title>
+    <title>Techie Sagnik | Developer & System Optimizer</title>
+    <meta name="description" content="Official profile of Techie Sagnik (Sagnik Dey) — Web developer, Windows optimization specialist, and digital creator.">
     
-    <!-- Fonts -->
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Techie Sagnik (Sagnik Dey)">
+    <meta property="og:description" content="Web developer, system optimizer, and digital creator specializing in zero-bloat architecture.">
+    <meta property="og:image" content="https://techiesagnik.me/sagnik.jpeg">
+    <meta property="og:url" content="https://techiesagnik.me">
+    <meta property="og:type" content="profile">
+
+    <!-- JSON-LD Schema Markup for Google Knowledge Panel Integration -->
+    <script type="application/ld-json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sagnik Dey",
+      "alternateName": ["Techie Sagnik", "Sagnik9993"],
+      "description": "Content creator, web developer, and Windows optimization enthusiast.",
+      "url": "https://techiesagnik.me",
+      "image": "https://techiesagnik.me/sagnik.jpeg",
+      "birthDate": "2012-04-25",
+      "jobTitle": "Tech Creator & Web Developer",
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "St. James' School Binnaguri"
+      },
+      "knowsAbout": [
+        "Windows Optimization",
+        "Web Development",
+        "PC Diagnostics",
+        "Video Editing"
+      ],
+      "sameAs": [
+        "https://youtube.com/@techiesagnik",
+        "https://github.com/Sagnik9993",
+        "https://durganagarcheckpointers.github.io",
+        "https://sonusirtution.github.io",
+        "https://reddit.com/user/Personalityok4586",
+        "https://discord.com/users/Sagnik9993"
+      ]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Cloudflare Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --cyan: #00f0ff;
-            --cyan-glow: rgba(0, 240, 255, 0.4);
-            --purple: #a200ff;
-            --purple-glow: rgba(162, 0, 255, 0.4);
-            --bg-dark: #050510;
-            --panel-bg: rgba(13, 15, 25, 0.6);
-            --font-main: 'Plus Jakarta Sans', sans-serif;
-            --font-mono: 'Fira Code', monospace;
+            --bg-color: #202124;
+            --card-bg: #303134;
+            --text-primary: #e8eaed;
+            --text-secondary: #9aa0a6;
+            --accent-blue: #8ab4f8;
+            --border-color: #5f6368;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: #ffffff;
-            font-family: var(--font-main);
-            min-height: 100vh;
-            overflow-x: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
+            padding: 40px 16px;
+            min-height: 100vh;
+            line-height: 1.5;
         }
 
-        /* Interactive Canvas Background */
-        #particle-network {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            background: radial-gradient(circle at center, #0a0a1a 0%, var(--bg-dark) 100%);
-        }
-
-        /* 3D Perspective Wrapper */
-        .perspective-wrapper {
-            perspective: 1500px;
+        .knowledge-panel {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             width: 100%;
-            max-width: 900px;
-            z-index: 10;
-        }
-
-        /* Glassmorphic Panel */
-        .glass-panel {
-            background: var(--panel-bg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 40px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease, box-shadow 0.3s ease;
-            position: relative;
+            max-width: 650px;
             overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-out;
         }
 
-        .glass-panel::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
-            z-index: 2;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Top Navigation */
-        .nav-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--cyan);
-            text-decoration: none;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            transform: translateZ(20px);
-            cursor: pointer;
-        }
-        
-        .nav-link:hover {
-            color: #fff;
-            text-shadow: 0 0 10px var(--cyan);
-            transform: translateZ(20px) translateX(-5px);
-        }
-
-        /* Profile Layout */
-        .profile-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            transform: translateZ(30px);
-        }
-
-        .profile-left {
+        .panel-header {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 24px;
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .avatar-container {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            cursor: pointer;
-        }
-
-        .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
             object-fit: cover;
-            border: 2px solid transparent;
-            background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box, 
-                        linear-gradient(45deg, var(--cyan), var(--purple)) border-box;
-            box-shadow: 0 0 25px var(--cyan-glow);
-            transition: all 0.4s ease;
+            border: 1px solid var(--border-color);
         }
 
-        .avatar-container:hover .avatar {
-            transform: scale(1.05) rotate(5deg);
-            box-shadow: 0 0 35px var(--purple-glow);
+        .header-text h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #ffffff;
         }
 
-        .status-dot {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            width: 16px;
-            height: 16px;
-            background: #10b981;
-            border: 3px solid var(--bg-dark);
-            border-radius: 50%;
-            box-shadow: 0 0 10px #10b981;
-            animation: pulse 2s infinite;
+        .header-text p {
+            font-size: 14px;
+            color: var(--text-secondary);
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        .panel-content {
+            padding: 24px;
         }
 
-        /* Entrance Animations */
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(40px) translateZ(20px); }
-            to { opacity: 1; transform: translateY(0) translateZ(20px); }
+        .about-section {
+            font-size: 15px;
+            color: var(--text-primary);
+            margin-bottom: 24px;
         }
 
-        .animate-stagger {
-            opacity: 0;
-            animation: fadeSlideUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-
-        .profile-info h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #fff, #a0aec0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
+        .about-section p {
+            margin-bottom: 12px;
         }
 
-        .profile-info p {
-            color: var(--cyan);
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
+        .details-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 12px 24px;
+            font-size: 14px;
+            margin-bottom: 28px;
         }
 
-        /* Badges */
-        .badges-group {
-            display: flex;
-            gap: 15px;
-        }
-
-        .badge {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 20px;
-            border-radius: 16px;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-        }
-
-        .badge:hover {
-            background: rgba(0, 240, 255, 0.1);
-            border-color: var(--cyan);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 20px var(--cyan-glow);
-        }
-
-        .badge-value {
-            font-family: var(--font-mono);
-            font-size: 1.4rem;
+        .detail-label {
             font-weight: 700;
-            color: #fff;
+            color: var(--text-primary);
         }
 
-        .badge-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #8892b0;
-            margin-top: 4px;
+        .detail-value {
+            color: var(--text-secondary);
         }
 
-        /* Skills Dashboard */
-        .skills-container {
-            transform: translateZ(40px);
-            margin-bottom: 40px;
+        .section-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
         }
 
-        .skills-header {
-            display: block;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--purple);
-            margin-bottom: 15px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        /* About Content */
-        .about-content {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 25px;
-            color: #e2e8f0;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-            font-size: 0.95rem;
-            line-height: 1.8;
-        }
-
-        .about-content p {
-            margin-bottom: 15px;
-        }
-
-        .about-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .highlight-cyan {
-            color: var(--cyan);
-            font-weight: 600;
-        }
-
-        .highlight-purple {
-            color: var(--purple);
-            font-weight: 600;
-        }
-
-        /* Two-Column Link Grid */
         .links-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            transform: translateZ(20px);
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
         }
 
-        .link-section h3 {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--cyan);
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-            padding-bottom: 8px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .link-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .link-item {
+        .social-link {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 12px 18px;
-            border-radius: 12px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .link-item::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-            transition: 0.6s ease;
-        }
-
-        .link-item:hover::before {
-            left: 100%;
-        }
-
-        .link-item svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .link-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        
-        .link-item.youtube:hover { border-color: #ff0000; color: #ff0000; box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3); }
-        .link-item.github:hover { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 5px 15px var(--cyan-glow); }
-        .link-item.reddit:hover { border-color: #ff4500; color: #ff4500; box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3); }
-        .link-item.discord:hover { border-color: #5865F2; color: #5865F2; box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3); }
-        .link-item.whatsapp:hover { border-color: #25D366; color: #25D366; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
-        .link-item.website:hover { border-color: var(--purple); color: var(--purple); box-shadow: 0 5px 15px var(--purple-glow); }
-
-        /* Turnstile Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            z-index: 20000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-box {
-            background: var(--bg-dark);
-            border: 1px solid var(--cyan);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px var(--cyan-glow);
-            transform: scale(0.9);
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            max-width: 90%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .modal-overlay.active .modal-box {
-            transform: scale(1);
-        }
-        
-        .modal-box h3 { margin-bottom: 10px; font-family: var(--font-mono); color: var(--cyan); font-size: 1.2rem; }
-        .modal-box p { font-size: 0.9rem; color: #a0aec0; margin-bottom: 25px; line-height: 1.5; }
-        
-        .modal-close {
+            padding: 12px 16px;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            padding: 10px 20px;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            margin-top: 25px;
-            cursor: pointer;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s ease;
         }
 
-        .modal-close:hover { 
-            background: rgba(255, 255, 255, 0.1); 
-            border-color: #fff;
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        /* Toast Notifications */
-        #toast-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 10000;
-            pointer-events: none;
+        .verification-badge {
+            display: inline-block;
+            background: #1e8e3e;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            vertical-align: middle;
         }
 
-        .toast {
-            background: rgba(10, 15, 30, 0.9);
-            border-left: 4px solid var(--cyan);
-            color: #fff;
-            padding: 16px 24px;
-            border-radius: 8px;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--cyan-glow);
-            animation: slide-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-            opacity: 0;
-            transform: translateX(120%);
-        }
-
-        .toast.toast-purple {
-            border-left-color: var(--purple);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--purple-glow);
-        }
-
-        @keyframes slide-in {
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes fade-out {
-            to { opacity: 0; transform: translateX(50px); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .glass-panel { padding: 30px 20px; }
-            .profile-row { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .badges-group { width: 100%; justify-content: space-between; }
-            .badge { flex: 1; }
-            .links-grid { grid-template-columns: 1fr; gap: 20px; }
+        @media (max-width: 500px) {
+            .panel-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+            .detail-label {
+                margin-top: 8px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Interactive Background -->
-    <canvas id="particle-network"></canvas>
-
-    <!-- Toast Notifications -->
-    <div id="toast-container"></div>
-
-    <!-- Main Content wrapper with 3D Perspective -->
-    <main class="perspective-wrapper">
-        <div class="glass-panel" id="tilt-panel">
-            
-            <a href="#" class="nav-link interactive animate-stagger delay-1" onclick="showToast('Returning to Hub Data...', 'cyan'); return false;">
-                &lt; Return to Hub
-            </a>
-
-            <!-- Profile Section -->
-            <div class="profile-row animate-stagger delay-2">
-                <div class="profile-left">
-                    <div class="avatar-container interactive" onclick="showToast('Profile pinged! Identity verified.', 'cyan')">
-                        <img src="https://ui-avatars.com/api/?name=Techie+Sagnik&background=00f0ff&color=050510&bold=true&size=200" alt="Techie Sagnik" class="avatar" onerror="this.src='https://placehold.co/200x200/00f0ff/050510?text=TS'">
-                        <div class="status-dot"></div>
-                    </div>
-                    <div class="profile-info">
-                        <h1>Techie Sagnik</h1>
-                        <p>Developer • Creator • Optimizer</p>
-                    </div>
-                </div>
-
-                <div class="badges-group">
-                    <div class="badge interactive" onclick="showSpecsToast()">
-                        <div class="badge-value">WIN 11</div>
-                        <div class="badge-label">Optimized</div>
-                    </div>
-                    <div class="badge interactive" onclick="triggerPing()">
-                        <div class="badge-value" id="ping-count">0</div>
-                        <div class="badge-label">Pings</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Skills Dashboard -->
-            <div class="skills-container animate-stagger delay-3">
-                <span class="skills-header">SYSTEM.MODULES // ENTITY DATABASE</span>
-                <div class="about-content">
-                    <p>Techie Sagnik (Sagnik Dey) is a <span class="highlight-cyan">14-year-old Class 9 student</span> at St. James' School Binnaguri, making waves as a passionate tech creator, modern web developer, and extreme system optimizer.</p>
-                    <p>He specializes in <span class="highlight-purple">deep Windows OS optimization</span>, crafting native batch tweaks, built-in disk purgers, and registry configurations to drastically reduce background telemetry and maximize CPU performance without relying on bloated third-party tools. His hardware expertise extends to system telemetry profiling and bottleneck diagnostics.</p>
-                    <p>On the creative front, Sagnik builds <span class="highlight-cyan">zero-bloat vanilla frontends</span> with responsive layouts and real-time database syncing. He also runs the successful YouTube channel <span class="highlight-purple">@techiesagnik</span>, delivering high-cadence cinematic tech edits with precise multi-track cuts and color grading tailored for modern vertical formats.</p>
-                </div>
-            </div>
-
-            <!-- Two-Column Links Section -->
-            <div class="links-grid animate-stagger delay-4">
-                
-                <!-- Digital Presence Column -->
-                <div class="link-section">
-                    <h3>// Digital Presence</h3>
-                    <div class="link-list">
-                        <a href="https://youtube.com/@techiesagnik" target="_blank" class="link-item youtube" onclick="showToast('Initializing YouTube Sub-routine...', 'cyan')">
-                            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                            YouTube
-                        </a>
-                        <a href="https://github.com/Sagnik9993" target="_blank" class="link-item github" onclick="showToast('Accessing GitHub Repositories...', 'cyan')">
-                            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            GitHub
-                        </a>
-                        <a href="https://reddit.com/u/Personalityok4586" target="_blank" class="link-item reddit">
-                            <svg viewBox="0 0 24 24"><path d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.75-1.64-6.07-1.72.08-1.1.4-3.05 1.52-3.7.72-.4 1.73-.24 3 .5C17.2 6.3 18.46 7.5 20 7.5c1.65 0 3-1.35 3-3s-1.35-3-3-3c-1.38 0-2.54.94-2.88 2.22-1.43-.72-2.64-.8-3.6-.25-1.64.94-1.95 3.47-2 4.55-2.33.08-4.45.7-6.1 1.72C4.86 8.98 3.96 8.5 3 8.5c-1.65 0-3 1.35-3 3 0 1.32.84 2.44 2.05 2.84-.03.22-.05.44-.05.66 0 3.86 4.5 7 10 7s10-3.14 10-7c0-.22-.02-.44-.05-.66 1.2-.4 2.05-1.54 2.05-2.84zM2.3 11.5c0-.94.76-1.7 1.7-1.7.6 0 1.16.32 1.46.82C3.9 11.23 2.62 12.1 2.3 13.06c-.46-.38-.72-.94-.72-1.56zm17 5.7c-1.74 1.74-4.8 1.94-7.3 1.94s-5.56-.2-7.3-1.94c-.2-.2-.2-.5 0-.7.2-.2.5-.2.7 0 1.45 1.45 4.14 1.64 6.6 1.64s5.15-.2 6.6-1.64c.2-.2.5-.2.7 0 .2.2.2.5 0 .7zM8.5 16.5c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm7 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm4.2-3.44c-.32-.96-1.6-1.83-3.16-2.44.3-.5.86-.82 1.46-.82.94 0 1.7.76 1.7 1.7 0 .62-.26 1.18-.72 1.56z"/></svg>
-                            Reddit
-                        </a>
-                        <a href="#" class="link-item discord" onclick="copyDiscord(event)">
-                            <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
-                            Discord
-                        </a>
-                        <a href="#" class="link-item whatsapp" onclick="openWaModal(event)">
-                            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                            WhatsApp
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Infrastructure Column -->
-                <div class="link-section">
-                    <h3>// Infrastructure</h3>
-                    <div class="link-list">
-                        <a href="https://techiesagnik.me" target="_blank" class="link-item website">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                            techiesagnik.me
-                        </a>
-                        <a href="https://durganagarcheckpointers.github.io" target="_blank" class="link-item website">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                            Durganagar Checkpointers
-                        </a>
-                        <a href="https://sonusirtution.github.io" target="_blank" class="link-item website">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                            Sonu Sir Tution
-                        </a>
-                    </div>
-                </div>
-
+    <div class="knowledge-panel">
+        <div class="panel-header">
+            <img src="https://techiesagnik.me/sagnik.jpeg" alt="Sagnik Dey" class="profile-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTIwIDEyMCI+PHJlY3Qgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIGZpbGw9IiM1ZjYzNjgiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgZm9udC1zaXplPSI0MCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiPlREPC90ZXh0Pjwvc3ZnPg=='">
+            <div class="header-text">
+                <h1>Sagnik Dey <span class="verification-badge">✔</span></h1>
+                <p>Tech Creator & Web Developer • Known as Techie Sagnik</p>
             </div>
         </div>
-    </main>
 
-    <!-- WhatsApp Verification Modal -->
-    <div id="wa-modal" class="modal-overlay">
-        <div class="modal-box">
-            <h3>Human Verification Required</h3>
-            <p>Please complete the security check to reveal WhatsApp contact info.</p>
-            
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAF6-hPjb0exiTTYx" data-callback="onTurnstileSuccess"></div>
-            
-            <button class="modal-close" onclick="closeWaModal()">Cancel / Go Back</button>
+        <div class="panel-content">
+            <div class="about-section">
+                <p>Sagnik Dey is a web developer, system optimization specialist, and digital creator. Specializing in zero-bloat vanilla frontends and deep Windows telemetry profiling, he focuses on maximizing hardware and software performance without reliance on third-party tools.</p>
+                <p>His engineering approach bridges the gap between hardware diagnostics and modern responsive web architecture, paired with high-cadence cinematic video production for digital platforms.</p>
+            </div>
+
+            <div class="details-grid">
+                <span class="detail-label">Born</span>
+                <span class="detail-value">April 25, 2012 (Age 14)</span>
+                
+                <span class="detail-label">Education</span>
+                <span class="detail-value">St. James' School Binnaguri</span>
+                
+                <span class="detail-label">Proficiencies</span>
+                <span class="detail-value">Web Architecture, Registry Configuration, Perfmon Analysis, Multi-track Video Editing</span>
+            </div>
+
+            <h2 class="section-title">Verified Platforms & Profiles</h2>
+            <div class="links-grid" style="margin-bottom: 24px;">
+                <a href="https://youtube.com/@techiesagnik" target="_blank" rel="noopener" class="social-link">▶ YouTube</a>
+                <a href="https://github.com/Sagnik9993" target="_blank" rel="noopener" class="social-link">⌘ GitHub</a>
+                <a href="https://reddit.com/user/Personalityok4586" target="_blank" rel="noopener" class="social-link">👾 Reddit</a>
+                <a href="https://discord.com/users/Sagnik9993" target="_blank" rel="noopener" class="social-link">💬 Discord</a>
+            </div>
+
+            <h2 class="section-title">Infrastructure & Projects</h2>
+            <div class="links-grid">
+                <a href="https://techiesagnik.me" class="social-link">🌐 techiesagnik.me (Root)</a>
+                <a href="https://durganagarcheckpointers.github.io" target="_blank" rel="noopener" class="social-link">🌐 Checkpost Premier League(CPL)</a>
+               
+                <a href="https://wa.me/+917477311737" target="_blank" rel="noopener" class="social-link" onclick="alert('Cloudflare Turnstile Verification Required (0x4AAAAAAF6-hPjb0exiTTYx) to proceed to WhatsApp.')">📱 WhatsApp Contact</a>
+            </div>
         </div>
     </div>
 
-    <script>
-        // Toast Notification System
-        function showToast(message, colorType = 'cyan') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${colorType === 'purple' ? 'toast-purple' : ''}`;
-            toast.innerHTML = message;
-            
-            container.appendChild(toast);
-
-            // Remove toast after 3 seconds
-            setTimeout(() => {
-                toast.style.animation = 'fade-out 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
-                setTimeout(() => toast.remove(), 400);
-            }, 3000);
-        }
-
-        // Specs Toast Wrapper
-        function showSpecsToast() {
-            showToast(`System Specs: Windows 11 Pro<br><span style="color:var(--purple); margin-top:5px; display:inline-block;">Optimized for Maximum Performance</span>`, 'purple');
-        }
-
-        // Custom Link Interactions (Discord & WhatsApp)
-        function copyDiscord(e) {
-            e.preventDefault();
-            const discordId = "Sagnik9993";
-            
-            // Safely check if the modern Clipboard API is available and allowed
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(discordId).then(() => {
-                    showToast(`Discord ID (${discordId}) copied to clipboard!`, 'purple');
-                }).catch(err => {
-                    fallbackCopyText(discordId);
-                });
-            } else {
-                fallbackCopyText(discordId);
-            }
-        }
-
-        // Bulletproof fallback for iframe environments
-        function fallbackCopyText(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed"; // Prevents scrolling to bottom
-            textArea.style.opacity = "0";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-                document.execCommand('copy');
-                showToast(`Discord ID (${text}) copied to clipboard!`, 'purple');
-            } catch (err) {
-                showToast('Failed to copy Discord ID.', 'cyan');
-            }
-            
-            document.body.removeChild(textArea);
-        }
-
-        const waModal = document.getElementById('wa-modal');
-        
-        function openWaModal(e) {
-            e.preventDefault();
-            waModal.classList.add('active');
-        }
-
-        function closeWaModal() {
-            waModal.classList.remove('active');
-        }
-
-        // Triggered automatically by Cloudflare Turnstile upon successful check
-        function onTurnstileSuccess(token) {
-            showToast('Verification successful! Redirecting...', 'cyan');
-            setTimeout(() => {
-                closeWaModal();
-                window.open('https://wa.me/917477311737', '_blank');
-            }, 1200);
-        }
-
-        // Ping Counter
-        let pings = 0;
-        function triggerPing() {
-            pings++;
-            document.getElementById('ping-count').textContent = pings;
-            showToast(`Connection Pinged! Total count: ${pings}`, 'cyan');
-        }
-
-        // 3D Tilt Effect on Panel
-        const panel = document.getElementById('tilt-panel');
-        document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth <= 768) return; // Disable on mobile
-
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            
-            panel.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-
-        document.addEventListener('mouseleave', () => {
-            panel.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        });
-
-        // Particle Background Logic
-        const canvas = document.getElementById('particle-network');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        }
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
-                if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 240, 255, 0.5)';
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            const numParticles = Math.min(Math.floor(window.innerWidth / 15), 100);
-            for (let i = 0; i < numParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                
-                // Draw connecting lines
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.2 - distance/500})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
-        // Initialize Background
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-        animateParticles();
-    </script>
 </body>
 </html>
